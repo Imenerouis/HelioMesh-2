@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "http://localhost:8000"
+  "https://heliomesh-api.onrender.com"
 
 // â”€â”€ Unified color system â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const STATUS: Record<
