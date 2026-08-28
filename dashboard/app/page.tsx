@@ -1699,7 +1699,7 @@ export default function Home() {
                   ...mono,
                 }}
               >
-                âŸ³ REFRESH
+                ⟳ REFRESH
               </button>
             </div>
 
