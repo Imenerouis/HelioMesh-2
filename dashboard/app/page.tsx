@@ -49,7 +49,7 @@ const PIPELINE_STEPS = [
   "Decision Engine evaluating confidence + risk...",
   "Connecting to IBM watsonx...",
   "IBM Granite explaining the determined decision...",
-  "Mission Decision Ready âœ“",
+  "Mission Decision Ready ✓",
 ];
 
 // â”€â”€ Sub-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
