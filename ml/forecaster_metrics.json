@@ -1,90 +1,68 @@
 {
-  "trained_at": "2026-08-13T17:32:23.049736",
+  "trained_at": "2026-08-28T22:33:59.720086",
   "model_type": "GradientBoostingClassifier",
-  "n_estimators_note": "100 (fast eval); use train_forecaster.py for n=300",
-  "task": "Supervised classification: 30-min look-back -> state at t+30min",
-  "honest_description": "HelioMesh predicts the satellite future operational safety state from simulated telemetry sequences. NOT a prediction of real satellite failures.",
-  "timing": {
-    "look_back_minutes": 30,
-    "look_ahead_minutes": 30,
-    "total_span_minutes": 60,
-    "step_minutes": 5,
-    "window_steps": 6,
-    "horizon_steps": 6,
-    "timing_note": "Input: t0..t25 (6 steps x 5min). Horizon: t25..t55 (not in features). Target: state at t55 = 30min beyond last input snapshot."
-  },
-  "split": {
-    "strategy": "chronological 70/15/15",
-    "n_train": 8400,
-    "n_val": 1800,
-    "n_test": 1800,
-    "train_label_dist": {
-      "0": 3461,
-      "1": 4939
+  "task": "Supervised classification: given 6 simulated telemetry snapshots (5-min intervals, 30-min look-back window), predict whether the satellite's simulated operational state will be CRITICAL (STANDBY or SAFE_MODE) 30 minutes after the last observed snapshot.",
+  "honest_description": "HelioMesh predicts the satellite's future operational safety state from a sequence of simulated telemetry observations. This is NOT a prediction of real satellite failures.",
+  "model_type_clarification": "Supervised classification over a fixed look-back window. Not classical ARIMA or RNN time-series forecasting.",
+  "window_steps": 6,
+  "horizon_steps": 6,
+  "step_minutes": 5,
+  "look_back_minutes": 30,
+  "look_ahead_minutes": 30,
+  "total_span_minutes": 60,
+  "timing_note": "Input window: t0\u2026t25 (6 snapshots). Horizon gap: t25\u2026t55 (6 more simulated steps, not in features). Target: operational state at t55, i.e. 30 min beyond the last input.",
+  "split_strategy": "chronological 70 / 15 / 15",
+  "split_rationale": "Train = first 70% (oldest). Validation = next 15% (strictly after train). Test = final 15% (strictly after both \u2014 reported metrics). No shuffling. No future information visible during training.",
+  "sequence_overlap": "none",
+  "sequence_overlap_note": "Each sequence is generated with independent random initial conditions. This dataset does NOT use a sliding window over a continuous trajectory \u2014 there are no overlapping sequences.",
+  "n_train": 8400,
+  "n_val": 1800,
+  "n_test": 1800,
+  "n_features": 42,
+  "test_macro_f1": 0.9719,
+  "test_roc_auc": 0.9973,
+  "test_average_precision": 0.9981,
+  "val_macro_f1": 0.9663,
+  "val_roc_auc": 0.9963,
+  "test_per_class": {
+    "NOMINAL_AHEAD": {
+      "precision": 0.973,
+      "recall": 0.9613,
+      "f1_score": 0.9671,
+      "support": 749
     },
-    "val_label_dist": {
-      "0": 715,
-      "1": 1085
-    },
-    "test_label_dist": {
-      "0": 749,
-      "1": 1051
+    "CRITICAL_AHEAD": {
+      "precision": 0.9726,
+      "recall": 0.981,
+      "f1_score": 0.9768,
+      "support": 1051
     }
   },
-  "sequence_overlap": "none",
-  "sequence_overlap_note": "Each sequence has independent random initial conditions. No sliding-window overlap between sequences.",
-  "val_metrics": {
-    "macro_f1": 0.9663,
-    "roc_auc": 0.9964
-  },
-  "test_metrics": {
-    "accuracy": 0.9717,
-    "macro_f1": 0.9708,
-    "roc_auc": 0.9975,
-    "average_precision": 0.9982,
-    "per_class": {
-      "NOMINAL_AHEAD": {
-        "precision": 0.9742,
-        "recall": 0.9573,
-        "f1": 0.9657,
-        "support": 749
-      },
-      "CRITICAL_AHEAD": {
-        "precision": 0.9699,
-        "recall": 0.9819,
-        "f1": 0.9759,
-        "support": 1051
-      }
-    },
-    "confusion_matrix": [
-      [
-        717,
-        32
-      ],
-      [
-        19,
-        1032
-      ]
+  "test_confusion_matrix": [
+    [
+      720,
+      29
     ],
-    "confusion_matrix_note": "rows = actual label, cols = predicted label, order = [NOMINAL_AHEAD, CRITICAL_AHEAD]"
-  },
-  "baseline_last_known_state": {
-    "name": "last-known-state (full snapshot rule on t5)",
-    "description": "Apply HelioMesh safety rules to the LAST window snapshot (t5). Zero temporal learning \u2014 represents the trivial current-state predictor.",
-    "accuracy": 0.9022,
+    [
+      20,
+      1031
+    ]
+  ],
+  "baseline": {
+    "name": "last-known-state",
+    "description": "Predict the label that the LAST window snapshot (t5) would produce under HelioMesh snapshot safety rules. Represents 'no temporal learning \u2014 just use current state'.",
     "macro_f1": 0.9015,
     "roc_auc": 0.9138,
-    "critical_recall": 0.8449,
     "per_class": {
       "NOMINAL_AHEAD": {
         "precision": 0.8187,
         "recall": 0.9826,
-        "f1": 0.8932
+        "f1_score": 0.8932
       },
       "CRITICAL_AHEAD": {
         "precision": 0.9856,
         "recall": 0.8449,
-        "f1": 0.9098
+        "f1_score": 0.9098
       }
     },
     "confusion_matrix": [
@@ -98,51 +76,44 @@
       ]
     ]
   },
-  "baseline_kp_only": {
-    "name": "KP-only threshold (kp_index_t5 > 4.0)",
-    "description": "Strongest single-feature shortcut identified in audit. Uses only kp_index at last window step with the STANDBY rule threshold. Tests whether the temporal model adds value beyond the strongest shortcut.",
-    "threshold": "kp_index_t5 > 4.0",
-    "accuracy": 0.8983,
-    "macro_f1": 0.8977,
-    "roc_auc": 0.9104,
-    "critical_recall": 0.8382,
-    "per_class": {
-      "NOMINAL_AHEAD": {
-        "precision": 0.8124,
-        "recall": 0.9826,
-        "f1": 0.8894
-      },
-      "CRITICAL_AHEAD": {
-        "precision": 0.9855,
-        "recall": 0.8382,
-        "f1": 0.9059
-      }
-    },
-    "confusion_matrix": [
-      [
-        736,
-        13
-      ],
-      [
-        170,
-        881
-      ]
-    ]
+  "model_vs_baseline": {
+    "macro_f1_gain": 0.0704,
+    "roc_auc_gain": 0.0836,
+    "interpretation": "positive gain = temporal window adds predictive value beyond simply using the current snapshot state"
   },
-  "model_vs_baselines": {
-    "vs_last_known_state": {
-      "accuracy_gain": 0.0694,
-      "macro_f1_gain": 0.0693,
-      "roc_auc_gain": 0.0837,
-      "critical_recall_gain": 0.137
-    },
-    "vs_kp_only": {
-      "accuracy_gain": 0.0733,
-      "macro_f1_gain": 0.0731,
-      "roc_auc_gain": 0.087,
-      "critical_recall_gain": 0.1437
-    },
-    "interpretation": "The temporal model must beat BOTH baselines to demonstrate genuine value. KP-only is the strongest shortcut found in the audit (83% feature importance). Gains vs KP-only show what the full temporal window adds beyond that shortcut."
+  "train_label_dist": {
+    "0": 3461,
+    "1": 4939
   },
-  "disclaimer": "Does NOT predict real satellite failures. Labels derived from HelioMesh prototype safety rules, not NASA/NOAA standards."
+  "val_label_dist": {
+    "0": 715,
+    "1": 1085
+  },
+  "test_label_dist": {
+    "0": 749,
+    "1": 1051
+  },
+  "model_params": {
+    "ccp_alpha": 0.0,
+    "criterion": "friedman_mse",
+    "init": null,
+    "learning_rate": 0.08,
+    "loss": "log_loss",
+    "max_depth": 5,
+    "max_features": null,
+    "max_leaf_nodes": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 8,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "n_estimators": 300,
+    "n_iter_no_change": null,
+    "random_state": 42,
+    "subsample": 0.85,
+    "tol": 0.0001,
+    "validation_fraction": 0.1,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "disclaimer": "This model predicts future HelioMesh simulation-defined operational states. It does NOT predict real satellite failures. All labels are derived from HelioMesh prototype safety rules, not NASA/NOAA standards."
 }
