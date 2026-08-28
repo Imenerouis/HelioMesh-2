@@ -1,0 +1,22 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# VS Code
+.vscode/
+# Logs
+*.log
+# Databases
+*.db
+*.sqlite3
+# API Keys
+apikey*.json
+.next/
+out/
+node_modules/

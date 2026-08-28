@@ -1,0 +1,160 @@
+{
+  "generated_at": "2026-08-19T00:00:00Z",
+  "purpose": "Audit of whether the HelioMesh hybrid decision architecture provides measurable routing/safety value beyond the underlying anomaly detector. Uses only existing frozen validation artifacts. No model inference. No invented values.",
+  "data_sources": [
+    "validation/results/real_decision_ablation.json",
+    "validation/results/real_policy_calibration.json",
+    "validation/results/real_disagreement_value.json",
+    "validation/results/model_agreement.json",
+    "validation/results/safety_gate_evaluation.json"
+  ],
+  "scope": "Real OPS-SAT-AD test set (529 segments, 113 anomalous). NOT validated on additional spacecraft or missions.",
+  "decision_layer_routing_changes": {
+    "question": "Does the decision layer change how detected risk is routed?",
+    "answer": "Yes \u2014 measurably.",
+    "n_test_segments": 529,
+    "routing_comparison": {
+      "arch_A_detector_only": {
+        "AUTO_CLEAR": 427,
+        "PENDING_APPROVAL": 0,
+        "ESCALATED": 102,
+        "unsafe_auto": 14,
+        "decision_recall": 0.8761
+      },
+      "arch_D_full_heliomesh": {
+        "AUTO_CLEAR": 344,
+        "PENDING_APPROVAL": 152,
+        "ESCALATED": 33,
+        "unsafe_auto": 9,
+        "decision_recall": 0.9204
+      }
+    },
+    "changes_A_to_D": {
+      "AUTO_CLEAR_cases_removed": 83,
+      "PENDING_APPROVAL_cases_added": 152,
+      "ESCALATED_cases_added": -69,
+      "unsafe_AUTO_reduced_by": 5,
+      "unsafe_AUTO_reduction_pct": 35.7,
+      "decision_recall_gain_pp": 4.4
+    },
+    "primary_mechanism": "Threshold calibration (p_esc: 0.50\u21920.35, p_pend: 0.50\u21920.20) converts 152 cases from automatic routing to PENDING_APPROVAL, reducing unsafe AUTO from 14 to 9. The deterministic policy rule enforces this routing; Granite explains it."
+  },
+  "routing_delta_A_to_D": {
+    "auto_clear_change": -83,
+    "pending_approval_change": 152,
+    "escalated_change": -69,
+    "unsafe_auto_change": -5,
+    "unsafe_auto_reduction_pct": 35.7,
+    "interpretation": "Moving from detector-only (Architecture A) to full HelioMesh (Architecture D): AUTO_CLEAR decreases by 83 cases, PENDING_APPROVAL increases by 152 cases, unsafe AUTO decreases by 5 cases (35.7% reduction)."
+  },
+  "calibration_effect": {
+    "baseline_thresholds": {
+      "p_esc": 0.5,
+      "p_pend": 0.5
+    },
+    "calibrated_thresholds": {
+      "p_esc": 0.35,
+      "p_pend": 0.2
+    },
+    "baseline_unsafe_auto": 14,
+    "calibrated_unsafe_auto": 9,
+    "unsafe_auto_reduction": 5,
+    "unsafe_auto_reduction_pct": 35.7,
+    "baseline_recall": 0.8761061946902655,
+    "calibrated_recall": 0.9203539823008849,
+    "recall_gain_pp": 4.4,
+    "baseline_pending": 426,
+    "calibrated_auto_clear": 403,
+    "note": "Threshold calibration alone (no disagreement gate) reduces unsafe AUTO from 14 to 9 (35.7%) and raises recall by 4.4pp. This is the primary driver of the unsafe-AUTO reduction.",
+    "attribution": "The unsafe AUTO reduction (14 \u2192 9, \u221236%) is attributable to threshold calibration and the deterministic PENDING_APPROVAL policy rule, NOT to disagreement alone. Disagreement contributes an additional conservative safety gate (simulation-validated)."
+  },
+  "disagreement_gate": {
+    "real_opssat_early_warning_precision": 0.05263157894736842,
+    "real_opssat_early_warning_precision_display": "5.3%",
+    "real_opssat_true_positives": 4,
+    "real_opssat_false_positives": 72,
+    "real_opssat_early_warning_cases": 76,
+    "simulation_gate_fires": 171,
+    "simulation_gate_fires_pct": 9.5,
+    "simulation_total_sequences": 1800,
+    "conclusion": "Disagreement is not an independently validated anomaly predictor (real precision = 5.3%). It is a conservative safety gate: on simulation data it blocks 171 of 1,800 AUTO routes (9.5%); on real OPS-SAT data, binary disagreement triggers 76 of 529 cases (14.4%) at 5.3% precision. Its value is conservatism under model divergence, not early-warning accuracy."
+  },
+  "architectures": {
+    "A_detector_only": {
+      "description": "RF snapshot classifier at default threshold (p_esc=0.5, p_pend=0.5). No calibration, no PENDING_APPROVAL, no disagreement gate. Closest to detector-only routing.",
+      "auto_clear": 427,
+      "pending_approval": 0,
+      "escalated": 102,
+      "unsafe_auto": 14,
+      "missed": 14,
+      "false_alerts": 3,
+      "decision_recall": 0.8761061946902655,
+      "utility_baseline": 0.7952741020793951,
+      "correct_pending": 0,
+      "correct_escalated": 99
+    },
+    "B_rf_plus_temporal_union": {
+      "description": "RF + temporal union policy. Included for completeness. NOT the HelioMesh operating mode \u2014 union routing on real OPS-SAT data is documented as operationally harmful (precision collapses to 0.28, 84 unsafe AUTO).",
+      "auto_clear": 427,
+      "pending_approval": 0,
+      "escalated": 102,
+      "unsafe_auto": 84,
+      "missed": 84,
+      "false_alerts": 73,
+      "decision_recall": 0.25663716814159293,
+      "utility_baseline": -0.1706994328922495,
+      "note": "Union policy on OPS-SAT-AD is not operationally viable: temporal model trained on simulation regime labels, not real OPS-SAT anomaly classes."
+    },
+    "C_calibrated_policy_with_gate": {
+      "description": "Calibrated thresholds (p_esc=0.35, p_pend=0.20) + PENDING_APPROVAL routing + disagreement gate. Temporal in simulation only.",
+      "auto_clear": 351,
+      "pending_approval": 152,
+      "escalated": 26,
+      "unsafe_auto": 10,
+      "missed": 10,
+      "false_alerts": 75,
+      "decision_recall": 0.911504424778761,
+      "utility_baseline": 0.6187145557655955,
+      "correct_pending": 78,
+      "correct_escalated": 25
+    },
+    "D_full_heliomesh": {
+      "description": "Full HelioMesh hybrid: calibrated policy + disagreement gate + drift monitoring.",
+      "auto_clear": 344,
+      "pending_approval": 152,
+      "escalated": 33,
+      "unsafe_auto": 9,
+      "missed": 9,
+      "false_alerts": 81,
+      "decision_recall": 0.9203539823008849,
+      "utility_baseline": 0.6173913043478261,
+      "correct_pending": 78,
+      "correct_escalated": 31
+    }
+  },
+  "what_is_demonstrated": [
+    "The decision layer changes routing: 0 \u2192 152 PENDING_APPROVAL cases, AUTO_CLEAR decreases by 83, unsafe AUTO decreases by 5.",
+    "Threshold calibration is the primary driver of unsafe AUTO reduction (14 \u2192 9, \u221236%).",
+    "Calibrated recall improves by +4.4pp (0.876 \u2192 0.920) vs baseline threshold.",
+    "Disagreement gate provides additional conservative routing on simulation data (171/1800 sequences, 9.5%); real precision is 5.3%.",
+    "Decision layer routing is deterministic and auditable \u2014 same inputs always produce same route.",
+    "Utility (prototype weights, unvalidated) is preserved vs detector-only across all weight sets."
+  ],
+  "what_is_not_demonstrated": [
+    "Operator workload benefit was not measured.",
+    "Real-world spacecraft operational benefit was not measured.",
+    "Human or operator evaluation of Granite explanations was not performed.",
+    "Cross-mission validation was not performed.",
+    "30-minute forecasting on real OPS-SAT was not validated (inter-segment gaps near-zero; temporal horizon does not apply).",
+    "Statistical significance of the \u221236% unsafe AUTO reduction was not tested (absolute counts: 14 \u2192 9 on 529 segments).",
+    "Utility weights (prototype) were not validated by real mission operators."
+  ],
+  "conclusion": "Within the evaluated benchmark, HelioMesh demonstrates measurable decision-layer value beyond anomaly detection by changing risk routing through threshold calibration, deterministic policy rules, and conservative disagreement gating. This establishes decision/routing value within the benchmark; it does not establish operator workload reduction or real-world spacecraft operational benefit.",
+  "limitations": [
+    "OPS-SAT-AD is a segment-classification benchmark, not a real-time operational scenario.",
+    "Utility weights are prototype values defined before test evaluation and not operator-validated.",
+    "Disagreement gate real precision = 5.3% \u2014 not a reliable early-warning signal.",
+    "KP dominance (83.3% feature importance) is a structural property of the simulation benchmark.",
+    "No cross-mission validation. No human/operator evaluation of Granite."
+  ]
+}

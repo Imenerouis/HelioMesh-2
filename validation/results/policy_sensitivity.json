@@ -1,0 +1,389 @@
+{
+  "evaluated_at": "2026-08-14T17:13:02.331236",
+  "policy_label": "HelioMesh Prototype Autonomy Policy",
+  "policy_disclaimer": "Weights and thresholds (KP penalties, orbit penalties, power penalties, AUTO>=70, APPROVAL 40-69, ESCALATE<40) are manually defined for this prototype. They are NOT validated spacecraft safety standards. They should NOT be used for real mission operations without independent validation.",
+  "kp_sensitivity": [
+    {
+      "kp": 3.5,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 3.8,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 3.9,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.0,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.1,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.2,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.5,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 5.5,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 5.9,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 6.0,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 6.1,
+      "confidence": 55,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 6.5,
+      "confidence": 55,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 7.0,
+      "confidence": 55,
+      "route": "pending_approval"
+    }
+  ],
+  "orbit_sensitivity": [
+    {
+      "orbit_dev": 0.3,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 0.49,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 0.5,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 0.51,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 0.8,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 1.2,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 1.49,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 1.5,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "orbit_dev": 1.51,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "orbit_dev": 1.8,
+      "confidence": 65,
+      "route": "pending_approval"
+    }
+  ],
+  "power_sensitivity": [
+    {
+      "power": 5,
+      "confidence": 70,
+      "route": "auto_executed"
+    },
+    {
+      "power": 9,
+      "confidence": 70,
+      "route": "auto_executed"
+    },
+    {
+      "power": 10,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "power": 11,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "power": 30,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "power": 45,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "power": 49,
+      "confidence": 80,
+      "route": "auto_executed"
+    },
+    {
+      "power": 50,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "power": 51,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "power": 60,
+      "confidence": 90,
+      "route": "auto_executed"
+    },
+    {
+      "power": 80,
+      "confidence": 90,
+      "route": "auto_executed"
+    }
+  ],
+  "confidence_boundary": [
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.1,
+      "power": 45,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.1,
+      "power": 50,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.1,
+      "power": 60,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.1,
+      "power": 70,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.1,
+      "power": 80,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.3,
+      "power": 45,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.3,
+      "power": 50,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.3,
+      "power": 60,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.3,
+      "power": 70,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.3,
+      "power": 80,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.5,
+      "power": 45,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.5,
+      "power": 50,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.5,
+      "power": 60,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.5,
+      "power": 70,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.5,
+      "power": 80,
+      "confidence": 75,
+      "route": "auto_executed"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.6,
+      "power": 45,
+      "confidence": 55,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.6,
+      "power": 50,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.6,
+      "power": 60,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.6,
+      "power": 70,
+      "confidence": 65,
+      "route": "pending_approval"
+    },
+    {
+      "kp": 4.01,
+      "orbit_dev": 0.6,
+      "power": 80,
+      "confidence": 65,
+      "route": "pending_approval"
+    }
+  ],
+  "disagree_threshold_sensitivity": [
+    {
+      "p_critical": 0.3,
+      "route": "auto_executed",
+      "override": false
+    },
+    {
+      "p_critical": 0.4,
+      "route": "auto_executed",
+      "override": false
+    },
+    {
+      "p_critical": 0.49,
+      "route": "auto_executed",
+      "override": false
+    },
+    {
+      "p_critical": 0.5,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 0.51,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 0.6,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 0.7,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 0.8,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 0.9,
+      "route": "pending_approval",
+      "override": true
+    },
+    {
+      "p_critical": 1.0,
+      "route": "pending_approval",
+      "override": true
+    }
+  ],
+  "transition_counts": {
+    "kp": 1,
+    "orbit_deviation": 1,
+    "power_output": 0,
+    "disagree_threshold": 1
+  },
+  "stability_summary": {
+    "kp_threshold_sharp": true,
+    "orbit_threshold_sharp": true,
+    "power_threshold_sharp": true,
+    "disagree_threshold_sharp": true,
+    "note": "Sharp thresholds mean small input changes can flip the route at the boundary. This is expected for a deterministic prototype policy. Real spacecraft policies should have hysteresis or probability-based buffers."
+  },
+  "scientific_conclusion": "The policy has sharp thresholds: KP transitions=1, orbit transitions=1, power transitions=0. Small parameter changes at the exact threshold boundary flip routes immediately. This is expected for a hard-threshold prototype but would be unacceptable for a real spacecraft autonomy policy, which would require hysteresis, uncertainty bands, or probabilistic routing. The disagreement threshold at 0.5 is a single hard boundary: p=0.499 \u2192 no override, p=0.500 \u2192 override. This is a known limitation of the prototype design."
+}

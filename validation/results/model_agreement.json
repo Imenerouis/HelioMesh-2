@@ -1,0 +1,33 @@
+{
+  "evaluated_at": "2026-08-21T16:02:42.381806",
+  "n_sequences": 1800,
+  "agreement_rate": 0.9039,
+  "disagreement_rate": 0.0961,
+  "rf_nominal_gb_critical": 171,
+  "rf_non_nominal_gb_nominal": 2,
+  "cross_tabulation": {
+    "NOMINAL": {
+      "NOMINAL_AHEAD": 734,
+      "CRITICAL_AHEAD": 171
+    },
+    "STANDBY": {
+      "NOMINAL_AHEAD": 2,
+      "CRITICAL_AHEAD": 617
+    },
+    "SAFE_MODE": {
+      "NOMINAL_AHEAD": 0,
+      "CRITICAL_AHEAD": 276
+    }
+  },
+  "rf_distribution": {
+    "STANDBY": 619,
+    "NOMINAL": 905,
+    "SAFE_MODE": 276
+  },
+  "gb_distribution": {
+    "CRITICAL_AHEAD": 1064,
+    "NOMINAL_AHEAD": 736
+  },
+  "agreement_definition": "Agreement = RF risk level (NOMINAL\u00e2\u2020\u201dLOW_RISK, other\u00e2\u2020\u201dHIGH_RISK) matches GB risk level (NOMINAL_AHEAD\u00e2\u2020\u201dLOW_RISK, CRITICAL_AHEAD\u00e2\u2020\u201dHIGH_RISK).",
+  "disclaimer": "Both models are evaluated on simulation test sequences. NOT validated against real spacecraft data."
+}

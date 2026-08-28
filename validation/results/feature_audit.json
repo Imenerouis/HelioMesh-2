@@ -1,0 +1,308 @@
+{
+  "evaluated_at": "2026-08-14T17:13:01.721782",
+  "model": "ml/forecaster_model.pkl (GradientBoostingClassifier, FROZEN)",
+  "n_features": 42,
+  "top_10_features": [
+    {
+      "feature": "kp_index_t5",
+      "importance": 0.833194,
+      "pct": 83.32
+    },
+    {
+      "feature": "solar_wind_density_t5",
+      "importance": 0.036145,
+      "pct": 3.61
+    },
+    {
+      "feature": "delta_solar_wind_density",
+      "importance": 0.032061,
+      "pct": 3.21
+    },
+    {
+      "feature": "delta_orbit_deviation",
+      "importance": 0.020165,
+      "pct": 2.02
+    },
+    {
+      "feature": "delta_solar_wind_speed",
+      "importance": 0.012371,
+      "pct": 1.24
+    },
+    {
+      "feature": "delta_b_field",
+      "importance": 0.007934,
+      "pct": 0.79
+    },
+    {
+      "feature": "kp_index_t3",
+      "importance": 0.006803,
+      "pct": 0.68
+    },
+    {
+      "feature": "kp_index_t4",
+      "importance": 0.005201,
+      "pct": 0.52
+    },
+    {
+      "feature": "solar_wind_speed_t5",
+      "importance": 0.004748,
+      "pct": 0.47
+    },
+    {
+      "feature": "kp_index_t1",
+      "importance": 0.004453,
+      "pct": 0.45
+    }
+  ],
+  "all_features": [
+    {
+      "feature": "kp_index_t5",
+      "importance": 0.833194,
+      "pct": 83.32
+    },
+    {
+      "feature": "solar_wind_density_t5",
+      "importance": 0.036145,
+      "pct": 3.61
+    },
+    {
+      "feature": "delta_solar_wind_density",
+      "importance": 0.032061,
+      "pct": 3.21
+    },
+    {
+      "feature": "delta_orbit_deviation",
+      "importance": 0.020165,
+      "pct": 2.02
+    },
+    {
+      "feature": "delta_solar_wind_speed",
+      "importance": 0.012371,
+      "pct": 1.24
+    },
+    {
+      "feature": "delta_b_field",
+      "importance": 0.007934,
+      "pct": 0.79
+    },
+    {
+      "feature": "kp_index_t3",
+      "importance": 0.006803,
+      "pct": 0.68
+    },
+    {
+      "feature": "kp_index_t4",
+      "importance": 0.005201,
+      "pct": 0.52
+    },
+    {
+      "feature": "solar_wind_speed_t5",
+      "importance": 0.004748,
+      "pct": 0.47
+    },
+    {
+      "feature": "kp_index_t1",
+      "importance": 0.004453,
+      "pct": 0.45
+    },
+    {
+      "feature": "b_field_t5",
+      "importance": 0.00421,
+      "pct": 0.42
+    },
+    {
+      "feature": "kp_index_t0",
+      "importance": 0.00393,
+      "pct": 0.39
+    },
+    {
+      "feature": "delta_kp_index",
+      "importance": 0.0034,
+      "pct": 0.34
+    },
+    {
+      "feature": "orbit_deviation_t4",
+      "importance": 0.002497,
+      "pct": 0.25
+    },
+    {
+      "feature": "power_output_t5",
+      "importance": 0.001796,
+      "pct": 0.18
+    },
+    {
+      "feature": "solar_wind_density_t3",
+      "importance": 0.001297,
+      "pct": 0.13
+    },
+    {
+      "feature": "power_output_t4",
+      "importance": 0.001286,
+      "pct": 0.13
+    },
+    {
+      "feature": "kp_index_t2",
+      "importance": 0.001278,
+      "pct": 0.13
+    },
+    {
+      "feature": "power_output_t0",
+      "importance": 0.001254,
+      "pct": 0.13
+    },
+    {
+      "feature": "solar_wind_density_t0",
+      "importance": 0.001229,
+      "pct": 0.12
+    },
+    {
+      "feature": "power_output_t3",
+      "importance": 0.001166,
+      "pct": 0.12
+    },
+    {
+      "feature": "orbit_deviation_t2",
+      "importance": 0.001112,
+      "pct": 0.11
+    },
+    {
+      "feature": "solar_wind_density_t2",
+      "importance": 0.001043,
+      "pct": 0.1
+    },
+    {
+      "feature": "power_output_t2",
+      "importance": 0.001013,
+      "pct": 0.1
+    },
+    {
+      "feature": "solar_wind_speed_t0",
+      "importance": 0.000985,
+      "pct": 0.1
+    },
+    {
+      "feature": "solar_wind_speed_t4",
+      "importance": 0.000935,
+      "pct": 0.09
+    },
+    {
+      "feature": "solar_wind_density_t1",
+      "importance": 0.000878,
+      "pct": 0.09
+    },
+    {
+      "feature": "solar_wind_speed_t3",
+      "importance": 0.000832,
+      "pct": 0.08
+    },
+    {
+      "feature": "b_field_t0",
+      "importance": 0.00079,
+      "pct": 0.08
+    },
+    {
+      "feature": "orbit_deviation_t5",
+      "importance": 0.000783,
+      "pct": 0.08
+    },
+    {
+      "feature": "b_field_t1",
+      "importance": 0.000742,
+      "pct": 0.07
+    },
+    {
+      "feature": "solar_wind_speed_t1",
+      "importance": 0.000682,
+      "pct": 0.07
+    },
+    {
+      "feature": "solar_wind_density_t4",
+      "importance": 0.000656,
+      "pct": 0.07
+    },
+    {
+      "feature": "power_output_t1",
+      "importance": 0.000548,
+      "pct": 0.05
+    },
+    {
+      "feature": "solar_wind_speed_t2",
+      "importance": 0.000528,
+      "pct": 0.05
+    },
+    {
+      "feature": "b_field_t3",
+      "importance": 0.000464,
+      "pct": 0.05
+    },
+    {
+      "feature": "b_field_t4",
+      "importance": 0.000396,
+      "pct": 0.04
+    },
+    {
+      "feature": "orbit_deviation_t1",
+      "importance": 0.000326,
+      "pct": 0.03
+    },
+    {
+      "feature": "orbit_deviation_t3",
+      "importance": 0.000309,
+      "pct": 0.03
+    },
+    {
+      "feature": "orbit_deviation_t0",
+      "importance": 0.000306,
+      "pct": 0.03
+    },
+    {
+      "feature": "b_field_t2",
+      "importance": 0.000254,
+      "pct": 0.03
+    },
+    {
+      "feature": "delta_power_output",
+      "importance": 0.0,
+      "pct": 0.0
+    }
+  ],
+  "group_analysis": {
+    "kp_all_features": {
+      "features": [
+        "delta_kp_index",
+        "kp_index_t0",
+        "kp_index_t1",
+        "kp_index_t2",
+        "kp_index_t3",
+        "kp_index_t4",
+        "kp_index_t5"
+      ],
+      "importance_sum": 0.858259,
+      "pct_of_total": 85.83
+    },
+    "delta_features": {
+      "features": [
+        "delta_b_field",
+        "delta_kp_index",
+        "delta_orbit_deviation",
+        "delta_power_output",
+        "delta_solar_wind_density",
+        "delta_solar_wind_speed"
+      ],
+      "importance_sum": 0.075932,
+      "pct_of_total": 7.59
+    },
+    "raw_window_features": {
+      "importance_sum": 0.924068,
+      "pct_of_total": 92.41
+    },
+    "non_kp_features": {
+      "importance_sum": 0.141741,
+      "pct_of_total": 14.17
+    }
+  },
+  "delta_kp_index_in_top5": false,
+  "non_kp_material_gt10pct": true,
+  "scientific_conclusion": "Total feature importance sums to 1.000000 (should be \u22481.0). KP-related features (all t0-t5 + delta_kp): 85.8% of total predictive contribution. Delta features (all 6 deltas): 7.6% of total. Non-KP features: 14.2% of total. delta_kp_index in top-5: False. Non-KP features contribute 14.2% \u2014 this EXCEEDS the 10% materiality threshold. Non-KP features (wind speed, density, B-field, orbit deviation, power) do contribute measurably to predictions beyond KP alone. HONEST ASSESSMENT (simulation domain only): KP accounts for 85.8% of predictive contribution. This is consistent with the KP-only ablation result. Non-KP features provide supplementary signal but KP is the dominant driver. On real spacecraft data the feature importance distribution may differ significantly.",
+  "disclaimer": "Feature importance = predictive contribution within the trained model on simulation data. NOT physical causality. NOT validated on real spacecraft telemetry."
+}

@@ -1,0 +1,193 @@
+{
+  "analysis": "Contribution ablation separating temporal evidence and lead-warning evidence using the same aligned held-out OPS-SAT-AD test partition.",
+  "n_test_segments": 529,
+  "threshold_tuning_on_test": false,
+  "official_D_reproduction": {
+    "official_result_available": true,
+    "verified": true,
+    "checks": {
+      "recall": true,
+      "precision": true,
+      "f1": true,
+      "missed": true,
+      "false_alerts": true
+    },
+    "official": {
+      "recall": 0.9203539823008849,
+      "precision": 0.9122807017543859,
+      "f1": 0.9162995594713657,
+      "missed": 9,
+      "false_alerts": 10
+    },
+    "reproduced": {
+      "recall": 0.9203539823008849,
+      "precision": 0.9122807017543859,
+      "f1": 0.9162995594713657,
+      "missed": 9,
+      "false_alerts": 10
+    }
+  },
+  "lead_warning_segments": 58,
+  "architectures": {
+    "C_calibrated_rf": {
+      "event_metrics": {
+        "label": "C_calibrated_rf",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 2,
+        "correct_nominal": 414,
+        "event_precision": 0.9801980198019802,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9252336448598131
+      },
+      "policy_metrics": {
+        "label": "C_calibrated_rf",
+        "n": 529,
+        "auto_clear": 428,
+        "pending_approval": 101,
+        "escalated": 0,
+        "unsafe_auto": 14,
+        "correct_pending": 99,
+        "correct_escalated": 0,
+        "unnecessary_pending": 2,
+        "unnecessary_escalated": 0,
+        "correct_auto_clear": 414,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7427221172022684,
+        "utility_sensitivity": {
+          "conservative": 0.6096408317580341,
+          "permissive": 0.7589792060491494,
+          "recall_focused": 0.36635160680529305
+        }
+      }
+    },
+    "CT_calibrated_rf_plus_temporal": {
+      "event_metrics": {
+        "label": "CT_calibrated_rf_plus_temporal",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 100,
+        "missed": 13,
+        "false_alerts": 3,
+        "correct_nominal": 413,
+        "event_precision": 0.970873786407767,
+        "event_recall": 0.8849557522123894,
+        "event_f1": 0.9259259259259259
+      },
+      "policy_metrics": {
+        "label": "CT_calibrated_rf_plus_temporal",
+        "n": 529,
+        "auto_clear": 426,
+        "pending_approval": 3,
+        "escalated": 100,
+        "unsafe_auto": 13,
+        "correct_pending": 2,
+        "correct_escalated": 98,
+        "unnecessary_pending": 1,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 413,
+        "decision_recall": 0.8849557522123894,
+        "utility_baseline": 0.8054820415879017,
+        "utility_sensitivity": {
+          "conservative": 0.717391304347826,
+          "permissive": 0.7998109640831759,
+          "recall_focused": 0.47448015122873344
+        }
+      }
+    },
+    "CL_calibrated_rf_plus_lead_warning": {
+      "event_metrics": {
+        "label": "CL_calibrated_rf_plus_lead_warning",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 103,
+        "missed": 10,
+        "false_alerts": 9,
+        "correct_nominal": 407,
+        "event_precision": 0.9196428571428571,
+        "event_recall": 0.911504424778761,
+        "event_f1": 0.9155555555555556
+      },
+      "policy_metrics": {
+        "label": "CL_calibrated_rf_plus_lead_warning",
+        "n": 529,
+        "auto_clear": 417,
+        "pending_approval": 112,
+        "escalated": 0,
+        "unsafe_auto": 10,
+        "correct_pending": 103,
+        "correct_escalated": 0,
+        "unnecessary_pending": 9,
+        "unnecessary_escalated": 0,
+        "correct_auto_clear": 407,
+        "decision_recall": 0.911504424778761,
+        "utility_baseline": 0.7671077504725898,
+        "utility_sensitivity": {
+          "conservative": 0.6691871455576559,
+          "permissive": 0.7693761814744802,
+          "recall_focused": 0.4264650283553875
+        }
+      }
+    },
+    "D_full_heliomesh": {
+      "event_metrics": {
+        "label": "D_full_heliomesh",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 104,
+        "missed": 9,
+        "false_alerts": 10,
+        "correct_nominal": 406,
+        "event_precision": 0.9122807017543859,
+        "event_recall": 0.9203539823008849,
+        "event_f1": 0.9162995594713657
+      },
+      "policy_metrics": {
+        "label": "D_full_heliomesh",
+        "n": 529,
+        "auto_clear": 415,
+        "pending_approval": 14,
+        "escalated": 100,
+        "unsafe_auto": 9,
+        "correct_pending": 6,
+        "correct_escalated": 98,
+        "unnecessary_pending": 8,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 406,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.8298676748582231,
+        "utility_sensitivity": {
+          "conservative": 0.776937618147448,
+          "permissive": 0.8102079395085067,
+          "recall_focused": 0.534593572778828
+        }
+      }
+    }
+  },
+  "incremental_contribution": {
+    "C_to_CT_temporal_only": {
+      "recall_delta": 0.008849557522123908,
+      "precision_delta": -0.009324233394213177,
+      "f1_delta": 0.0006922810661128542,
+      "missed_delta": -1,
+      "false_alert_delta": 1
+    },
+    "C_to_CL_lead_warning_only": {
+      "recall_delta": 0.03539823008849552,
+      "precision_delta": -0.060555162659123085,
+      "f1_delta": -0.009678089304257509,
+      "missed_delta": -4,
+      "false_alert_delta": 7
+    },
+    "C_to_D_full": {
+      "recall_delta": 0.04424778761061943,
+      "precision_delta": -0.06791731804759427,
+      "f1_delta": -0.008934085388447421,
+      "missed_delta": -5,
+      "false_alert_delta": 8
+    }
+  },
+  "interpretation_guardrail": "These component comparisons identify benchmark-level incremental routing effects. They do not prove causal operational superiority and do not validate mission costs."
+}

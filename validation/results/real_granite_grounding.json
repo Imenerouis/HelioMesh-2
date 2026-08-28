@@ -1,0 +1,36 @@
+{
+  "structural_audit": {
+    "evidence_coverage_current_model": true,
+    "calibrated_model_f1": null,
+    "evidence_coverage_temporal_model": true,
+    "real_simulation_separation": true,
+    "unsupported_numeric_claims_model_A": [],
+    "unsupported_numeric_claims_model_B": [],
+    "metrics_internally_consistent_A": true,
+    "metrics_internally_consistent_B": true,
+    "route_consistency_auditable": true,
+    "decision_stress_test_present": true,
+    "contradiction_count": 0,
+    "contradiction_rate": 0.0,
+    "grounding_score": 1.0,
+    "human_usability_tested": false,
+    "human_usability_note": "No human operator study was conducted. Granite grounding quality with real operators is therefore unknown.",
+    "limitation": "This is a structural grounding audit only. It is not a live Granite LLM reasoning evaluation."
+  },
+  "provenance": {
+    "dataset": "OPSSAT-AD",
+    "zenodo_doi": "https://doi.org/10.5281/zenodo.12588359",
+    "license": "MIT",
+    "license_text_first_line": "MIT License for OPS-SAT Dataset",
+    "license_copyright": "Copyright (c) 2024 KP Labs",
+    "source_repo": "https://github.com/kplabs-pl/OPS-SAT-AD",
+    "paper": "Ruszczak et al. Scientific Data (2025) doi:10.1038/s41597-025-05035-3",
+    "segments_csv_sha256": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+    "dataset_csv_sha256": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+    "segments_csv_bytes": 18987091,
+    "dataset_csv_bytes": 507550,
+    "license_verified_from": "https://raw.githubusercontent.com/kplabs-pl/OPS-SAT-AD/main/LICENSE",
+    "license_verified_date": "2025"
+  },
+  "note": "This is a structural grounding audit, not a live Granite LLM evaluation."
+}

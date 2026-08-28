@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-08-13T15:59:08.258103",
+  "n_records": 10000,
+  "label_distribution": {
+    "STANDBY": 2571,
+    "SAFE_MODE": 1487,
+    "NOMINAL": 5942
+  },
+  "labeling_rules": {
+    "SAFE_MODE": "kp>6 OR orbit_dev>1.5km OR power<10W",
+    "STANDBY": "kp>4 OR orbit_dev>0.8km OR power<40W",
+    "NOMINAL": "all within safe bounds"
+  },
+  "labeling_justification": {
+    "kp_thresholds": "NOAA Space Weather Scale G2=5,G3=6,G4=7",
+    "orbit_deviation": "LEO station-keeping tolerance +-1.5km",
+    "power_output": "Min operational 40W emergency 10W"
+  },
+  "features": [
+    "kp_index",
+    "sail_angle",
+    "solar_wind_speed",
+    "solar_wind_density",
+    "b_field",
+    "drag_factor",
+    "orbit_deviation",
+    "power_output",
+    "thrust_output",
+    "geomagnetic_energy",
+    "dynamic_pressure"
+  ]
+}

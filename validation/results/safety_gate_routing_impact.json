@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-08-19T00:00:00Z",
+  "purpose": "Routing-impact breakdown of the disagreement safety gate across simulation scenarios. Quantifies which routing transitions the gate causes, using existing cross-tabulation data from model_agreement.json. Does NOT change the real OPS-SAT disagreement analysis.",
+  "data_source": "validation/results/model_agreement.json + validation/results/safety_gate_evaluation.json (both frozen). No new inference.",
+
+  "gate_rule": {
+    "condition": "RF=NOMINAL AND GB=CRITICAL_AHEAD AND p_critical >= 0.5",
+    "effect": "AUTO_EXECUTE -> PENDING_APPROVAL (human review required)",
+    "threshold": 0.5,
+    "deterministic": true
+  },
+
+  "simulation_routing_impact": {
+    "n_test_sequences": 1800,
+    "source": "model_agreement.json (simulation test set, chronological split)",
+
+    "cross_tabulation_routing": {
+      "RF_NOMINAL_GB_NOMINAL_AHEAD": {
+        "count": 734,
+        "pct_of_total": 40.8,
+        "gate_fires": false,
+        "routing_outcome": "AUTO_EXECUTE (gate does not fire; both models agree low risk)",
+        "description": "Both models agree on nominal/low-risk state. Automatic execution route is preserved."
+      },
+      "RF_NOMINAL_GB_CRITICAL_AHEAD": {
+        "count": 171,
+        "pct_of_total": 9.5,
+        "gate_fires": true,
+        "routing_outcome": "AUTO_EXECUTE -> PENDING_APPROVAL",
+        "description": "Gate fires: current state appears NOMINAL but 30-min forecast indicates CRITICAL_AHEAD. Automatic route is blocked; case routed to human review."
+      },
+      "RF_STANDBY_GB_NOMINAL_AHEAD": {
+        "count": 2,
+        "pct_of_total": 0.1,
+        "gate_fires": false,
+        "routing_outcome": "PENDING_APPROVAL (RF already elevated; gate does not fire on non-NOMINAL RF)",
+        "description": "RF indicates STANDBY (elevated). Gate condition requires RF=NOMINAL; does not fire. Route determined by RF state alone."
+      },
+      "RF_STANDBY_GB_CRITICAL_AHEAD": {
+        "count": 617,
+        "pct_of_total": 34.3,
+        "gate_fires": false,
+        "routing_outcome": "ESCALATED or PENDING_APPROVAL (both models agree elevated risk; RF already above NOMINAL)",
+        "description": "Both models agree elevated/critical risk. RF is already in STANDBY — route was not AUTO to begin with. Gate does not alter an already-elevated route."
+      },
+      "RF_SAFE_MODE_GB_NOMINAL_AHEAD": {
+        "count": 0,
+        "pct_of_total": 0.0,
+        "gate_fires": false,
+        "routing_outcome": "Not observed in test set"
+      },
+      "RF_SAFE_MODE_GB_CRITICAL_AHEAD": {
+        "count": 276,
+        "pct_of_total": 15.3,
+        "gate_fires": false,
+        "routing_outcome": "ESCALATED (RF in SAFE_MODE; route already maximally conservative; gate does not fire on non-NOMINAL RF)",
+        "description": "RF in SAFE_MODE — most conservative route already active. Gate condition not met (RF != NOMINAL)."
+      }
+    },
+
+    "routing_impact_summary": {
+      "auto_routes_total": 905,
+      "auto_routes_preserved": 734,
+      "auto_routes_blocked_by_gate": 171,
+      "auto_routes_blocked_pct": 18.9,
+      "note": "18.9% of scenarios that would otherwise receive an AUTO route (RF=NOMINAL) are blocked by the gate and redirected to PENDING_APPROVAL.",
+      "already_elevated_routes": 895,
+      "agreement_rate": 0.9039,
+      "disagreement_rate": 0.0961
+    },
+
+    "safety_invariants_verified": {
+      "no_downgrade": "Gate cannot downgrade an already-ESCALATED route to PENDING",
+      "sub_threshold_no_fire": "Gate does not fire when p_critical < 0.5",
+      "absent_no_fire": "Gate does not fire when model_agreement field is absent",
+      "source": "policy_tests.json (10/10 disagreement tests pass, 3 safety invariants verified)"
+    }
+  },
+
+  "real_opssat_disagreement": {
+    "note": "SEPARATE TRACK — this section is preserved from safety_gate_evaluation.json and is NOT changed.",
+    "n_test_segments": 529,
+    "early_warning_precision": 0.05263157894736842,
+    "early_warning_precision_display": "5.3%",
+    "true_positives": 4,
+    "false_positives": 72,
+    "conclusion": "Disagreement is not an independently validated anomaly predictor on real OPS-SAT data. Precision = 5.3%; 72 of 76 early-warning cases are false positives.",
+    "source": "real_disagreement_value.json + safety_gate_evaluation.json (frozen, unchanged)"
+  },
+
+  "conclusions": {
+    "primary_conclusion": "Disagreement is not an independently validated anomaly predictor. It is a conservative safety gate that blocks automatic routing when model outputs diverge.",
+    "gate_effectiveness_in_simulation": "171 of 1,800 simulation test sequences (9.5%) trigger the gate. Of the 905 sequences where RF=NOMINAL, 171 (18.9%) have their AUTO route blocked and redirected to PENDING_APPROVAL.",
+    "gate_value_on_real_data": "The gate's value on real data is not in early-warning precision (5.3%) — it is in preventing AUTO_EXECUTE when models disagree, regardless of ground-truth outcome. This is the intended conservative behavior for a human-in-the-loop system.",
+    "deterministic_behavior": "All routing transitions are deterministic. The gate never overrides a route that is already elevated above AUTO."
+  },
+
+  "limitations": [
+    "Simulation gate analysis uses a chronological test split (1,800 of 12,000 sequences). Real-world trigger rates are unknown.",
+    "Real OPS-SAT segments lack p_critical scores from the simulation forecaster; gate analysis on real data is via binary label disagreement proxy.",
+    "5.3% early-warning precision on real OPS-SAT is disclosed and not hidden.",
+    "No human operator study of gate utility has been performed.",
+    "The routing breakdown is derived from frozen cross-tabulation data — no new model inference."
+  ]
+}

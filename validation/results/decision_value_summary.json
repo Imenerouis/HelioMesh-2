@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-08-19T15:38:56.417335+00:00",
+  "source_artifacts": [
+    "real_decision_ablation.json",
+    "real_policy_calibration.json",
+    "real_disagreement_value.json"
+  ],
+  "data_note": "All numbers derived from frozen OPS-SAT-AD test partition (529 segments, 113 anomalous). No model retraining. Results are read-only consolidations of existing artifacts.",
+  "decision_layers": {
+    "layer_1_detection_only": {
+      "description": "RF anomaly detector, default 0.5 threshold, no policy",
+      "recall": 0.8761061946902655,
+      "precision": 0.9705882352941176,
+      "f1": 0.9209302325581395,
+      "missed": 14,
+      "false_alerts": 3,
+      "unsafe_auto": 14,
+      "utility": 0.7952741020793951,
+      "what_it_does": "Detects anomalies; all detections route to AUTO."
+    },
+    "layer_2_threshold_calibration": {
+      "description": "RF detector + calibrated threshold (p_esc=0.35, p_pend=0.20). Thresholds selected by 5-fold CV on training partition only.",
+      "recall": 0.9203539823008849,
+      "precision": 0.8253968253968254,
+      "f1": 0.8702928870292888,
+      "missed": 9,
+      "false_alerts": 22,
+      "unsafe_auto": 9,
+      "utility": 0.7992438563327032,
+      "what_it_does": "Lower thresholds widen the detection net \u2014 more anomalies are escalated or sent to PENDING, reducing unsafe AUTO decisions."
+    },
+    "layer_3_disagreement_gate": {
+      "description": "Detection + disagreement policy (RF=NOMINAL \u2227 GB=CRITICAL_AHEAD \u2227 p\u22650.5 \u2192 PENDING_APPROVAL)",
+      "recall": 0.911504424778761,
+      "precision": 0.5786516853932584,
+      "f1": 0.7079037800687286,
+      "missed": 10,
+      "false_alerts": 75,
+      "unsafe_auto": 10,
+      "utility": 0.6187145557655955,
+      "what_it_does": "Safety gate: blocks AUTO EXECUTE when models disagree on risk. Recall increases because union-flag logic catches more anomalies. False alerts increase significantly (75 vs 3 for detection-only)."
+    },
+    "layer_4_full_heliomesh": {
+      "description": "Full architecture: calibrated threshold + disagreement gate + deterministic policy + Granite explanation + human oversight",
+      "recall": 0.9203539823008849,
+      "precision": 0.5621621621621622,
+      "f1": 0.697986577181208,
+      "missed": 9,
+      "false_alerts": 81,
+      "unsafe_auto": 9,
+      "utility": 0.6173913043478261,
+      "what_it_does": "Combined calibrated routing + disagreement blocking: 9 unsafe AUTO decisions (vs 14 baseline), recall 0.920. Each non-trivial decision is explainable via Granite trace."
+    }
+  },
+  "improvements_vs_detection_only": {
+    "unsafe_auto_reduction": 5,
+    "unsafe_auto_reduction_pct": 35.7,
+    "recall_gain": 0.0442,
+    "missed_reduction": 5,
+    "false_alerts_increase": 78,
+    "attribution_note": "The 14\u21929 unsafe AUTO reduction and 0.876\u21920.920 recall improvement reflect the COMBINED effect of threshold calibration and the full policy architecture. They cannot be attributed to model disagreement alone."
+  },
+  "policy_comparison": {
+    "note": "All configurations evaluated on the same frozen test partition. Utility weights are prototype values \u2014 NOT validated by mission operators.",
+    "baseline": {
+      "thresholds": {
+        "p_esc": 0.5,
+        "p_pend": 0.5
+      },
+      "recall": 0.8761061946902655,
+      "missed": 14,
+      "false_alerts": 4,
+      "unsafe_auto": 14,
+      "utility": 0.7924385633270321
+    },
+    "calibrated": {
+      "thresholds": {
+        "p_esc": 0.35,
+        "p_pend": 0.2
+      },
+      "recall": 0.9203539823008849,
+      "missed": 9,
+      "false_alerts": 22,
+      "unsafe_auto": 9,
+      "utility": 0.7992438563327032
+    },
+    "risk_aware": {
+      "thresholds": {
+        "p_esc": 0.6,
+        "p_pend": 0.35
+      },
+      "recall": 0.9026548672566371,
+      "missed": 11,
+      "false_alerts": 11,
+      "unsafe_auto": 11,
+      "utility": 0.8037807183364839
+    },
+    "trade_off_summary": "No policy is universally optimal. Calibrated policy minimises unsafe AUTO decisions (9) and maximises recall (0.920) at the cost of more false alerts (22 vs 3). Risk-aware achieves the highest utility score (0.804) with a balanced false-alert rate. The choice depends on mission risk tolerance and operator workload."
+  },
+  "disagreement_analysis": {
+    "note": "Disagreement = RF=NOMINAL AND GB predicts anomaly for the same segment. Source: real_disagreement_value.json, OPS-SAT test set n=529.",
+    "early_warning_cases": 76,
+    "early_warning_true_pos": 4,
+    "early_warning_false_pos": 72,
+    "early_warning_precision": 0.05263157894736842,
+    "late_signal_cases": 76,
+    "late_signal_truly_anomalous": 74,
+    "agreement_nominal_correct": 341,
+    "agreement_nominal_missed": 10,
+    "conclusion": "Early-warning disagreement precision = 5.3% \u2014 not independently actionable as a standalone anomaly predictor. Disagreement is used as a CONSERVATIVE SAFETY GATE: it blocks AUTO EXECUTE when models diverge, routing to PENDING_APPROVAL for human review. This is a safety-control function, not a prediction function."
+  },
+  "central_claim": "HelioMesh does not stop at detecting an anomaly. It converts detection evidence into an auditable, safety-controlled operational decision recommendation with a deterministic policy, model disagreement safety gate, calibrated routing, and Granite explanation. The result is a structured, human-in-the-loop decision pipeline \u2014 not a flag.",
+  "limitations": [
+    "Utility weights are prototype values, not validated by real mission operators.",
+    "AUTO EXECUTE is a prototype policy route label \u2014 no real spacecraft commands.",
+    "Disagreement is a safety gate, not a validated standalone early-warning signal.",
+    "Cross-mission generalization is unvalidated."
+  ]
+}

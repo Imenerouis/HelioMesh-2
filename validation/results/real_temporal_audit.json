@@ -1,0 +1,131 @@
+{
+  "serial_autocorrelation": {
+    "CADC0872": {
+      "n": 546,
+      "n_anomaly": 131,
+      "lag1_corr": 0.15588007522956068,
+      "lag1_p": 0.000259138166894654
+    },
+    "CADC0873": {
+      "n": 593,
+      "n_anomaly": 105,
+      "lag1_corr": 0.19237133766972042,
+      "lag1_p": 2.419357276235291e-06
+    },
+    "CADC0874": {
+      "n": 194,
+      "n_anomaly": 69,
+      "lag1_corr": 0.41351098644226275,
+      "lag1_p": 2.2722483743979905e-09
+    },
+    "CADC0884": {
+      "n": 158,
+      "n_anomaly": 0,
+      "lag1_corr": 0.0,
+      "lag1_p": 1.0
+    },
+    "CADC0886": {
+      "n": 11,
+      "n_anomaly": 3,
+      "lag1_corr": 0.523809523809524,
+      "lag1_p": 0.12018079348826405
+    },
+    "CADC0888": {
+      "n": 252,
+      "n_anomaly": 60,
+      "lag1_corr": -0.07321116928446772,
+      "lag1_p": 0.24782642047753844
+    },
+    "CADC0890": {
+      "n": 14,
+      "n_anomaly": 11,
+      "lag1_corr": 0.5666666666666668,
+      "lag1_p": 0.04345998196469152
+    },
+    "CADC0892": {
+      "n": 211,
+      "n_anomaly": 34,
+      "lag1_corr": -0.05280748663101606,
+      "lag1_p": 0.44652752256521694
+    },
+    "CADC0894": {
+      "n": 144,
+      "n_anomaly": 21,
+      "lag1_corr": 0.21857923497267767,
+      "lag1_p": 0.00872412905709444
+    }
+  },
+  "anomaly_runs": {
+    "count": 276,
+    "mean": 1.5724637681159421,
+    "median": 1.0,
+    "max": 14,
+    "pct_run1": 0.7028985507246377,
+    "pct_run_ge2": 0.2971014492753623
+  },
+  "normal_runs": {
+    "count": 282,
+    "mean": 5.98936170212766,
+    "median": 2.0,
+    "max": 160,
+    "pct_run1": 0.34397163120567376,
+    "pct_run_ge2": 0.6560283687943262
+  },
+  "transition_matrix": {
+    "N_to_A": {
+      "count": 275,
+      "pct": 13.008514664143803
+    },
+    "A_to_N": {
+      "count": 274,
+      "pct": 12.961210974456007
+    },
+    "A_to_A": {
+      "count": 158,
+      "pct": 7.473982970671712
+    },
+    "N_to_N": {
+      "count": 1407,
+      "pct": 66.55629139072848
+    }
+  },
+  "transition_independence_test": {
+    "chi2": 85.0832881388649,
+    "p_value": 2.860581058701257e-20,
+    "independent_at_0.05": false,
+    "interpretation": "Anomaly labels ARE dependent on the previous label (Markov property)."
+  },
+  "leakage_analysis": {
+    "target_definition": "next_anomaly = label of the next segment on the same channel",
+    "leakage_risk": "LOW",
+    "leakage_explanation": "The next_anomaly label is derived from the NEXT segment, which is temporally after the current segment. When predicting for a given segment, the features used are only from the CURRENT segment (no lookahead). The next_anomaly label is only used as the TARGET variable, not a feature. Train/test boundary is preserved: test segments predict next-test-segment anomaly. No test label is used as a training feature.",
+    "boundary_case": "The last segment of each channel has no \"next\" segment \u2014 these rows are excluded from the lead-time task (handled by NaN drop).",
+    "conclusion": "Future-event target is constructible WITHOUT leakage."
+  },
+  "lead_time_measurement": {
+    "n_transitions": 275,
+    "gap_to_anomaly_onset": {
+      "min_s": 1.0,
+      "max_s": 10655219.0,
+      "median_s": 1.0,
+      "p25_s": 1.0,
+      "p75_s": 5.0
+    },
+    "lead_from_seg_start": {
+      "min_s": 45.0,
+      "max_s": 10655449.0,
+      "median_s": 255.0,
+      "p25_s": 200.0,
+      "p75_s": 396.0
+    },
+    "n_with_gap_lt_60s": 250,
+    "n_with_gap_60_300s": 1,
+    "n_with_gap_ge_300s": 24,
+    "median_255s_confirmed": false
+  },
+  "temporal_classification": {
+    "code": "B",
+    "label": "LIMITED TEMPORAL BENCHMARK",
+    "rationale": "Transition matrix shows serial dependence (chi2 test p<0.05), and 275 valid N\u2192A transitions provide lead-time signal. However, anomaly runs are short (most length-1) and lag-1 correlation is weak across channels. Short-horizon prediction is possible but limited."
+  }
+}

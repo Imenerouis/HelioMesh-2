@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-08-19T15:38:57.516414+00:00",
+  "evaluation_purpose": "Formal evaluation of the model disagreement rule as a SAFETY GATE that prevents automatic routing when models diverge on risk. This is NOT an evaluation of early-warning prediction accuracy.",
+  "gate_rule": {
+    "condition": "RF=NOMINAL AND GB=CRITICAL_AHEAD AND p_critical >= 0.5",
+    "effect": "AUTO EXECUTE \u2192 PENDING_APPROVAL (human review required)",
+    "threshold": 0.5
+  },
+  "simulation_gate_behavior": {
+    "n_test_sequences": 1800,
+    "gate_fires": 171,
+    "gate_fires_pct": 9.5,
+    "context": "171 of 1800 simulation test sequences (9.5%) trigger the disagreement gate \u2014 specifically on storm-approach scenarios where the current RF state reads NOMINAL but the 30-min forecast reads CRITICAL_AHEAD.",
+    "cross_tabulation": {
+      "NOMINAL": {
+        "NOMINAL_AHEAD": 734,
+        "CRITICAL_AHEAD": 171
+      },
+      "STANDBY": {
+        "NOMINAL_AHEAD": 2,
+        "CRITICAL_AHEAD": 617
+      },
+      "SAFE_MODE": {
+        "NOMINAL_AHEAD": 0,
+        "CRITICAL_AHEAD": 276
+      }
+    },
+    "agreement_rate": 0.9039,
+    "disagreement_rate": 0.0961,
+    "source": "model_agreement.json (simulation test set)"
+  },
+  "real_opssat_disagreement": {
+    "n_test_segments": 529,
+    "routing_breakdown": {
+      "both_agree_nominal": 351,
+      "both_agree_anomaly": 26,
+      "rf_nominal_gb_anomaly": 76,
+      "rf_anomaly_gb_nominal": 76
+    },
+    "early_warning_analysis": {
+      "count": 76,
+      "true_positive": 4,
+      "false_positive": 72,
+      "precision": 0.05263157894736842,
+      "interpretation": "5.3% precision \u2014 disagreement is not an independently reliable anomaly predictor on the real test set. 72 of 76 early-warning cases are false positives."
+    },
+    "safety_gate_interpretation": "The disagreement gate's value on real data is not in its precision as an anomaly predictor. Its value is in BLOCKING AUTO EXECUTE when models diverge \u2014 a conservative safety behaviour that routes diverging signals to human review regardless of ground-truth outcome. The 75 false alerts under the union policy illustrate the cost of this conservatism; the correct operating mode is the calibrated policy where threshold + gate together reduce unsafe AUTO from 14 to 9.",
+    "source": "real_disagreement_value.json"
+  },
+  "safety_invariants": {
+    "total_disagree_test_scenarios": 10,
+    "override_scenarios_pass": "4/4",
+    "no_override_scenarios_pass": "6/6",
+    "all_disagree_tests_pass": true,
+    "invariant_escalated_not_downgraded": true,
+    "invariant_sub_threshold_no_fire": true,
+    "invariant_absent_no_fire": true,
+    "description": {
+      "escalated_not_downgraded": "When route is already ESCALATED, the gate cannot downgrade it to PENDING.",
+      "sub_threshold_no_fire": "When p_critical < threshold, gate does not fire; AUTO preserved.",
+      "absent_no_fire": "When model_agreement is absent/None, gate does not fire."
+    },
+    "source": "policy_tests.json"
+  },
+  "conclusions": {
+    "disagreement_as_predictor": "WEAK \u2014 5.3% early-warning precision on real OPS-SAT test set. Cannot be used as a standalone anomaly signal.",
+    "disagreement_as_safety_gate": "EFFECTIVE \u2014 deterministically blocks AUTO EXECUTE on model divergence. 171/1800 (9.5%) of simulation scenarios blocked. All 10 disagreement policy tests pass. 3 safety invariants verified (no downgrade, sub-threshold no-fire, absent no-fire).",
+    "combined_value": "The gate's contribution is not precision \u2014 it is conservatism. When RF sees NOMINAL but the temporal model disagrees, the system does not auto-execute; it routes to human review. This is the intended safety behavior for a human-in-the-loop system."
+  },
+  "limitations": [
+    "Disagreement gate is not a validated early-warning signal (precision 5.3%).",
+    "Real OPS-SAT segments lack p_critical scores from the simulation forecaster; the gate analysis on real data is a proxy via binary label disagreement.",
+    "No human operator study of gate utility has been performed."
+  ]
+}

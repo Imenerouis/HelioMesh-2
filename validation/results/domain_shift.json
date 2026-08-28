@@ -1,0 +1,127 @@
+{
+  "evaluated_at": "2026-08-14T17:13:02.236588",
+  "simulation_source": "ml/sequences.csv rows 10200-11999 (t5 features)",
+  "omni2_source": "STATIC_SAMPLE (seed=2024, n=500)",
+  "distributions": {
+    "kp_index": {
+      "simulation": {
+        "n": 1800,
+        "mean": 3.9908,
+        "std": 1.994,
+        "min": 0.0,
+        "p25": 2.3972,
+        "p50": 3.9777,
+        "p75": 5.3215,
+        "max": 9.0
+      },
+      "omni2_sample": {
+        "n": 500,
+        "mean": 2.9878,
+        "std": 2.1336,
+        "min": 0.0,
+        "p25": 1.3,
+        "p50": 2.5,
+        "p75": 4.4,
+        "max": 9.0
+      },
+      "median_shift_abs": 1.4777,
+      "standardized_median_shift": 0.716,
+      "note": "large shift"
+    },
+    "solar_wind_speed": {
+      "simulation": {
+        "n": 1800,
+        "mean": 560.1737,
+        "std": 161.7199,
+        "min": 266.3651,
+        "p25": 442.8375,
+        "p50": 542.8891,
+        "p75": 647.0446,
+        "max": 1104.9115
+      },
+      "omni2_sample": {
+        "n": 500,
+        "mean": 456.2388,
+        "std": 131.429,
+        "min": 300.4,
+        "p25": 363.2,
+        "p50": 420.5,
+        "p75": 525.3,
+        "max": 890.6
+      },
+      "median_shift_abs": 122.3891,
+      "standardized_median_shift": 0.831,
+      "note": "large shift"
+    },
+    "solar_wind_density": {
+      "simulation": {
+        "n": 1800,
+        "mean": 10.496,
+        "std": 5.8219,
+        "min": 1.098,
+        "p25": 6.035,
+        "p50": 9.8887,
+        "p75": 13.5251,
+        "max": 28.3542
+      },
+      "omni2_sample": {
+        "n": 500,
+        "mean": 7.7364,
+        "std": 4.7478,
+        "min": 2.02,
+        "p25": 4.33,
+        "p50": 6.41,
+        "p75": 10.21,
+        "max": 24.86
+      },
+      "median_shift_abs": 3.4787,
+      "standardized_median_shift": 0.655,
+      "note": "large shift"
+    },
+    "b_field": {
+      "simulation": {
+        "n": 1800,
+        "mean": -11.8508,
+        "std": 8.8703,
+        "min": -39.3913,
+        "p25": -16.5747,
+        "p50": -10.7322,
+        "p75": -5.4814,
+        "max": 3.7125
+      },
+      "omni2_sample": {
+        "n": 500,
+        "mean": -7.4475,
+        "std": 7.533,
+        "min": -34.05,
+        "p25": -10.27,
+        "p50": -5.72,
+        "p75": -2.21,
+        "max": 1.99
+      },
+      "median_shift_abs": 5.0122,
+      "standardized_median_shift": 0.609,
+      "note": "large shift"
+    }
+  },
+  "largest_shift_feature": "solar_wind_speed",
+  "summary": {
+    "kp_index": {
+      "standardized_median_shift": 0.716,
+      "note": "large shift"
+    },
+    "solar_wind_speed": {
+      "standardized_median_shift": 0.831,
+      "note": "large shift"
+    },
+    "solar_wind_density": {
+      "standardized_median_shift": 0.655,
+      "note": "large shift"
+    },
+    "b_field": {
+      "standardized_median_shift": 0.609,
+      "note": "large shift"
+    }
+  },
+  "conclusion": "Distribution comparison between simulation test features and OMNI2 static sample. The simulation generates features deterministically from physics-inspired formulas, producing distributions calibrated to HelioMesh regime definitions. OMNI2 distributions reflect real solar-wind statistics. Differences in feature distributions contribute to domain shift and explain some of the OMNI2 evaluation performance gap."
+}

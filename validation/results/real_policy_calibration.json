@@ -1,0 +1,323 @@
+{
+  "frozen_policy": {
+    "baseline": {
+      "p_esc": 0.5,
+      "p_pend": 0.5
+    },
+    "conservative": {
+      "p_esc": 0.3,
+      "p_pend": 0.2
+    },
+    "risk_aware": {
+      "p_esc": 0.6,
+      "p_pend": 0.35
+    },
+    "calibrated": {
+      "p_esc": 0.35,
+      "p_pend": 0.20000000000000004
+    }
+  },
+  "cv_summary": {
+    "baseline": {
+      "mean_utility": 0.7574521401391928,
+      "mean_unsafe": 10.6,
+      "mean_recall": 0.8350961538461539
+    },
+    "conservative": {
+      "mean_utility": 0.8165282624553931,
+      "mean_unsafe": 4.2,
+      "mean_recall": 0.9347596153846155
+    },
+    "risk_aware": {
+      "mean_utility": 0.7977989392953608,
+      "mean_unsafe": 7.2,
+      "mean_recall": 0.8881249999999999
+    },
+    "calibrated": {
+      "mean_utility": 0.8189781352891308,
+      "mean_unsafe": 4.2,
+      "mean_recall": 0.9347596153846155,
+      "p_esc": 0.35,
+      "p_pend": 0.20000000000000004
+    }
+  },
+  "disagree_cv": {
+    "mean_early_warn_cases": 45.2,
+    "std_early_warn_cases": 3.059411708155671,
+    "mean_ew_prec_unconditioned": 0.05368757259001161,
+    "std_ew_prec_unconditioned": 0.04251117006398252,
+    "mean_ew_prec_cond_cur_gt025": 0.38666666666666666,
+    "std_ew_prec_cond_cur_gt025": 0.38040913647165614,
+    "mean_ew_prec_cond_temp_gt070": 0.05138074742091958,
+    "std_ew_prec_cond_temp_gt070": 0.038462651094814726,
+    "conditioning_improves_precision_cur025": true,
+    "conditioning_improves_precision_temp070": false,
+    "per_fold": [
+      {
+        "fold": 0,
+        "n_val": 319,
+        "early_warn_cases": 42,
+        "ew_prec_unconditioned": 0.11904761904761904,
+        "ew_prec_cond_cur_gt025": 1.0,
+        "ew_prec_cond_temp_gt070": 0.11764705882352941,
+        "n_cond_cur_gt025": 2,
+        "n_cond_temp_gt070": 34
+      },
+      {
+        "fold": 1,
+        "n_val": 319,
+        "early_warn_cases": 48,
+        "ew_prec_unconditioned": 0.08333333333333333,
+        "ew_prec_cond_cur_gt025": 0.6,
+        "ew_prec_cond_temp_gt070": 0.05714285714285714,
+        "n_cond_cur_gt025": 5,
+        "n_cond_temp_gt070": 35
+      },
+      {
+        "fold": 2,
+        "n_val": 319,
+        "early_warn_cases": 48,
+        "ew_prec_unconditioned": 0.041666666666666664,
+        "ew_prec_cond_cur_gt025": 0.0,
+        "ew_prec_cond_temp_gt070": 0.04878048780487805,
+        "n_cond_cur_gt025": 1,
+        "n_cond_temp_gt070": 41
+      },
+      {
+        "fold": 3,
+        "n_val": 319,
+        "early_warn_cases": 47,
+        "ew_prec_unconditioned": 0.0,
+        "ew_prec_cond_cur_gt025": 0.0,
+        "ew_prec_cond_temp_gt070": 0.0,
+        "n_cond_cur_gt025": 3,
+        "n_cond_temp_gt070": 39
+      },
+      {
+        "fold": 4,
+        "n_val": 318,
+        "early_warn_cases": 41,
+        "ew_prec_unconditioned": 0.024390243902439025,
+        "ew_prec_cond_cur_gt025": 0.3333333333333333,
+        "ew_prec_cond_temp_gt070": 0.03333333333333333,
+        "n_cond_cur_gt025": 3,
+        "n_cond_temp_gt070": 30
+      }
+    ],
+    "conclusion": "Conditioning on current-model probability (>0.25) improves disagreement precision."
+  },
+  "test_results": {
+    "baseline": {
+      "thresholds": {
+        "p_esc": 0.5,
+        "p_pend": 0.5
+      },
+      "event_metrics": {
+        "tp": 99,
+        "fp": 4,
+        "fn": 14,
+        "tn": 412,
+        "precision": 0.9611650485436893,
+        "recall": 0.8761061946902655,
+        "f1": 0.9166666666666666,
+        "missed": 14,
+        "false_alerts": 4,
+        "unsafe_auto": 14
+      },
+      "decision_stats": {
+        "auto_clear": 426,
+        "pending": 0,
+        "escalated": 103,
+        "unsafe_auto": 14,
+        "correct_pending": 0,
+        "correct_escalated": 99,
+        "unnecessary_pending": 0,
+        "unnecessary_escalated": 4,
+        "correct_auto": 412,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7924385633270321,
+        "utility_sensitivity": {
+          "conservative": 0.6937618147448015,
+          "permissive": 0.7914933837429111,
+          "recall_focused": 0.45689981096408316
+        }
+      }
+    },
+    "conservative": {
+      "thresholds": {
+        "p_esc": 0.3,
+        "p_pend": 0.2
+      },
+      "event_metrics": {
+        "tp": 104,
+        "fp": 23,
+        "fn": 9,
+        "tn": 393,
+        "precision": 0.8188976377952756,
+        "recall": 0.9203539823008849,
+        "f1": 0.8666666666666667,
+        "missed": 9,
+        "false_alerts": 23,
+        "unsafe_auto": 9
+      },
+      "decision_stats": {
+        "auto_clear": 402,
+        "pending": 9,
+        "escalated": 118,
+        "unsafe_auto": 9,
+        "correct_pending": 2,
+        "correct_escalated": 102,
+        "unnecessary_pending": 7,
+        "unnecessary_escalated": 16,
+        "correct_auto": 393,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.7948960302457467,
+        "utility_sensitivity": {
+          "conservative": 0.7306238185255198,
+          "permissive": 0.7820415879017013,
+          "recall_focused": 0.5209829867674859
+        }
+      }
+    },
+    "risk_aware": {
+      "thresholds": {
+        "p_esc": 0.6,
+        "p_pend": 0.35
+      },
+      "event_metrics": {
+        "tp": 102,
+        "fp": 11,
+        "fn": 11,
+        "tn": 405,
+        "precision": 0.9026548672566371,
+        "recall": 0.9026548672566371,
+        "f1": 0.9026548672566371,
+        "missed": 11,
+        "false_alerts": 11,
+        "unsafe_auto": 11
+      },
+      "decision_stats": {
+        "auto_clear": 416,
+        "pending": 18,
+        "escalated": 95,
+        "unsafe_auto": 11,
+        "correct_pending": 9,
+        "correct_escalated": 93,
+        "unnecessary_pending": 9,
+        "unnecessary_escalated": 2,
+        "correct_auto": 405,
+        "decision_recall": 0.9026548672566371,
+        "utility_baseline": 0.8037807183364839,
+        "utility_sensitivity": {
+          "conservative": 0.7296786389413988,
+          "permissive": 0.7937618147448015,
+          "recall_focused": 0.49470699432892246
+        }
+      }
+    },
+    "calibrated": {
+      "thresholds": {
+        "p_esc": 0.35,
+        "p_pend": 0.20000000000000004
+      },
+      "event_metrics": {
+        "tp": 104,
+        "fp": 22,
+        "fn": 9,
+        "tn": 394,
+        "precision": 0.8253968253968254,
+        "recall": 0.9203539823008849,
+        "f1": 0.8702928870292888,
+        "missed": 9,
+        "false_alerts": 22,
+        "unsafe_auto": 9
+      },
+      "decision_stats": {
+        "auto_clear": 403,
+        "pending": 13,
+        "escalated": 113,
+        "unsafe_auto": 9,
+        "correct_pending": 2,
+        "correct_escalated": 102,
+        "unnecessary_pending": 11,
+        "unnecessary_escalated": 11,
+        "correct_auto": 394,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.7992438563327032,
+        "utility_sensitivity": {
+          "conservative": 0.7381852551984878,
+          "permissive": 0.7850661625708885,
+          "recall_focused": 0.5230623818525519
+        }
+      }
+    },
+    "rf_threshold_0.50": {
+      "thresholds": {
+        "p_esc": 0.5,
+        "p_pend": 0.5
+      },
+      "event_metrics": {
+        "tp": 99,
+        "fp": 4,
+        "fn": 14,
+        "tn": 412,
+        "precision": 0.9611650485436893,
+        "recall": 0.8761061946902655,
+        "f1": 0.9166666666666666,
+        "missed": 14,
+        "false_alerts": 4,
+        "unsafe_auto": 14
+      },
+      "decision_stats": {
+        "auto_clear": 426,
+        "pending": 0,
+        "escalated": 103,
+        "unsafe_auto": 14,
+        "correct_pending": 0,
+        "correct_escalated": 99,
+        "unnecessary_pending": 0,
+        "unnecessary_escalated": 4,
+        "correct_auto": 412,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7924385633270321,
+        "utility_sensitivity": {
+          "conservative": 0.6937618147448015,
+          "permissive": 0.7914933837429111,
+          "recall_focused": 0.45689981096408316
+        }
+      }
+    }
+  },
+  "best_policy": "risk_aware",
+  "safest_policy": "conservative",
+  "conclusions": {
+    "temporal_prediction_supported": true,
+    "temporal_classification": "B",
+    "disagreement_useful_with_conditioning": true,
+    "calibrated_policy_improves_utility": true,
+    "calibrated_policy_reduces_unsafe_auto": true,
+    "calibrated_policy_changes_recall": 0.04424778761061943,
+    "real_telemetry_validates": "DETECTION \u2014 anomaly classification on real spacecraft telemetry is demonstrated at F1=0.9209.",
+    "decision_intelligence_claim": "The calibrated HelioMesh policy improves safety (reduces unsafe AUTO decisions) versus the baseline policy. Whether this constitutes \"decision intelligence\" depends on the mission: for safety-critical applications, reducing unsafe AUTO from 14 to 9 is operationally meaningful.",
+    "honest_limitation": "OPS-SAT-AD is a segment-classification benchmark. It validates anomaly detection, not the full 4-class risk taxonomy, not the 30-minute prediction horizon, and not Granite reasoning with human operators."
+  },
+  "frozen_integrity": {
+    "ml/risk_model.pkl": {
+      "sha256": "109a8a43578926a2a4168b2eba404e09e1aa0ec81f459d91380d5cc49a27dadb",
+      "status": "OK"
+    },
+    "ml/label_encoder.pkl": {
+      "sha256": "20b39a8a67cd98b5b6e6b464eb2842048337fec8ed0cbfe11bd02346c16c3c02",
+      "status": "OK"
+    },
+    "ml/forecaster_model.pkl": {
+      "sha256": "89864a1706a312c21a5fb86b67d925f549fd00d30e8bdda070d0ca3f325c23f1",
+      "status": "OK"
+    },
+    "ml/forecaster_metrics.json": {
+      "sha256": "533b3fc5b48e4c095f9356e4dbd0311ab2cc9212a2b7efb7fdefda0592ad613a",
+      "status": "OK"
+    },
+    "all_unchanged": true
+  }
+}

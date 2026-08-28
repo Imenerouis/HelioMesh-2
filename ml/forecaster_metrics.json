@@ -1,0 +1,148 @@
+{
+  "trained_at": "2026-08-13T17:32:23.049736",
+  "model_type": "GradientBoostingClassifier",
+  "n_estimators_note": "100 (fast eval); use train_forecaster.py for n=300",
+  "task": "Supervised classification: 30-min look-back -> state at t+30min",
+  "honest_description": "HelioMesh predicts the satellite future operational safety state from simulated telemetry sequences. NOT a prediction of real satellite failures.",
+  "timing": {
+    "look_back_minutes": 30,
+    "look_ahead_minutes": 30,
+    "total_span_minutes": 60,
+    "step_minutes": 5,
+    "window_steps": 6,
+    "horizon_steps": 6,
+    "timing_note": "Input: t0..t25 (6 steps x 5min). Horizon: t25..t55 (not in features). Target: state at t55 = 30min beyond last input snapshot."
+  },
+  "split": {
+    "strategy": "chronological 70/15/15",
+    "n_train": 8400,
+    "n_val": 1800,
+    "n_test": 1800,
+    "train_label_dist": {
+      "0": 3461,
+      "1": 4939
+    },
+    "val_label_dist": {
+      "0": 715,
+      "1": 1085
+    },
+    "test_label_dist": {
+      "0": 749,
+      "1": 1051
+    }
+  },
+  "sequence_overlap": "none",
+  "sequence_overlap_note": "Each sequence has independent random initial conditions. No sliding-window overlap between sequences.",
+  "val_metrics": {
+    "macro_f1": 0.9663,
+    "roc_auc": 0.9964
+  },
+  "test_metrics": {
+    "accuracy": 0.9717,
+    "macro_f1": 0.9708,
+    "roc_auc": 0.9975,
+    "average_precision": 0.9982,
+    "per_class": {
+      "NOMINAL_AHEAD": {
+        "precision": 0.9742,
+        "recall": 0.9573,
+        "f1": 0.9657,
+        "support": 749
+      },
+      "CRITICAL_AHEAD": {
+        "precision": 0.9699,
+        "recall": 0.9819,
+        "f1": 0.9759,
+        "support": 1051
+      }
+    },
+    "confusion_matrix": [
+      [
+        717,
+        32
+      ],
+      [
+        19,
+        1032
+      ]
+    ],
+    "confusion_matrix_note": "rows = actual label, cols = predicted label, order = [NOMINAL_AHEAD, CRITICAL_AHEAD]"
+  },
+  "baseline_last_known_state": {
+    "name": "last-known-state (full snapshot rule on t5)",
+    "description": "Apply HelioMesh safety rules to the LAST window snapshot (t5). Zero temporal learning \u2014 represents the trivial current-state predictor.",
+    "accuracy": 0.9022,
+    "macro_f1": 0.9015,
+    "roc_auc": 0.9138,
+    "critical_recall": 0.8449,
+    "per_class": {
+      "NOMINAL_AHEAD": {
+        "precision": 0.8187,
+        "recall": 0.9826,
+        "f1": 0.8932
+      },
+      "CRITICAL_AHEAD": {
+        "precision": 0.9856,
+        "recall": 0.8449,
+        "f1": 0.9098
+      }
+    },
+    "confusion_matrix": [
+      [
+        736,
+        13
+      ],
+      [
+        163,
+        888
+      ]
+    ]
+  },
+  "baseline_kp_only": {
+    "name": "KP-only threshold (kp_index_t5 > 4.0)",
+    "description": "Strongest single-feature shortcut identified in audit. Uses only kp_index at last window step with the STANDBY rule threshold. Tests whether the temporal model adds value beyond the strongest shortcut.",
+    "threshold": "kp_index_t5 > 4.0",
+    "accuracy": 0.8983,
+    "macro_f1": 0.8977,
+    "roc_auc": 0.9104,
+    "critical_recall": 0.8382,
+    "per_class": {
+      "NOMINAL_AHEAD": {
+        "precision": 0.8124,
+        "recall": 0.9826,
+        "f1": 0.8894
+      },
+      "CRITICAL_AHEAD": {
+        "precision": 0.9855,
+        "recall": 0.8382,
+        "f1": 0.9059
+      }
+    },
+    "confusion_matrix": [
+      [
+        736,
+        13
+      ],
+      [
+        170,
+        881
+      ]
+    ]
+  },
+  "model_vs_baselines": {
+    "vs_last_known_state": {
+      "accuracy_gain": 0.0694,
+      "macro_f1_gain": 0.0693,
+      "roc_auc_gain": 0.0837,
+      "critical_recall_gain": 0.137
+    },
+    "vs_kp_only": {
+      "accuracy_gain": 0.0733,
+      "macro_f1_gain": 0.0731,
+      "roc_auc_gain": 0.087,
+      "critical_recall_gain": 0.1437
+    },
+    "interpretation": "The temporal model must beat BOTH baselines to demonstrate genuine value. KP-only is the strongest shortcut found in the audit (83% feature importance). Gains vs KP-only show what the full temporal window adds beyond that shortcut."
+  },
+  "disclaimer": "Does NOT predict real satellite failures. Labels derived from HelioMesh prototype safety rules, not NASA/NOAA standards."
+}

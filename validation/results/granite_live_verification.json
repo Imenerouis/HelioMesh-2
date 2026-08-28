@@ -1,0 +1,128 @@
+{
+  "normal": {
+    "scenario": "normal",
+    "decision_id": "DEC-9F694371",
+    "confidence_score": 90,
+    "confidence_tier": "HIGH",
+    "status": "auto_executed",
+    "action_message": "AUTO-EXECUTE: Action executed automatically",
+    "risk_score": 31.6,
+    "risk_level": "MODERATE",
+    "model_agreement": "AGREE",
+    "drift_status": "STABLE",
+    "ml_predicted_state": "NOMINAL",
+    "ml_confidence": 100.0,
+    "gb_forecast_label": "NOMINAL_AHEAD",
+    "gb_critical_probability": 0.9,
+    "ai_trace_full": "1. OBSERVATION: The current satellite state is NOMINAL. The Random Forest classifier predicts NOMINAL with 100% confidence and 0% risk of any other state. Telemetry shows a KP index of 3.5 (well below critical), sail angle at 45 degrees, stable solar wind speed (450 km/s), minimal orbit deviation (0.38 km), power output at 70.71 watts, and overall status reported as nominal.\n\n2. PREDICTION: In 30 minutes, the Gradient Boosting temporal predictor forecasts the satellite will remain in the NOMINAL_AHEAD state with 99.2% confidence. The forecast indicates a 0.9% probability of entering a CRITICAL state, showing stable KP trend (+0.00) and stable power trend (+0.00 W) over the prediction window.\n\n3. MODEL STATUS: The two models AGREE on the risk level, both indicating a nominal/low risk condition. This operational agreement means the current telemetry and short-term forecast consistently suggest the satellite is functioning as expected with no imminent threats.\n\n4. EVIDENCE: The total risk score is 31.6/100, with the primary risk drivers being solar weather (15.6), followed by orbital instability (5.7) and power degradation (5.9). Solar wind contributes a smaller portion (4.5). Data drift status is STABLE, and model status shows AGREE, reinforcing the low-risk assessment.\n\n5. RECOMMENDED ACTION: No immediate action is required. Continue routine monitoring of telemetry and maintain current operational parameters. No adjustments to sail angle, power management, or other systems are necessary at this time.\n\n6. CONFIDENCE: High. The high confidence stems from the strong agreement between the two models, the nominal telemetry readings, and the low overall risk score. The stable data drift status further supports the reliability of the current assessment.\n\n7. REASON: The reasoning chain begins with the observation of a nominal satellite state supported by telemetry and the current-state ML prediction. The temporal predictor then forecasts continued nominal operation with high confidence, corroborated by stable trends in key parameters. The agreement between models and the low risk score, combined with stable data drift, justify maintaining the current operational status without intervention.",
+    "sections_found": [
+      "OBSERVATION",
+      "CONFIDENCE",
+      "PREDICTION",
+      "MODEL STATUS",
+      "EVIDENCE",
+      "RECOMMENDED ACTION",
+      "REASON"
+    ],
+    "sections_missing": [],
+    "all_7_sections_present": true,
+    "sections_content": {
+      "OBSERVATION": "of a nominal satellite state supported by telemetry and the current-state ML",
+      "CONFIDENCE": ", corroborated by stable trends in key parameters. The agreement between models and the low risk score, combined with stable data drift, justify maintaining the current operational status without intervention.",
+      "PREDICTION": ". The temporal predictor then forecasts continued nominal operation with high",
+      "MODEL STATUS": "shows AGREE, reinforcing the low-risk assessment.",
+      "EVIDENCE": "The total risk score is 31.6/100, with the primary risk drivers being solar weather (15.6), followed by orbital instability (5.7) and power degradation (5.9). Solar wind contributes a smaller portion (4.5). Data drift status is STABLE, and",
+      "RECOMMENDED ACTION": "No immediate action is required. Continue routine monitoring of telemetry and maintain current operational parameters. No adjustments to sail angle, power management, or other systems are necessary at this time.",
+      "REASON": "ing chain begins with the"
+    },
+    "routing_independence": {
+      "confidence_score_drives_route": true,
+      "granite_text_does_not_drive_route": true,
+      "note": "route_decision() in decision_engine.py computes route from kp/orbit/power — Granite text not parsed for routing"
+    }
+  },
+  "warning": {
+    "scenario": "warning",
+    "decision_id": "DEC-3A5688F5",
+    "confidence_score": 65,
+    "confidence_tier": "MEDIUM",
+    "status": "pending_approval",
+    "action_message": "PENDING APPROVAL: Waiting for operator confirmation",
+    "risk_score": 48.0,
+    "risk_level": "MODERATE",
+    "model_agreement": "AGREE",
+    "drift_status": "STABLE",
+    "ml_predicted_state": "STANDBY",
+    "ml_confidence": 100.0,
+    "gb_forecast_label": "CRITICAL_AHEAD",
+    "gb_critical_probability": 99.0,
+    "ai_trace_full": "End with a short concluding sentence.\n\n---\n\n1. OBSERVATION: The satellite is currently in **STANDBY** state according to the **Current-State ML** prediction, which reports a **100 % probability** of being in this state and **0 % probability** of NOMINAL operation. Telemetry shows a KP index of **5.0** (moderate geomagnetic activity), a sail angle of **60°**, solar wind speed **550 km/s**, orbit deviation **0.688 km**, and power output **50 W**, with an overall status of **warning**.\n\n2. PREDICTION: The **30‑Minute Temporal Predictor** forecasts the satellite will enter **CRITICAL** operational state within the next 30 minutes, with a **99 % probability** of CRITICAL and only **1 %** probability of remaining NOMINAL. The forecast confidence is **99 %**, and both KP index and power output show **stable trends** (no change) over the recent window.\n\n3. MODEL STATUS: The two models **AGREE** on an elevated/critical risk level. This means both the instantaneous classification and the short‑term forecast consistently indicate that the satellite is not operating nominally and faces a high likelihood of entering a critical condition soon.\n\n4. EVIDENCE: The **Risk Score** is **48 / 100**, driven primarily by **Solar Weather (22.2)**, **Orbital Instability (10.3)**, and **Power Degradation (10.0)**, with a smaller contribution from **Solar Wind (5.5)**. Data drift is **STABLE**, indicating telemetry remains within the training distribution. Both models concur on high risk.\n\n5. RECOMMENDED ACTION: **Switch the satellite to SAFE_MODE immediately** to protect its subsystems from the anticipated critical conditions. This action mitigates potential damage from the high solar wind, geomagnetic activity, and power constraints.\n\n6. CONFIDENCE: **High**. The agreement between the current‑state and 30‑minute predictors, combined with a risk score above 40 / 100 and stable telemetry, provides strong evidence for the imminent critical state.\n\n7. REASON: The satellite’s telemetry shows moderate geomagnetic activity (KP = 5) and a solar wind of 550 ",
+    "sections_found": [
+      "OBSERVATION",
+      "PREDICTION",
+      "CONFIDENCE",
+      "MODEL STATUS",
+      "EVIDENCE",
+      "RECOMMENDED ACTION",
+      "REASON"
+    ],
+    "sections_missing": [],
+    "all_7_sections_present": true,
+    "sections_content": {
+      "OBSERVATION": "The satellite is currently in **STANDBY** state according to the **Current-State ML**",
+      "PREDICTION": "The **30‑Minute Temporal Predictor** forecasts the satellite will enter **CRITICAL** operational state within the next 30 minutes, with a **99 % probability** of CRITICAL and only **1 %** probability of remaining NOMINAL. The forecast",
+      "CONFIDENCE": "**High**. The agreement between the current‑state and 30‑minute predictors, combined with a risk score above 40 / 100 and stable telemetry, provides strong",
+      "MODEL STATUS": "The two models **AGREE** on an elevated/critical risk level. This means both the instantaneous classification and the short‑term forecast consistently indicate that the satellite is not operating nominally and faces a high likelihood of entering a critical condition soon.",
+      "EVIDENCE": "for the imminent critical state.",
+      "RECOMMENDED ACTION": "**Switch the satellite to SAFE_MODE immediately** to protect its subsystems from the anticipated critical conditions. This action mitigates potential damage from the high solar wind, geomagnetic activity, and power constraints.",
+      "REASON": "The satellite’s telemetry shows moderate geomagnetic activity (KP = 5) and a solar wind of 550"
+    },
+    "routing_independence": {
+      "confidence_score_drives_route": true,
+      "granite_text_does_not_drive_route": true,
+      "note": "route_decision() in decision_engine.py computes route from kp/orbit/power — Granite text not parsed for routing"
+    }
+  },
+  "storm": {
+    "scenario": "storm",
+    "decision_id": "DEC-354A0086",
+    "confidence_score": 10,
+    "confidence_tier": "LOW",
+    "status": "escalated",
+    "action_message": "ESCALATED: High-risk event — operator must review",
+    "risk_score": 87.6,
+    "risk_level": "CRITICAL",
+    "model_agreement": "AGREE",
+    "drift_status": "MODERATE_DRIFT",
+    "ml_predicted_state": "SAFE_MODE",
+    "ml_confidence": 100.0,
+    "gb_forecast_label": "CRITICAL_AHEAD",
+    "gb_critical_probability": 99.3,
+    "ai_trace_full": "End the trace with a short concluding sentence.\n\n**Mission Decision Trace**\n\n1. OBSERVATION: The current satellite state is **SAFE_MODE** with a **100% risk probability** of being **not NOMINAL**. Telemetry shows a **KP index of 7.5 (critical)**, **solar wind speed of 800 km/s**, **orbit deviation of 1.75 km**, **zero power output**, and an overall **critical status**.\n\n2. PREDICTION: In 30 minutes, the satellite is expected to be in the **CRITICAL_AHEAD** state with a **99.3% probability**. The forecast confidence is **99.3%**, with stable trends in KP index and power output over the window.\n\n3. MODEL STATUS: The two models **AGREE** on an elevated/critical risk level. This means both the current-state classifier and the 30-minute predictor consistently indicate a high likelihood of critical conditions, reinforcing the need for immediate action.\n\n4. EVIDENCE: The total risk score is **87.6/100**, driven primarily by **solar weather (33.3)**, **orbital instability (26.2)**, and **power degradation (20.0)**. The data drift status is **MODERATE_DRIFT**, and both models indicate elevated risk.\n\n5. RECOMMENDED ACTION: **Enter standby mode immediately** to mitigate the risk of critical failure due to the severe solar weather and unstable orbital conditions.\n\n6. CONFIDENCE: **High**. The agreement between models, combined with the critical telemetry values and high risk score, provides strong justification for immediate action.\n\n7. REASON: The observation of critical telemetry values and the SAFE_MODE state with 100% risk probability, coupled with the 30-minute prediction of CRITICAL_AHEAD with 99.3% confidence, necessitates immediate standby to prevent potential mission failure.\n\nThe mission should proceed with the recommended action to ensure safety.",
+    "sections_found": [
+      "OBSERVATION",
+      "PREDICTION",
+      "CONFIDENCE",
+      "MODEL STATUS",
+      "EVIDENCE",
+      "RECOMMENDED ACTION",
+      "REASON"
+    ],
+    "sections_missing": [],
+    "all_7_sections_present": true,
+    "sections_content": {
+      "OBSERVATION": "of critical telemetry values and the SAFE_MODE state with 100% risk probability, coupled with the 30-minute",
+      "PREDICTION": "of CRITICAL_AHEAD with 99.3%",
+      "CONFIDENCE": ", necessitates immediate standby to prevent potential mission failure.\n\nThe mission should proceed with the",
+      "MODEL STATUS": "The two models **AGREE** on an elevated/critical risk level. This means both the current-state classifier and the 30-minute predictor consistently indicate a high likelihood of critical conditions, reinforcing the need for immediate action.",
+      "EVIDENCE": "The total risk score is **87.6/100**, driven primarily by **solar weather (33.3)**, **orbital instability (26.2)**, and **power degradation (20.0)**. The data drift status is **MODERATE_DRIFT**, and both models indicate elevated risk.",
+      "RECOMMENDED ACTION": "to ensure safety.",
+      "REASON": "The"
+    },
+    "routing_independence": {
+      "confidence_score_drives_route": true,
+      "granite_text_does_not_drive_route": true,
+      "note": "route_decision() in decision_engine.py computes route from kp/orbit/power — Granite text not parsed for routing"
+    }
+  }
+}

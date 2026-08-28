@@ -1,0 +1,79 @@
+{
+  "methodology_note": "In OPS-SAT-AD each segment is a single annotated event. No boundary reconstruction is required \u2014 segment boundaries ARE event boundaries by dataset design.",
+  "total_test_segments": 529,
+  "true_anomaly_events": 113,
+  "true_normal_events": 416,
+  "detected_events": 99,
+  "missed_events": 14,
+  "false_alert_events": 3,
+  "correct_nominal": 413,
+  "event_precision": 0.9705882352941176,
+  "event_recall": 0.8761061946902655,
+  "event_f1": 0.9209302325581395,
+  "channel_breakdown": {
+    "CADC0872": {
+      "total_segments": 132,
+      "anomaly_segments": 32,
+      "detected": 29,
+      "missed": 3,
+      "false_alerts": 0
+    },
+    "CADC0873": {
+      "total_segments": 153,
+      "anomaly_segments": 31,
+      "detected": 29,
+      "missed": 2,
+      "false_alerts": 1
+    },
+    "CADC0874": {
+      "total_segments": 52,
+      "anomaly_segments": 23,
+      "detected": 18,
+      "missed": 5,
+      "false_alerts": 0
+    },
+    "CADC0884": {
+      "total_segments": 36,
+      "anomaly_segments": 0,
+      "detected": 0,
+      "missed": 0,
+      "false_alerts": 0
+    },
+    "CADC0886": {
+      "total_segments": 4,
+      "anomaly_segments": 1,
+      "detected": 1,
+      "missed": 0,
+      "false_alerts": 0
+    },
+    "CADC0888": {
+      "total_segments": 64,
+      "anomaly_segments": 12,
+      "detected": 11,
+      "missed": 1,
+      "false_alerts": 1
+    },
+    "CADC0890": {
+      "total_segments": 2,
+      "anomaly_segments": 2,
+      "detected": 2,
+      "missed": 0,
+      "false_alerts": 0
+    },
+    "CADC0892": {
+      "total_segments": 53,
+      "anomaly_segments": 7,
+      "detected": 6,
+      "missed": 1,
+      "false_alerts": 0
+    },
+    "CADC0894": {
+      "total_segments": 33,
+      "anomaly_segments": 5,
+      "detected": 3,
+      "missed": 2,
+      "false_alerts": 1
+    }
+  },
+  "model_used": "random_forest (official test partition)"
+}

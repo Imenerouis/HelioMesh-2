@@ -1,0 +1,57 @@
+{
+  "built_at": "2026-08-21T16:02:42.878942",
+  "train_rows": 8400,
+  "monitor_features": [
+    "kp_index",
+    "solar_wind_speed",
+    "solar_wind_density",
+    "b_field",
+    "orbit_deviation",
+    "power_output"
+  ],
+  "z_threshold_moderate": 2.5,
+  "z_threshold_high": 4.0,
+  "training_stats": {
+    "kp_index": {
+      "mean": 4.0564,
+      "std": 2.0255,
+      "min": 0.0199,
+      "max": 9.0
+    },
+    "solar_wind_speed": {
+      "mean": 567.0642,
+      "std": 170.395,
+      "min": 273.8904,
+      "max": 1134.5712
+    },
+    "solar_wind_density": {
+      "mean": 10.6411,
+      "std": 5.8749,
+      "min": 1.0,
+      "max": 28.8549
+    },
+    "b_field": {
+      "mean": -12.1163,
+      "std": 8.8504,
+      "min": -40.0,
+      "max": 4.6242
+    },
+    "orbit_deviation": {
+      "mean": 0.6921,
+      "std": 0.4854,
+      "min": 0.139,
+      "max": 2.4944
+    },
+    "power_output": {
+      "mean": 55.6004,
+      "std": 20.9509,
+      "min": 0.019,
+      "max": 86.6016
+    }
+  },
+  "status_definitions": {
+    "STABLE": "All |z-scores| < 2.5",
+    "MODERATE_DRIFT": "Any |z-score| in [2.5, 4.0)",
+    "HIGH_DRIFT": "Any |z-score| >= 4.0"
+  }
+}

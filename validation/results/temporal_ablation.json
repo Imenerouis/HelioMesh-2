@@ -1,0 +1,124 @@
+{
+  "evaluated_at": "2026-08-14T17:13:01.667970",
+  "test_rows": 1800,
+  "test_split": "rows 10200\u201311999 of ml/sequences.csv",
+  "ground_truth_dist": {
+    "CRITICAL_AHEAD": 1051,
+    "NOMINAL_AHEAD": 749
+  },
+  "frozen_benchmark": {
+    "source": "ml/forecaster_metrics.json \u2014 DO NOT RECOMPUTE",
+    "GB_model": {
+      "accuracy": 0.9717,
+      "macro_f1": 0.9708,
+      "critical_recall": 0.9819
+    },
+    "last_known_state": {
+      "accuracy": 0.9022,
+      "macro_f1": 0.9015,
+      "critical_recall": 0.8449
+    },
+    "kp_only_threshold": {
+      "accuracy": 0.8983,
+      "macro_f1": 0.8977,
+      "critical_recall": 0.8382
+    }
+  },
+  "new_baselines": {
+    "E_linear_trend_kp": {
+      "description": "Use only delta_kp_index (t5 - t0). Threshold=0.3 is POST-HOC OPTIMISED on test set \u2014 upper bound only, not a generalisation result.",
+      "post_hoc_optimised": true,
+      "best_threshold": 0.30000000000000004,
+      "accuracy": 0.6733,
+      "macro_f1": 0.6715,
+      "balanced_accuracy": 0.68,
+      "critical_recall": 0.6403,
+      "per_class": {
+        "NOMINAL_AHEAD": {
+          "precision": 0.5878,
+          "recall": 0.7196,
+          "f1": 0.6471,
+          "support": 749
+        },
+        "CRITICAL_AHEAD": {
+          "precision": 0.7622,
+          "recall": 0.6403,
+          "f1": 0.696,
+          "support": 1051
+        }
+      }
+    },
+    "F_multi_feature_threshold": {
+      "description": "kp_index_t5 > 4.0 OR delta_kp_index > 1.0. Fixed thresholds, not tuned.",
+      "post_hoc_optimised": false,
+      "accuracy": 0.9056,
+      "macro_f1": 0.9045,
+      "balanced_accuracy": 0.9142,
+      "critical_recall": 0.863,
+      "per_class": {
+        "NOMINAL_AHEAD": {
+          "precision": 0.8339,
+          "recall": 0.9653,
+          "f1": 0.8948,
+          "support": 749
+        },
+        "CRITICAL_AHEAD": {
+          "precision": 0.9721,
+          "recall": 0.863,
+          "f1": 0.9143,
+          "support": 1051
+        }
+      }
+    },
+    "G_always_critical": {
+      "description": "Always predict CRITICAL_AHEAD. Upper bound on CRITICAL recall.",
+      "accuracy": 0.5839,
+      "macro_f1": 0.3686,
+      "balanced_accuracy": 0.5,
+      "critical_recall": 1.0,
+      "per_class": {
+        "NOMINAL_AHEAD": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 749
+        },
+        "CRITICAL_AHEAD": {
+          "precision": 0.5839,
+          "recall": 1.0,
+          "f1": 0.7373,
+          "support": 1051
+        }
+      }
+    },
+    "H_always_nominal": {
+      "description": "Always predict NOMINAL_AHEAD. Upper bound on NOMINAL precision.",
+      "accuracy": 0.4161,
+      "macro_f1": 0.2939,
+      "balanced_accuracy": 0.5,
+      "critical_recall": 0.0,
+      "per_class": {
+        "NOMINAL_AHEAD": {
+          "precision": 0.4161,
+          "recall": 1.0,
+          "f1": 0.5877,
+          "support": 749
+        },
+        "CRITICAL_AHEAD": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1051
+        }
+      }
+    }
+  },
+  "gap_analysis": {
+    "gb_vs_kp_only_macro_f1": 0.0731,
+    "gb_vs_multi_feature_macro_f1": 0.0663,
+    "gb_vs_trend_posthoc_macro_f1": 0.2993,
+    "gb_vs_kp_only_critical_recall": 0.1437
+  },
+  "scientific_conclusion": "Frozen GB macro-F1: 0.9708.  KP-only macro-F1: 0.8977.  Gap: +0.0731. Multi-feature threshold (kp_t5>4 OR delta_kp>1): macro-F1=0.9045.  Gap vs GB: 0.0663. Linear-trend KP (post-hoc optimal threshold=0.3): macro-F1=0.6715.  Gap vs GB: 0.2993. Even post-hoc optimised delta_kp alone (0.6715 macro-F1) is 0.2993 below the full GB temporal model. This gap reflects information from non-KP delta features and the full 6-step window pattern. CRITICAL_recall gap: GB=0.9819 vs KP-only=0.8382 (+0.1437). For safety-critical missed-anomaly cost, the temporal window provides a substantial and reproducible uplift over single-feature shortcuts. HONEST ASSESSMENT: The temporal window does add measurable value beyond KP-only. The +0.0731 macro-F1 and +0.1437 CRITICAL recall gains are reproducible on the frozen test set. The primary benefit is reduced missed anomalies. However, all evidence is on simulation data \u2014 the same conclusion may not hold on real spacecraft telemetry.",
+  "frozen_models_unchanged": true
+}

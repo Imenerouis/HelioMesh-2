@@ -1,0 +1,48 @@
+{
+  "scenario": "rf_nominal_gb_critical_disagreement",
+  "evaluated_at": "2026-08-14T15:18:39Z",
+  "description": "Window KP rising 2.0 → 3.8 over 6 steps (30 min). RF snapshot at current KP=3.8 classifies NOMINAL (below 4.0 threshold). GB temporal model sees rising KP trend (delta_kp=+1.8) → CRITICAL_AHEAD.",
+  "window_kp_steps": [
+    2.0,
+    2.3,
+    2.7,
+    3.0,
+    3.4,
+    3.8
+  ],
+  "current_kp": 3.8,
+  "rf_predicted_state": "NOMINAL",
+  "rf_model_confidence_pct": 100.0,
+  "rf_p_nominal_pct": 100.0,
+  "rf_p_standby_pct": 0.0,
+  "rf_p_safe_mode_pct": 0.0,
+  "gb_forecast_label": "CRITICAL_AHEAD",
+  "gb_critical_probability_pct": 80.5,
+  "gb_forecast_confidence_pct": 80.5,
+  "gb_delta_kp": 1.8,
+  "model_agreement": "DISAGREE",
+  "risk_score": 29.9,
+  "risk_breakdown": {
+    "solar_weather": 16.9,
+    "orbital_instability": 3.0,
+    "power_degradation": 5.0,
+    "solar_wind": 5.0,
+    "total": 29.9
+  },
+  "route_without_policy": {
+    "status": "auto_executed",
+    "confidence_score": 90,
+    "action_message": "AUTO-EXECUTE: Action executed automatically",
+    "disagree_override": false
+  },
+  "route_with_policy": {
+    "status": "pending_approval",
+    "confidence_score": 90,
+    "action_message": "PENDING APPROVAL: Model disagreement — RF=NOMINAL but GB=CRITICAL_AHEAD (p≥50%). Operator review required.",
+    "disagree_override": true,
+    "decision_source": "Disagreement Policy + IBM Granite 4"
+  },
+  "disagree_threshold_used": 0.5,
+  "policy_triggered_correctly": true,
+  "interpretation": "RF snapshot (current state): KP=3.8 is below the 4.0 STANDBY threshold → NOMINAL. GB temporal predictor (30-min window): delta_kp=+1.8 signals a rapidly rising storm → CRITICAL_AHEAD. The disagreement autonomy policy detects RF=NOMINAL ∧ GB=CRITICAL_AHEAD ∧ p_crit ≥ 50% and forces PENDING_APPROVAL, blocking AUTO_EXECUTE so an operator must review before any action is taken. 171 equivalent cases exist in the simulation test set (validation/results/model_agreement.json, rf_nominal_gb_critical=171)."
+}

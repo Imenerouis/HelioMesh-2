@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-08-14T17:13:02.397168",
+  "project": "HelioMesh \u2014 AI-Assisted Satellite Mission Control",
+  "challenge": "IBM AI Builders Challenge \u2014 August 2026",
+  "frozen_benchmark_unchanged": {
+    "temporal_accuracy": 0.9717,
+    "temporal_macro_f1": 0.9708,
+    "temporal_roc_auc": 0.9975,
+    "critical_recall": 0.9819,
+    "source": "ml/forecaster_metrics.json \u2014 NOT RECOMPUTED",
+    "sha256_prefix": {
+      "risk_model.pkl": "109a8a43578926a2",
+      "label_encoder.pkl": "20b39a8a67cd98b5",
+      "forecaster_model.pkl": "89864a1706a312c2",
+      "forecaster_metrics.json": "533b3fc5b48e4c09"
+    }
+  },
+  "problem_1_real_telemetry": {
+    "source": "SMAP_STANDIN",
+    "method": "iforest",
+    "f1": 0.8959,
+    "roc_auc": 0.9998,
+    "events_detected": 4,
+    "events_missed": 0,
+    "disclaimer": "SYNTHETIC_STANDIN: this is NOT the real NASA SMAP dataset. Anomaly windows are artificially injected at known positions (seed=42).  Results are for methodology demonstration only."
+  },
+  "problem_2_ml_vs_rules": {
+    "rf_vs_rules_agreement_pct": 99.2,
+    "rf_accuracy_vs_rule_gt": 0.9917,
+    "rf_macro_f1_vs_rule_gt": 0.9911,
+    "gb_macro_f1": 0.9708,
+    "multi_feature_macro_f1": 0.9045,
+    "kp_only_macro_f1": 0.8977,
+    "gb_vs_kp_only_f1_gain": 0.0731,
+    "gb_vs_kp_critical_recall_gain": 0.1437,
+    "kp_feature_importance_pct": 85.83,
+    "non_kp_material": true,
+    "top1_feature": "kp_index_t5",
+    "top1_feature_pct": 83.32
+  },
+  "problem_3_omni2_cadence": {
+    "simulation_5min_macro_f1": 0.9708,
+    "simulation_hourly_macro_f1": 0.4329,
+    "omni2_hourly_macro_f1": 0.4839,
+    "cadence_drop": 0.5379,
+    "domain_drop": -0.051,
+    "primary_cause": "A \u2014 cadence mismatch dominates",
+    "omni2_classification": "DOMAIN-SHIFT / TRANSFER TEST \u2014 not temporal prediction benchmark"
+  },
+  "problem_4_policy": {
+    "policy_label": "HelioMesh Prototype Autonomy Policy",
+    "safety_tests_passed": 6,
+    "safety_tests_total": 6,
+    "all_safety_passed": true,
+    "sensitivity_note": "Simulation 5-min benchmark (frozen): macro_f1=0.9708. Simulation downsampled to ",
+    "threshold_sharpness": "Sharp \u2014 single-value boundaries. No hysteresis. Prototype limitation.",
+    "disagree_threshold": 0.5,
+    "policy_tests_25_pass": 100.0
+  },
+  "problem_5_granite": {
+    "grounding_score": 0.9444,
+    "contradiction_rate": 0.0,
+    "scenarios_evaluated": 3,
+    "total_checks": 18,
+    "total_passed": 17,
+    "route_selected_by": "Deterministic Decision Engine (Granite receives route as context only)"
+  },
+  "existing_pipeline_metrics": {
+    "snapshot_consistency_pct": 99.8,
+    "snapshot_macro_f1": 0.9978,
+    "early_warning_detection_pct": null,
+    "early_warning_lead_steps": null,
+    "model_agreement_pct": 90.4,
+    "rf_nominal_gb_critical_cases": 171,
+    "policy_tests_pass_pct": 100.0
+  },
+  "test_suites_run": {
+    "policy_tests": "25/25 pass",
+    "safety_property_tests": "6/6 pass",
+    "parser_unit_tests": "12/12 pass (jest)",
+    "validation_pipeline": "all stages complete"
+  }
+}

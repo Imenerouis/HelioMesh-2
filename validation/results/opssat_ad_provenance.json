@@ -1,0 +1,25 @@
+{
+  "dataset_name": "OPSSAT-AD",
+  "zenodo_doi": "https://doi.org/10.5281/zenodo.12588359",
+  "zenodo_record": "12588359",
+  "source_repo": "https://github.com/kplabs-pl/OPS-SAT-AD",
+  "license": "MIT",
+  "paper_doi": "https://doi.org/10.1038/s41597-025-05035-3",
+  "paper_citation": "Ruszczak B., Kotowski K., Evans D., Nalepa J. (2025). The OPS-SAT benchmark for detecting anomalies in satellite telemetry. Scientific Data, Springer Nature.",
+  "mission": "ESA OPS-SAT (first ESA flying nanosatellite laboratory)",
+  "temporal_coverage": {
+    "start": "2022-01-04T20:00:50+00:00",
+    "end": "2022-06-02T15:10:42+00:00"
+  },
+  "files": {
+    "data/real_spacecraft/opssat_ad/segments.csv": {
+      "sha256": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+      "size_bytes": 18987091
+    },
+    "data/real_spacecraft/opssat_ad/dataset.csv": {
+      "sha256": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+      "size_bytes": 507550
+    }
+  },
+  "acquisition_note": "Files manually downloaded from Zenodo record 12588359 and placed in data/real_spacecraft/opssat_ad/"
+}

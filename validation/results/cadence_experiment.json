@@ -1,0 +1,55 @@
+{
+  "evaluated_at": "2026-08-14T17:13:02.232771",
+  "experiment_1_simulation_5min": {
+    "source": "ml/forecaster_metrics.json (frozen \u2014 not recomputed)",
+    "cadence": "5 minutes",
+    "window_span_minutes": 30,
+    "accuracy": 0.9717,
+    "macro_f1": 0.9708,
+    "critical_recall": 0.9819
+  },
+  "experiment_2_simulation_hourly_cadence": {
+    "description": "Simulation test rows subsampled every 12th row to simulate hourly cadence. Feature vectors reconstructed from t5 columns of each subsampled row. Same domain as training; only cadence changes.",
+    "cadence": "1 hour (simulated by 12x subsampling of 5-min data)",
+    "window_span_hours": 6,
+    "n_sequences": 144,
+    "accuracy": 0.4375,
+    "macro_f1": 0.4329,
+    "critical_recall": 0.4032,
+    "per_class": {
+      "NOMINAL_AHEAD": {
+        "precision": 0.5067,
+        "recall": 0.4634,
+        "f1": 0.4841,
+        "support": 82
+      },
+      "CRITICAL_AHEAD": {
+        "precision": 0.3623,
+        "recall": 0.4032,
+        "f1": 0.3817,
+        "support": 62
+      }
+    }
+  },
+  "experiment_3_omni2_hourly": {
+    "source": "validation/results/temporal_validation.json",
+    "cadence": "1 hour (OMNI2 static sample)",
+    "window_span_hours": 6,
+    "n_sequences": 594,
+    "accuracy": 0.5606,
+    "macro_f1": 0.4839
+  },
+  "cadence_effect_e1_to_e2_macro_f1_drop": 0.5379,
+  "domain_effect_e2_to_e3_macro_f1_drop": -0.051,
+  "total_drop_e1_to_e3_macro_f1": 0.4869,
+  "cadence_fraction_of_total_drop": 1.105,
+  "domain_fraction_of_total_drop": -0.105,
+  "primary_cause_diagnosis": "A \u2014 cadence mismatch dominates",
+  "target_compatibility_audit": {
+    "simulation_target": "Binary label = HelioMesh safety rule applied to t+30min snapshot (6 independent horizon steps at 5-min intervals beyond the 30-min look-back window).",
+    "omni2_evaluation_target": "Binary label = HelioMesh safety rule applied to the OMNI2 snapshot at position t+1 (1 hour after the last window step). This represents a 1-hour ahead prediction, not 30-min ahead.",
+    "semantic_match": false,
+    "classification": "DOMAIN-SHIFT / TRANSFER TEST \u2014 the OMNI2 evaluation combines three mismatches: (1) cadence mismatch (hourly vs 5-min), (2) domain shift (real OMNI2-style distributions vs simulation distributions), (3) target mismatch (t+1h ahead vs t+30min ahead). It does NOT measure temporal spacecraft prediction accuracy."
+  },
+  "scientific_conclusion": "Simulation 5-min benchmark (frozen): macro_f1=0.9708. Simulation downsampled to hourly cadence (Exp-2): macro_f1=0.4329. OMNI2 hourly evaluation (Exp-3): macro_f1=0.4839. Total drop from Exp-1 to Exp-3: -0.4869. Cadence-only effect (Exp-1 to Exp-2): -0.5379 (110% of total drop). Residual domain/target effect (Exp-2 to Exp-3): --0.0510 (-10% of total drop). Primary cause diagnosis: A \u2014 cadence mismatch dominates. HONEST CONCLUSION: The OMNI2 evaluation is a DOMAIN-SHIFT / TRANSFER TEST, not a temporal prediction benchmark. Three simultaneous mismatches prevent drawing any conclusion about real spacecraft prediction accuracy from this result. The 0.4839 OMNI2 macro-F1 reflects these mismatches, not model quality on real data."
+}

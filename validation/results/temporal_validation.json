@@ -1,0 +1,47 @@
+{
+  "evaluated_at": "2026-08-21T16:01:17.297722",
+  "data_source": "STATIC_SAMPLE",
+  "n_records_raw": 600,
+  "n_sequences": 594,
+  "window_steps": 6,
+  "horizon_steps": 1,
+  "step_duration_note": "OMNI2 hourly data \u00e2\u20ac\u201d steps are 1 hour apart (training used 5-min steps)",
+  "task": "internal_consistency_check",
+  "task_description": "Temporal predictor vs HelioMesh labeling rules applied to OMNI2-derived features. Window cadence differs from training (hourly vs 5-min). NOT spacecraft failure prediction.",
+  "consistency_rate": 0.5606,
+  "macro_f1": 0.4839,
+  "accuracy": 0.5606,
+  "per_class_metrics": {
+    "CRITICAL_AHEAD": {
+      "precision": 0.2626,
+      "recall": 0.3114,
+      "f1": 0.2849,
+      "support": 167
+    },
+    "NOMINAL_AHEAD": {
+      "precision": 0.7096,
+      "recall": 0.6581,
+      "f1": 0.6829,
+      "support": 427
+    }
+  },
+  "confusion_matrix": {
+    "CRITICAL_AHEAD": {
+      "CRITICAL_AHEAD": 52,
+      "NOMINAL_AHEAD": 115
+    },
+    "NOMINAL_AHEAD": {
+      "CRITICAL_AHEAD": 146,
+      "NOMINAL_AHEAD": 281
+    }
+  },
+  "ground_truth_distribution": {
+    "CRITICAL_AHEAD": 167,
+    "NOMINAL_AHEAD": 427
+  },
+  "predicted_distribution": {
+    "CRITICAL_AHEAD": 198,
+    "NOMINAL_AHEAD": 396
+  },
+  "disclaimer": "Labels are synthetic, derived from HelioMesh operational safety rules. Hourly window differs from 5-min training window \u00e2\u20ac\u201d results are indicative only."
+}

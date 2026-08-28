@@ -1,0 +1,15 @@
+{
+  "evaluated_at": "2026-08-21T16:01:18.327943",
+  "n_test_sequences": 1800,
+  "total_critical_transitions": 1051,
+  "transitions_detected_early": 1032,
+  "missed_transitions": 19,
+  "false_early_warnings": 32,
+  "early_detection_rate": 0.9819,
+  "false_positive_rate": 0.0427,
+  "median_lead_time_steps": 2.0,
+  "mean_lead_time_steps": 1.62,
+  "step_duration_minutes": 5,
+  "methodology_note": "Lead time is a proxy: floor(delta_kp / 0.25) steps, representing estimated 5-min steps of advance KP warning in the look-back window. Sequences are independent \u00e2\u20ac\u201d exact step-level transitions cannot be tracked across rows.",
+  "disclaimer": "Evaluation uses simulation test sequences only. NOT validated against real spacecraft data."
+}

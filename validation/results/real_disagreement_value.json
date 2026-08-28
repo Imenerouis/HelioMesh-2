@@ -1,0 +1,122 @@
+{
+  "experiment_D_disagreement": {
+    "n_test_segments": 529,
+    "both_agree_anomaly": 100,
+    "both_agree_nominal": 425,
+    "early_warning_cases": 2,
+    "late_signal_cases": 2,
+    "early_warning": {
+      "count": 2,
+      "true_pos": 1,
+      "false_pos": 1,
+      "precision": 0.5
+    },
+    "late_signal": {
+      "count": 2,
+      "truly_anomalous": 1,
+      "false": 1
+    },
+    "agreement_anomaly": {
+      "count": 100,
+      "true_pos": 98,
+      "false_pos": 2
+    },
+    "agreement_nominal": {
+      "count": 425,
+      "true_normal": 412,
+      "missed": 13
+    },
+    "union_policy": {
+      "label": "union_policy",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 100,
+      "missed": 13,
+      "false_alerts": 4,
+      "correct_nominal": 412,
+      "event_precision": 0.9615384615384616,
+      "event_recall": 0.8849557522123894,
+      "event_f1": 0.9216589861751152
+    },
+    "intersection_policy": {
+      "label": "intersection_policy",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 98,
+      "missed": 15,
+      "false_alerts": 2,
+      "correct_nominal": 414,
+      "event_precision": 0.98,
+      "event_recall": 0.8672566371681416,
+      "event_f1": 0.9201877934272301
+    }
+  },
+  "decision_stress_test": {
+    "n_test_segments": 529,
+    "changed_C_to_D": 113,
+    "unchanged": 416,
+    "protected_anomalies": {
+      "count": 5,
+      "by_route_D": {
+        "PENDING_APPROVAL": 5
+      },
+      "by_reason": {
+        "lead_warning_only": 4,
+        "temporal_signal": 1
+      }
+    },
+    "new_false_alerts": {
+      "count": 8,
+      "by_route_D": {
+        "PENDING_APPROVAL": 8
+      },
+      "by_reason": {
+        "lead_warning_only": 7,
+        "temporal_signal": 1
+      }
+    },
+    "all_changed_transitions": {
+      "PENDING_APPROVAL -> ESCALATED": 100,
+      "AUTO_CLEAR -> PENDING_APPROVAL": 13
+    },
+    "all_changed_reasons": {
+      "both_models_anomaly": 100,
+      "lead_warning_only": 11,
+      "temporal_signal": 2
+    },
+    "methodology": "Decision reasons are assigned from evidence available at decision time: calibrated current-state evidence, temporal evidence, and lead-warning state. Ground truth is used only afterward to classify protected anomalies and new false alerts.",
+    "warning": "This is a routing audit on the held-out benchmark. It does not establish operator workload, operator preference, mission-specific cost, or causal superiority."
+  },
+  "utility_sensitivity": {
+    "A": {
+      "conservative": 0.6975425330812854,
+      "permissive": 0.7937618147448015,
+      "recall_focused": 0.45822306238185256
+    },
+    "B": {
+      "conservative": 0.7013232514177694,
+      "permissive": 0.7960302457466919,
+      "recall_focused": 0.4595463137996219
+    },
+    "C": {
+      "conservative": 0.6096408317580341,
+      "permissive": 0.7589792060491494,
+      "recall_focused": 0.36635160680529305
+    },
+    "D": {
+      "conservative": 0.776937618147448,
+      "permissive": 0.8102079395085067,
+      "recall_focused": 0.534593572778828
+    }
+  },
+  "cost_matrix": {
+    "(normal, AUTO_CLEAR)": 1.0,
+    "(normal, PENDING_APPROVAL)": -0.3,
+    "(normal, ESCALATED)": -0.5,
+    "(anomaly, AUTO_CLEAR)": -5.0,
+    "(anomaly, PENDING_APPROVAL)": 0.5,
+    "(anomaly, ESCALATED)": 0.8,
+    "name": "HelioMesh Prototype Decision Utility",
+    "note": "NOT externally validated by real mission operators. Defined before evaluating the held-out test results."
+  }
+}

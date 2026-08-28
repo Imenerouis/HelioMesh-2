@@ -1,0 +1,58 @@
+{
+  "evaluated_at": "2026-08-21T16:01:01.948255",
+  "data_source": "STATIC_SAMPLE",
+  "n_records": 500,
+  "task": "internal_consistency_check",
+  "task_description": "Snapshot RF classifier vs HelioMesh labeling rules on space-weather inputs. NOT spacecraft failure prediction.",
+  "consistency_rate": 0.998,
+  "macro_f1": 0.9978,
+  "accuracy": 0.998,
+  "per_class_metrics": {
+    "NOMINAL": {
+      "precision": 1.0,
+      "recall": 0.9972,
+      "f1": 0.9986,
+      "support": 357
+    },
+    "SAFE_MODE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 46
+    },
+    "STANDBY": {
+      "precision": 0.9898,
+      "recall": 1.0,
+      "f1": 0.9949,
+      "support": 97
+    }
+  },
+  "confusion_matrix": {
+    "NOMINAL": {
+      "NOMINAL": 356,
+      "SAFE_MODE": 0,
+      "STANDBY": 1
+    },
+    "SAFE_MODE": {
+      "NOMINAL": 0,
+      "SAFE_MODE": 46,
+      "STANDBY": 0
+    },
+    "STANDBY": {
+      "NOMINAL": 0,
+      "SAFE_MODE": 0,
+      "STANDBY": 97
+    }
+  },
+  "ground_truth_distribution": {
+    "NOMINAL": 357,
+    "SAFE_MODE": 46,
+    "STANDBY": 97
+  },
+  "predicted_distribution": {
+    "NOMINAL": 356,
+    "SAFE_MODE": 46,
+    "STANDBY": 98
+  },
+  "disclaimer": "Labels are synthetic, derived from HelioMesh operational safety rules. Consistency measures model-rule agreement, not real spacecraft performance."
+}

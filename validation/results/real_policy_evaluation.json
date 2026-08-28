@@ -1,0 +1,148 @@
+{
+  "architecture_A": {
+    "label": "arch_A",
+    "n": 529,
+    "auto_clear": 427,
+    "pending_approval": 0,
+    "escalated": 102,
+    "unsafe_auto": 14,
+    "correct_pending": 0,
+    "correct_escalated": 99,
+    "unnecessary_pending": 0,
+    "unnecessary_escalated": 3,
+    "correct_auto_clear": 413,
+    "decision_recall": 0.8761061946902655,
+    "utility_baseline": 0.7952741020793951,
+    "utility_sensitivity": {
+      "conservative": 0.6975425330812854,
+      "permissive": 0.7937618147448015,
+      "recall_focused": 0.45822306238185256
+    }
+  },
+  "architecture_B": {
+    "label": "arch_B",
+    "n": 529,
+    "auto_clear": 428,
+    "pending_approval": 0,
+    "escalated": 101,
+    "unsafe_auto": 14,
+    "correct_pending": 0,
+    "correct_escalated": 99,
+    "unnecessary_pending": 0,
+    "unnecessary_escalated": 2,
+    "correct_auto_clear": 414,
+    "decision_recall": 0.8761061946902655,
+    "utility_baseline": 0.7981096408317581,
+    "utility_sensitivity": {
+      "conservative": 0.7013232514177694,
+      "permissive": 0.7960302457466919,
+      "recall_focused": 0.4595463137996219
+    }
+  },
+  "architecture_C": {
+    "label": "arch_C",
+    "n": 529,
+    "auto_clear": 428,
+    "pending_approval": 101,
+    "escalated": 0,
+    "unsafe_auto": 14,
+    "correct_pending": 99,
+    "correct_escalated": 0,
+    "unnecessary_pending": 2,
+    "unnecessary_escalated": 0,
+    "correct_auto_clear": 414,
+    "decision_recall": 0.8761061946902655,
+    "utility_baseline": 0.7427221172022684,
+    "utility_sensitivity": {
+      "conservative": 0.6096408317580341,
+      "permissive": 0.7589792060491494,
+      "recall_focused": 0.36635160680529305
+    }
+  },
+  "architecture_D": {
+    "label": "arch_D",
+    "n": 529,
+    "auto_clear": 415,
+    "pending_approval": 14,
+    "escalated": 100,
+    "unsafe_auto": 9,
+    "correct_pending": 6,
+    "correct_escalated": 98,
+    "unnecessary_pending": 8,
+    "unnecessary_escalated": 2,
+    "correct_auto_clear": 406,
+    "decision_recall": 0.9203539823008849,
+    "utility_baseline": 0.8298676748582231,
+    "utility_sensitivity": {
+      "conservative": 0.776937618147448,
+      "permissive": 0.8102079395085067,
+      "recall_focused": 0.534593572778828
+    }
+  },
+  "decision_stress_test": {
+    "n_test_segments": 529,
+    "changed_C_to_D": 113,
+    "unchanged": 416,
+    "protected_anomalies": {
+      "count": 5,
+      "by_route_D": {
+        "PENDING_APPROVAL": 5
+      },
+      "by_reason": {
+        "lead_warning_only": 4,
+        "temporal_signal": 1
+      }
+    },
+    "new_false_alerts": {
+      "count": 8,
+      "by_route_D": {
+        "PENDING_APPROVAL": 8
+      },
+      "by_reason": {
+        "lead_warning_only": 7,
+        "temporal_signal": 1
+      }
+    },
+    "all_changed_transitions": {
+      "PENDING_APPROVAL -> ESCALATED": 100,
+      "AUTO_CLEAR -> PENDING_APPROVAL": 13
+    },
+    "all_changed_reasons": {
+      "both_models_anomaly": 100,
+      "lead_warning_only": 11,
+      "temporal_signal": 2
+    },
+    "methodology": "Decision reasons are assigned from evidence available at decision time: calibrated current-state evidence, temporal evidence, and lead-warning state. Ground truth is used only afterward to classify protected anomalies and new false alerts.",
+    "warning": "This is a routing audit on the held-out benchmark. It does not establish operator workload, operator preference, mission-specific cost, or causal superiority."
+  },
+  "utility_matrix": {
+    "(normal, AUTO_CLEAR)": 1.0,
+    "(normal, PENDING_APPROVAL)": -0.3,
+    "(normal, ESCALATED)": -0.5,
+    "(anomaly, AUTO_CLEAR)": -5.0,
+    "(anomaly, PENDING_APPROVAL)": 0.5,
+    "(anomaly, ESCALATED)": 0.8,
+    "name": "HelioMesh Prototype Decision Utility",
+    "note": "NOT externally validated by real mission operators. Defined before evaluating the held-out test results."
+  },
+  "utility_note": "Prototype utility only; not validated by real mission operators.",
+  "frozen_integrity": {
+    "ml/risk_model.pkl": {
+      "sha256": "109a8a43578926a2a4168b2eba404e09e1aa0ec81f459d91380d5cc49a27dadb",
+      "status": "OK"
+    },
+    "ml/label_encoder.pkl": {
+      "sha256": "20b39a8a67cd98b5b6e6b464eb2842048337fec8ed0cbfe11bd02346c16c3c02",
+      "status": "OK"
+    },
+    "ml/forecaster_model.pkl": {
+      "sha256": "89864a1706a312c21a5fb86b67d925f549fd00d30e8bdda070d0ca3f325c23f1",
+      "status": "OK"
+    },
+    "ml/forecaster_metrics.json": {
+      "sha256": "533b3fc5b48e4c095f9356e4dbd0311ab2cc9212a2b7efb7fdefda0592ad613a",
+      "status": "OK"
+    },
+    "all_unchanged": true
+  }
+}

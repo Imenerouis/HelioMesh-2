@@ -1,0 +1,179 @@
+{
+  "evaluated_at": "2026-08-14T17:13:02.369065",
+  "n_scenarios_evaluated": 3,
+  "n_checks_per_scenario": 6,
+  "total_checks": 18,
+  "total_passed": 17,
+  "overall_grounding_score": 0.9444,
+  "contradiction_rate": 0.0,
+  "scenarios": [
+    {
+      "scenario": "normal",
+      "route": "auto_executed",
+      "n_checks": 6,
+      "n_passed": 6,
+      "grounding_score": 1.0,
+      "checks": [
+        {
+          "check": "section_completeness",
+          "passed": true,
+          "sections_found": 7,
+          "sections_missing": [],
+          "evidence": "7/7 sections present"
+        },
+        {
+          "check": "numeric_consistency",
+          "passed": true,
+          "issues": [],
+          "evidence": "No contradicting numbers found"
+        },
+        {
+          "check": "route_consistency",
+          "passed": true,
+          "route": "auto_executed",
+          "violations": [],
+          "evidence": "route=auto_executed; no violations"
+        },
+        {
+          "check": "model_status_consistency",
+          "passed": true,
+          "evidence": "model_agreement=AGREE, text says AGREE \u2014 consistent"
+        },
+        {
+          "check": "no_authorship_claims",
+          "passed": true,
+          "violations": [],
+          "evidence": "No authorship claims detected"
+        },
+        {
+          "check": "evidence_coverage",
+          "passed": true,
+          "covered": [
+            "rf_predicted_state",
+            "gb_forecast_label",
+            "model_agreement"
+          ],
+          "missing": [],
+          "coverage_pct": 100.0,
+          "evidence": "3/3 evidence fields referenced in trace"
+        }
+      ]
+    },
+    {
+      "scenario": "warning",
+      "route": "pending_approval",
+      "n_checks": 6,
+      "n_passed": 5,
+      "grounding_score": 0.8333,
+      "checks": [
+        {
+          "check": "section_completeness",
+          "passed": true,
+          "sections_found": 7,
+          "sections_missing": [],
+          "evidence": "7/7 sections present"
+        },
+        {
+          "check": "numeric_consistency",
+          "passed": true,
+          "issues": [],
+          "evidence": "No contradicting numbers found"
+        },
+        {
+          "check": "route_consistency",
+          "passed": true,
+          "route": "pending_approval",
+          "violations": [],
+          "evidence": "route=pending_approval; no violations"
+        },
+        {
+          "check": "model_status_consistency",
+          "passed": true,
+          "evidence": "model_agreement=AGREE, text says AGREE \u2014 consistent"
+        },
+        {
+          "check": "no_authorship_claims",
+          "passed": true,
+          "violations": [],
+          "evidence": "No authorship claims detected"
+        },
+        {
+          "check": "evidence_coverage",
+          "passed": false,
+          "covered": [
+            "rf_predicted_state",
+            "model_agreement"
+          ],
+          "missing": [
+            "gb_forecast_label"
+          ],
+          "coverage_pct": 66.7,
+          "evidence": "2/3 evidence fields referenced in trace"
+        }
+      ]
+    },
+    {
+      "scenario": "storm",
+      "route": "escalated",
+      "n_checks": 6,
+      "n_passed": 6,
+      "grounding_score": 1.0,
+      "checks": [
+        {
+          "check": "section_completeness",
+          "passed": true,
+          "sections_found": 7,
+          "sections_missing": [],
+          "evidence": "7/7 sections present"
+        },
+        {
+          "check": "numeric_consistency",
+          "passed": true,
+          "issues": [],
+          "evidence": "No contradicting numbers found"
+        },
+        {
+          "check": "route_consistency",
+          "passed": true,
+          "route": "escalated",
+          "violations": [],
+          "evidence": "route=escalated; no violations"
+        },
+        {
+          "check": "model_status_consistency",
+          "passed": true,
+          "evidence": "model_agreement=AGREE, text says AGREE \u2014 consistent"
+        },
+        {
+          "check": "no_authorship_claims",
+          "passed": true,
+          "violations": [],
+          "evidence": "No authorship claims detected"
+        },
+        {
+          "check": "evidence_coverage",
+          "passed": true,
+          "covered": [
+            "rf_predicted_state",
+            "gb_forecast_label",
+            "model_agreement"
+          ],
+          "missing": [],
+          "coverage_pct": 100.0,
+          "evidence": "3/3 evidence fields referenced in trace"
+        }
+      ]
+    }
+  ],
+  "check_definitions": {
+    "section_completeness": "All 7 required sections present",
+    "numeric_consistency": "Numbers in trace do not contradict supplied evidence values",
+    "route_consistency": "Recommended actions compatible with deterministic route",
+    "model_status_consistency": "MODEL STATUS text matches actual RF/GB agreement",
+    "no_authorship_claims": "Granite does not claim it selected the route",
+    "evidence_coverage": "Key evidence fields (RF label, GB label, agreement) appear in trace"
+  },
+  "evaluation_name": "Grounded Decision Trace Evaluation",
+  "evaluation_disclaimer": "This measures internal consistency between supplied evidence and Granite output. It does NOT measure whether the reasoning is scientifically correct. A perfectly grounded trace can still contain incorrect inferences if the supplied evidence is incomplete or ambiguous.",
+  "scientific_conclusion": "Overall grounding score: 0.94 (17/18 checks pass). Contradiction rate: 0.00 (fraction of contradiction-specific checks that fail). Granite traces are well-grounded: sections are complete, key evidence values are referenced, routes are consistent with recommended actions, and no authorship claims detected."
+}

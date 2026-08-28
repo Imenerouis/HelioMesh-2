@@ -1,0 +1,58 @@
+{
+  "evaluated_at": "2026-08-14T17:13:02.333257",
+  "policy_label": "HelioMesh Prototype Autonomy Policy",
+  "policy_disclaimer": "Weights and thresholds (KP penalties, orbit penalties, power penalties, AUTO>=70, APPROVAL 40-69, ESCALATE<40) are manually defined for this prototype. They are NOT validated spacecraft safety standards. They should NOT be used for real mission operations without independent validation.",
+  "total_tests": 6,
+  "passed": 6,
+  "failed": 0,
+  "all_passed": true,
+  "tests": [
+    {
+      "name": "SP-1: Critical temporal risk (p>=0.90) blocks AUTO_EXECUTED",
+      "passed": true,
+      "evidence": "route=pending_approval  disagree_override=True"
+    },
+    {
+      "name": "SP-2: RF=NOMINAL + GB=CRITICAL_AHEAD + p >= threshold blocks AUTO_EXECUTED",
+      "passed": true,
+      "evidence": "route=pending_approval  threshold=0.5  override=True"
+    },
+    {
+      "name": "SP-3: Granite ai_trace cannot override deterministic routing",
+      "passed": true,
+      "evidence": "normal_route=auto_executed  adversarial_trace_route=auto_executed"
+    },
+    {
+      "name": "SP-4: Decreasing confidence produces non-increasing autonomy level",
+      "passed": true,
+      "evidence": "confidence/route pairs: [(90, 'auto_executed'), (55, 'pending_approval'), (35, 'escalated')]"
+    },
+    {
+      "name": "SP-5: Dangerous telemetry (KP=7.5, orb=1.8, pwr=5) gets <= autonomy than safe (KP=1.5)",
+      "passed": true,
+      "evidence": "safe route=auto_executed(level=2)  danger route=escalated(level=0)"
+    },
+    {
+      "name": "SP-6: Disagreement policy can only tighten autonomy (never produce higher autonomy level)",
+      "passed": true,
+      "evidence": "without_policy=auto_executed(level=2)  with_policy=pending_approval(level=1)"
+    }
+  ],
+  "test_categories": {
+    "temporal_risk_blocking": [
+      "SP-1",
+      "SP-2"
+    ],
+    "granite_isolation": [
+      "SP-3"
+    ],
+    "autonomy_monotonicity": [
+      "SP-4",
+      "SP-5"
+    ],
+    "disagree_policy": [
+      "SP-6"
+    ]
+  },
+  "scientific_conclusion": "6/6 safety properties pass. All safety invariants hold: critical temporal risk blocks AUTO, Granite cannot override routing, autonomy is monotonically decreasing with risk, and the disagreement policy only tightens autonomy."
+}

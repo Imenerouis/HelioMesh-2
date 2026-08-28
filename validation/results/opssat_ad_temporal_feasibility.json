@@ -1,0 +1,33 @@
+{
+  "task_assessment": "LIMITED TEMPORAL TASK POSSIBLE \u2014 see details",
+  "rationale": "Median lead time = 255s. Early-warning evaluation may be feasible at limited horizons.",
+  "cadence_distribution_seconds": {
+    "1": 237165,
+    "5": 66328
+  },
+  "segment_duration_stats": {
+    "min_s": 35,
+    "max_s": 1335,
+    "mean_s": 265.61375412152614,
+    "median_s": 225.0,
+    "p5_s": 75.0,
+    "p95_s": 605.0
+  },
+  "inter_segment_gap_stats": {
+    "n_gaps": 2114,
+    "min_s": 1.0,
+    "max_s": 10855790.0,
+    "median_s": 5.0,
+    "p95_s": 2185.4999999999973
+  },
+  "nominal_to_anomaly_transitions": {
+    "count": 275,
+    "lead_time_min_s": 45.0,
+    "lead_time_max_s": 10655449.0,
+    "lead_time_median_s": 255.0
+  },
+  "supports_future_prediction": true,
+  "supports_early_warning": true,
+  "heliomesh_30min_target_valid": false,
+  "heliomesh_note": "HelioMesh's 30-minute prediction horizon is based on the simulation benchmark. OPSSAT-AD is a segment-classification task and cannot be used to validate that horizon directly."
+}

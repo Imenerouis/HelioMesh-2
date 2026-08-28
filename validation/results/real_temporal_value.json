@@ -1,0 +1,166 @@
+{
+  "lead_time_model": {
+    "supported": true,
+    "lead_seg_metrics": {
+      "label": "lead_time_predictor",
+      "n": 526,
+      "n_pos": 115,
+      "n_neg": 411,
+      "accuracy": 0.7737642585551331,
+      "balanced_accuracy": 0.5796784089706971,
+      "precision": 0.46551724137931033,
+      "recall": 0.23478260869565218,
+      "f1": 0.31213872832369943,
+      "mcc": 0.2102827059311841,
+      "tp": 27,
+      "tn": 380,
+      "fp": 31,
+      "fn": 88,
+      "fpr": 0.07542579075425791,
+      "fnr": 0.7652173913043478,
+      "roc_auc": 0.7650481328678725,
+      "pr_auc": 0.4530256098986848
+    },
+    "lead_evt_metrics": {
+      "label": "lead_time_predictor",
+      "true_anomaly": 115,
+      "true_normal": 411,
+      "detected": 27,
+      "missed": 88,
+      "false_alerts": 31,
+      "correct_nominal": 380,
+      "event_precision": 0.46551724137931033,
+      "event_recall": 0.23478260869565218,
+      "event_f1": 0.31213872832369943
+    },
+    "n_train_pos": 318,
+    "n_train_neg": 1270,
+    "n_test_lead_samples": 526,
+    "n_test_lead_pos": 115,
+    "median_segment_duration_s": 224.5,
+    "note": "Lead-time model predicts whether the next same-channel segment is anomalous. Operational lead time is approximately one segment duration, median 224s. This is not equivalent to a 30-minute forecast."
+  },
+  "temporal_vs_current": {
+    "current_only": {
+      "label": "current_only",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    },
+    "current_plus_temporal": {
+      "label": "current_plus_temporal",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    },
+    "delta": {
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "missed_events": 0,
+      "false_alerts": 0
+    },
+    "temporal_adds_operational_value": false,
+    "n_compared": 529
+  },
+  "lead_time_incremental_analysis": {
+    "C_without_lead_time": {
+      "event_metrics": {
+        "label": "C_policy_without_lead",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 2,
+        "correct_nominal": 414,
+        "event_precision": 0.9801980198019802,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9252336448598131
+      },
+      "policy_metrics": {
+        "label": "C_policy_without_lead",
+        "n": 529,
+        "auto_clear": 428,
+        "pending_approval": 101,
+        "escalated": 0,
+        "unsafe_auto": 14,
+        "correct_pending": 99,
+        "correct_escalated": 0,
+        "unnecessary_pending": 2,
+        "unnecessary_escalated": 0,
+        "correct_auto_clear": 414,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7427221172022684,
+        "utility_sensitivity": {
+          "conservative": 0.6096408317580341,
+          "permissive": 0.7589792060491494,
+          "recall_focused": 0.36635160680529305
+        }
+      }
+    },
+    "D_with_lead_time": {
+      "event_metrics": {
+        "label": "D_policy_with_lead",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 104,
+        "missed": 9,
+        "false_alerts": 10,
+        "correct_nominal": 406,
+        "event_precision": 0.9122807017543859,
+        "event_recall": 0.9203539823008849,
+        "event_f1": 0.9162995594713657
+      },
+      "policy_metrics": {
+        "label": "D_policy_with_lead",
+        "n": 529,
+        "auto_clear": 415,
+        "pending_approval": 14,
+        "escalated": 100,
+        "unsafe_auto": 9,
+        "correct_pending": 6,
+        "correct_escalated": 98,
+        "unnecessary_pending": 8,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 406,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.8298676748582231,
+        "utility_sensitivity": {
+          "conservative": 0.776937618147448,
+          "permissive": 0.8102079395085067,
+          "recall_focused": 0.534593572778828
+        }
+      }
+    },
+    "delta_D_minus_C": {
+      "recall": 0.04424778761061943,
+      "precision": -0.06791731804759427,
+      "f1": -0.008934085388447421,
+      "missed": -5,
+      "false_alerts": 8,
+      "unsafe_auto": -5,
+      "utility_baseline": 0.08714555765595466
+    },
+    "lead_warning_segments": 58,
+    "n_test_segments": 529,
+    "interpretation": "C is the calibrated-RF deterministic routing policy. D adds temporal evidence and lead-time warnings. Both are evaluated on the same aligned held-out OPS-SAT-AD test segments."
+  },
+  "lead_warning_segments_used_in_arch_D": 58,
+  "temporal_feasibility_summary": {
+    "supported": true,
+    "median_lead_s": 224.5,
+    "horizon_supported": "short (~1 segment duration)",
+    "heliomesh_30min_valid": false
+  }
+}

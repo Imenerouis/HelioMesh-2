@@ -1,0 +1,581 @@
+{
+  "experiment_A_current_only": {
+    "segment_metrics": {
+      "label": "experiment_A_current_only",
+      "n": 529,
+      "n_pos": 113,
+      "n_neg": 416,
+      "accuracy": 0.9678638941398866,
+      "balanced_accuracy": 0.9344473281143635,
+      "precision": 0.9705882352941176,
+      "recall": 0.8761061946902655,
+      "f1": 0.9209302325581395,
+      "mcc": 0.902690745305933,
+      "tp": 99,
+      "tn": 413,
+      "fp": 3,
+      "fn": 14,
+      "fpr": 0.007211538461538462,
+      "fnr": 0.12389380530973451,
+      "roc_auc": 0.9874170353982301,
+      "pr_auc": 0.9677324578894635
+    },
+    "event_metrics": {
+      "label": "experiment_A_current_only",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    }
+  },
+  "experiment_B_calibrated_rf": {
+    "segment_metrics": {
+      "label": "experiment_B_calibrated_rf",
+      "n": 529,
+      "n_pos": 113,
+      "n_neg": 416,
+      "accuracy": 0.9697542533081286,
+      "balanced_accuracy": 0.9356492511912866,
+      "precision": 0.9801980198019802,
+      "recall": 0.8761061946902655,
+      "f1": 0.9252336448598131,
+      "mcc": 0.9085948758327859,
+      "tp": 99,
+      "tn": 414,
+      "fp": 2,
+      "fn": 14,
+      "fpr": 0.004807692307692308,
+      "fnr": 0.12389380530973451,
+      "roc_auc": 0.986959666439755,
+      "pr_auc": 0.96659483475039
+    },
+    "event_metrics": {
+      "label": "experiment_B_calibrated_rf",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 2,
+      "correct_nominal": 414,
+      "event_precision": 0.9801980198019802,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9252336448598131
+    }
+  },
+  "experiment_temporal_supporting": {
+    "segment_metrics": {
+      "label": "experiment_B_current_plus_temporal",
+      "n": 529,
+      "n_pos": 113,
+      "n_neg": 416,
+      "accuracy": 0.9678638941398866,
+      "balanced_accuracy": 0.9344473281143635,
+      "precision": 0.9705882352941176,
+      "recall": 0.8761061946902655,
+      "f1": 0.9209302325581395,
+      "mcc": 0.902690745305933,
+      "tp": 99,
+      "tn": 413,
+      "fp": 3,
+      "fn": 14,
+      "fpr": 0.007211538461538462,
+      "fnr": 0.12389380530973451,
+      "roc_auc": 0.9911078965282505,
+      "pr_auc": 0.973212153748777
+    },
+    "event_metrics": {
+      "label": "experiment_B_current_plus_temporal",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    }
+  },
+  "experiment_B_lead_time": {
+    "supported": true,
+    "lead_seg_metrics": {
+      "label": "lead_time_predictor",
+      "n": 526,
+      "n_pos": 115,
+      "n_neg": 411,
+      "accuracy": 0.7737642585551331,
+      "balanced_accuracy": 0.5796784089706971,
+      "precision": 0.46551724137931033,
+      "recall": 0.23478260869565218,
+      "f1": 0.31213872832369943,
+      "mcc": 0.2102827059311841,
+      "tp": 27,
+      "tn": 380,
+      "fp": 31,
+      "fn": 88,
+      "fpr": 0.07542579075425791,
+      "fnr": 0.7652173913043478,
+      "roc_auc": 0.7650481328678725,
+      "pr_auc": 0.4530256098986848
+    },
+    "lead_evt_metrics": {
+      "label": "lead_time_predictor",
+      "true_anomaly": 115,
+      "true_normal": 411,
+      "detected": 27,
+      "missed": 88,
+      "false_alerts": 31,
+      "correct_nominal": 380,
+      "event_precision": 0.46551724137931033,
+      "event_recall": 0.23478260869565218,
+      "event_f1": 0.31213872832369943
+    },
+    "n_train_pos": 318,
+    "n_train_neg": 1270,
+    "n_test_lead_samples": 526,
+    "n_test_lead_pos": 115,
+    "median_segment_duration_s": 224.5,
+    "note": "Lead-time model predicts whether the next same-channel segment is anomalous. Operational lead time is approximately one segment duration, median 224s. This is not equivalent to a 30-minute forecast."
+  },
+  "experiment_C_comparison": {
+    "current_only": {
+      "label": "current_only",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    },
+    "current_plus_temporal": {
+      "label": "current_plus_temporal",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 99,
+      "missed": 14,
+      "false_alerts": 3,
+      "correct_nominal": 413,
+      "event_precision": 0.9705882352941176,
+      "event_recall": 0.8761061946902655,
+      "event_f1": 0.9209302325581395
+    },
+    "delta": {
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "missed_events": 0,
+      "false_alerts": 0
+    },
+    "temporal_adds_operational_value": false,
+    "n_compared": 529
+  },
+  "experiment_disagreement": {
+    "n_test_segments": 529,
+    "both_agree_anomaly": 100,
+    "both_agree_nominal": 425,
+    "early_warning_cases": 2,
+    "late_signal_cases": 2,
+    "early_warning": {
+      "count": 2,
+      "true_pos": 1,
+      "false_pos": 1,
+      "precision": 0.5
+    },
+    "late_signal": {
+      "count": 2,
+      "truly_anomalous": 1,
+      "false": 1
+    },
+    "agreement_anomaly": {
+      "count": 100,
+      "true_pos": 98,
+      "false_pos": 2
+    },
+    "agreement_nominal": {
+      "count": 425,
+      "true_normal": 412,
+      "missed": 13
+    },
+    "union_policy": {
+      "label": "union_policy",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 100,
+      "missed": 13,
+      "false_alerts": 4,
+      "correct_nominal": 412,
+      "event_precision": 0.9615384615384616,
+      "event_recall": 0.8849557522123894,
+      "event_f1": 0.9216589861751152
+    },
+    "intersection_policy": {
+      "label": "intersection_policy",
+      "true_anomaly": 113,
+      "true_normal": 416,
+      "detected": 98,
+      "missed": 15,
+      "false_alerts": 2,
+      "correct_nominal": 414,
+      "event_precision": 0.98,
+      "event_recall": 0.8672566371681416,
+      "event_f1": 0.9201877934272301
+    }
+  },
+  "ablation_table": [
+    {
+      "architecture": "A_current_only",
+      "event_recall": 0.8761061946902655,
+      "event_precision": 0.9705882352941176,
+      "event_f1": 0.9209302325581395,
+      "missed": 14,
+      "false_alerts": 3,
+      "unsafe_auto": 14,
+      "lead_time": "N/A",
+      "utility_baseline": 0.7952741020793951
+    },
+    {
+      "architecture": "B_calibrated_rf",
+      "event_recall": 0.8761061946902655,
+      "event_precision": 0.9801980198019802,
+      "event_f1": 0.9252336448598131,
+      "missed": 14,
+      "false_alerts": 2,
+      "unsafe_auto": 14,
+      "lead_time": "N/A",
+      "utility_baseline": 0.7981096408317581
+    },
+    {
+      "architecture": "C_calibrated_rf_deterministic_policy",
+      "event_recall": 0.8761061946902655,
+      "event_precision": 0.9801980198019802,
+      "event_f1": 0.9252336448598131,
+      "missed": 14,
+      "false_alerts": 2,
+      "unsafe_auto": 14,
+      "lead_time": "N/A",
+      "utility_baseline": 0.7427221172022684
+    },
+    {
+      "architecture": "D_full_heliomesh",
+      "event_recall": 0.9203539823008849,
+      "event_precision": 0.9122807017543859,
+      "event_f1": 0.9162995594713657,
+      "missed": 9,
+      "false_alerts": 10,
+      "unsafe_auto": 9,
+      "lead_time": "58 warning segments",
+      "utility_baseline": 0.8298676748582231
+    }
+  ],
+  "architecture_details": {
+    "A": {
+      "event_metrics": {
+        "label": "arch_A_current_only",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 3,
+        "correct_nominal": 413,
+        "event_precision": 0.9705882352941176,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9209302325581395
+      },
+      "policy_metrics": {
+        "label": "arch_A",
+        "n": 529,
+        "auto_clear": 427,
+        "pending_approval": 0,
+        "escalated": 102,
+        "unsafe_auto": 14,
+        "correct_pending": 0,
+        "correct_escalated": 99,
+        "unnecessary_pending": 0,
+        "unnecessary_escalated": 3,
+        "correct_auto_clear": 413,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7952741020793951,
+        "utility_sensitivity": {
+          "conservative": 0.6975425330812854,
+          "permissive": 0.7937618147448015,
+          "recall_focused": 0.45822306238185256
+        }
+      }
+    },
+    "B": {
+      "event_metrics": {
+        "label": "arch_B_calibrated_rf",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 2,
+        "correct_nominal": 414,
+        "event_precision": 0.9801980198019802,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9252336448598131
+      },
+      "policy_metrics": {
+        "label": "arch_B",
+        "n": 529,
+        "auto_clear": 428,
+        "pending_approval": 0,
+        "escalated": 101,
+        "unsafe_auto": 14,
+        "correct_pending": 0,
+        "correct_escalated": 99,
+        "unnecessary_pending": 0,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 414,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7981096408317581,
+        "utility_sensitivity": {
+          "conservative": 0.7013232514177694,
+          "permissive": 0.7960302457466919,
+          "recall_focused": 0.4595463137996219
+        }
+      }
+    },
+    "C": {
+      "event_metrics": {
+        "label": "arch_C_calibrated_rf_deterministic_policy",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 2,
+        "correct_nominal": 414,
+        "event_precision": 0.9801980198019802,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9252336448598131
+      },
+      "policy_metrics": {
+        "label": "arch_C",
+        "n": 529,
+        "auto_clear": 428,
+        "pending_approval": 101,
+        "escalated": 0,
+        "unsafe_auto": 14,
+        "correct_pending": 99,
+        "correct_escalated": 0,
+        "unnecessary_pending": 2,
+        "unnecessary_escalated": 0,
+        "correct_auto_clear": 414,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7427221172022684,
+        "utility_sensitivity": {
+          "conservative": 0.6096408317580341,
+          "permissive": 0.7589792060491494,
+          "recall_focused": 0.36635160680529305
+        }
+      }
+    },
+    "D": {
+      "event_metrics": {
+        "label": "arch_D_full_heliomesh",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 104,
+        "missed": 9,
+        "false_alerts": 10,
+        "correct_nominal": 406,
+        "event_precision": 0.9122807017543859,
+        "event_recall": 0.9203539823008849,
+        "event_f1": 0.9162995594713657
+      },
+      "policy_metrics": {
+        "label": "arch_D",
+        "n": 529,
+        "auto_clear": 415,
+        "pending_approval": 14,
+        "escalated": 100,
+        "unsafe_auto": 9,
+        "correct_pending": 6,
+        "correct_escalated": 98,
+        "unnecessary_pending": 8,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 406,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.8298676748582231,
+        "utility_sensitivity": {
+          "conservative": 0.776937618147448,
+          "permissive": 0.8102079395085067,
+          "recall_focused": 0.534593572778828
+        }
+      }
+    }
+  },
+  "decision_stress_test": {
+    "n_test_segments": 529,
+    "changed_C_to_D": 113,
+    "unchanged": 416,
+    "protected_anomalies": {
+      "count": 5,
+      "by_route_D": {
+        "PENDING_APPROVAL": 5
+      },
+      "by_reason": {
+        "lead_warning_only": 4,
+        "temporal_signal": 1
+      }
+    },
+    "new_false_alerts": {
+      "count": 8,
+      "by_route_D": {
+        "PENDING_APPROVAL": 8
+      },
+      "by_reason": {
+        "lead_warning_only": 7,
+        "temporal_signal": 1
+      }
+    },
+    "all_changed_transitions": {
+      "PENDING_APPROVAL -> ESCALATED": 100,
+      "AUTO_CLEAR -> PENDING_APPROVAL": 13
+    },
+    "all_changed_reasons": {
+      "both_models_anomaly": 100,
+      "lead_warning_only": 11,
+      "temporal_signal": 2
+    },
+    "methodology": "Decision reasons are assigned from evidence available at decision time: calibrated current-state evidence, temporal evidence, and lead-warning state. Ground truth is used only afterward to classify protected anomalies and new false alerts.",
+    "warning": "This is a routing audit on the held-out benchmark. It does not establish operator workload, operator preference, mission-specific cost, or causal superiority."
+  },
+  "lead_time_incremental_analysis": {
+    "C_without_lead_time": {
+      "event_metrics": {
+        "label": "C_policy_without_lead",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 99,
+        "missed": 14,
+        "false_alerts": 2,
+        "correct_nominal": 414,
+        "event_precision": 0.9801980198019802,
+        "event_recall": 0.8761061946902655,
+        "event_f1": 0.9252336448598131
+      },
+      "policy_metrics": {
+        "label": "C_policy_without_lead",
+        "n": 529,
+        "auto_clear": 428,
+        "pending_approval": 101,
+        "escalated": 0,
+        "unsafe_auto": 14,
+        "correct_pending": 99,
+        "correct_escalated": 0,
+        "unnecessary_pending": 2,
+        "unnecessary_escalated": 0,
+        "correct_auto_clear": 414,
+        "decision_recall": 0.8761061946902655,
+        "utility_baseline": 0.7427221172022684,
+        "utility_sensitivity": {
+          "conservative": 0.6096408317580341,
+          "permissive": 0.7589792060491494,
+          "recall_focused": 0.36635160680529305
+        }
+      }
+    },
+    "D_with_lead_time": {
+      "event_metrics": {
+        "label": "D_policy_with_lead",
+        "true_anomaly": 113,
+        "true_normal": 416,
+        "detected": 104,
+        "missed": 9,
+        "false_alerts": 10,
+        "correct_nominal": 406,
+        "event_precision": 0.9122807017543859,
+        "event_recall": 0.9203539823008849,
+        "event_f1": 0.9162995594713657
+      },
+      "policy_metrics": {
+        "label": "D_policy_with_lead",
+        "n": 529,
+        "auto_clear": 415,
+        "pending_approval": 14,
+        "escalated": 100,
+        "unsafe_auto": 9,
+        "correct_pending": 6,
+        "correct_escalated": 98,
+        "unnecessary_pending": 8,
+        "unnecessary_escalated": 2,
+        "correct_auto_clear": 406,
+        "decision_recall": 0.9203539823008849,
+        "utility_baseline": 0.8298676748582231,
+        "utility_sensitivity": {
+          "conservative": 0.776937618147448,
+          "permissive": 0.8102079395085067,
+          "recall_focused": 0.534593572778828
+        }
+      }
+    },
+    "delta_D_minus_C": {
+      "recall": 0.04424778761061943,
+      "precision": -0.06791731804759427,
+      "f1": -0.008934085388447421,
+      "missed": -5,
+      "false_alerts": 8,
+      "unsafe_auto": -5,
+      "utility_baseline": 0.08714555765595466
+    },
+    "lead_warning_segments": 58,
+    "n_test_segments": 529,
+    "interpretation": "C is the calibrated-RF deterministic routing policy. D adds temporal evidence and lead-time warnings. Both are evaluated on the same aligned held-out OPS-SAT-AD test segments."
+  },
+  "decision_intelligence_adds_value": true,
+  "interpretation": "On the held-out OPS-SAT-AD test partition, the evaluated HelioMesh Decision Intelligence layer changes routing and improves at least one selected decision metric relative to the anomaly-only baseline. This is a benchmark result with an explicit trade-off, not a claim of universal operational superiority.",
+  "utility_matrix": {
+    "(normal, AUTO_CLEAR)": 1.0,
+    "(normal, PENDING_APPROVAL)": -0.3,
+    "(normal, ESCALATED)": -0.5,
+    "(anomaly, AUTO_CLEAR)": -5.0,
+    "(anomaly, PENDING_APPROVAL)": 0.5,
+    "(anomaly, ESCALATED)": 0.8,
+    "name": "HelioMesh Prototype Decision Utility",
+    "note": "NOT externally validated by real mission operators. Defined before evaluating the held-out test results."
+  },
+  "lead_warning_segments_flagged": 58,
+  "n_test_segments": 529,
+  "alignment": {
+    "method": "segment_id_inner_join",
+    "common_segments": 529
+  },
+  "ablation_definition": {
+    "A": "Raw RF + simple routing",
+    "B": "Calibrated RF + simple routing",
+    "C": "Calibrated RF + deterministic routing",
+    "D": "Calibrated RF + temporal evidence + lead-time + deterministic routing",
+    "test_partition": "official held-out OPS-SAT-AD test partition",
+    "threshold_tuning_on_test": false,
+    "C_policy_thresholds": {
+      "pending_approval": 0.5
+    },
+    "stress_test": {
+      "reason_attribution": "decision_time_evidence_only",
+      "ground_truth_usage": "post_decision_outcome_classification_only"
+    }
+  },
+  "provenance": {
+    "dataset": "OPSSAT-AD",
+    "zenodo_doi": "https://doi.org/10.5281/zenodo.12588359",
+    "license": "MIT",
+    "license_text_first_line": "MIT License for OPS-SAT Dataset",
+    "license_copyright": "Copyright (c) 2024 KP Labs",
+    "source_repo": "https://github.com/kplabs-pl/OPS-SAT-AD",
+    "paper": "Ruszczak et al. Scientific Data (2025) doi:10.1038/s41597-025-05035-3",
+    "segments_csv_sha256": "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba",
+    "dataset_csv_sha256": "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+    "segments_csv_bytes": 18987091,
+    "dataset_csv_bytes": 507550,
+    "license_verified_from": "https://raw.githubusercontent.com/kplabs-pl/OPS-SAT-AD/main/LICENSE",
+    "license_verified_date": "2025"
+  }
+}

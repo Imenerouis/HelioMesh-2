@@ -1,0 +1,78 @@
+{
+  "analysis": "Sensitivity analysis of C versus D using routing counts from the official held-out OPS-SAT-AD test partition.",
+  "test_partition": "official held-out OPS-SAT-AD test partition",
+  "n_test_segments": 529,
+  "architectures_compared": {
+    "C": "Calibrated RF + deterministic routing",
+    "D": "Calibrated RF + temporal evidence + lead-time + deterministic routing"
+  },
+  "threshold_tuning_on_test": false,
+  "mission_cost_validation": false,
+  "scenario_count": 5,
+  "D_wins": 5,
+  "C_wins": 0,
+  "ties": 0,
+  "D_wins_all_declared_scenarios": true,
+  "interpretation": "D is utility-preferred under a scenario only when its declared utility exceeds C. These utilities are analytical sensitivity assumptions, not validated mission costs.",
+  "routing_counts": {
+    "C": {
+      "normal_auto": 414,
+      "normal_pending": 2,
+      "normal_escalated": 0,
+      "anomaly_auto": 14,
+      "anomaly_pending": 99,
+      "anomaly_escalated": 0,
+      "n": 529,
+      "anomaly_total": 113,
+      "normal_total": 416
+    },
+    "D": {
+      "normal_auto": 406,
+      "normal_pending": 8,
+      "normal_escalated": 2,
+      "anomaly_auto": 9,
+      "anomaly_pending": 6,
+      "anomaly_escalated": 98,
+      "n": 529,
+      "anomaly_total": 113,
+      "normal_total": 416
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": "prototype_baseline",
+      "C_utility": 0.7427221172022684,
+      "D_utility": 0.8298676748582231,
+      "D_minus_C": 0.08714555765595466,
+      "winner": "D"
+    },
+    {
+      "scenario": "conservative_safety",
+      "C_utility": 0.6096408317580341,
+      "D_utility": 0.776937618147448,
+      "D_minus_C": 0.16729678638941392,
+      "winner": "D"
+    },
+    {
+      "scenario": "permissive",
+      "C_utility": 0.7589792060491494,
+      "D_utility": 0.8102079395085067,
+      "D_minus_C": 0.0512287334593573,
+      "winner": "D"
+    },
+    {
+      "scenario": "recall_focused",
+      "C_utility": 0.36635160680529305,
+      "D_utility": 0.5345935727788279,
+      "D_minus_C": 0.16824196597353486,
+      "winner": "D"
+    },
+    {
+      "scenario": "false_alert_sensitive",
+      "C_utility": 0.7400756143667296,
+      "D_utility": 0.8136105860113421,
+      "D_minus_C": 0.07353497164461242,
+      "winner": "D"
+    }
+  ]
+}

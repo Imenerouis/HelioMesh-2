@@ -1,0 +1,36 @@
+{
+  "n_test_segments": 529,
+  "changed_C_to_D": 113,
+  "unchanged": 416,
+  "protected_anomalies": {
+    "count": 5,
+    "by_route_D": {
+      "PENDING_APPROVAL": 5
+    },
+    "by_reason": {
+      "lead_warning_only": 4,
+      "temporal_signal": 1
+    }
+  },
+  "new_false_alerts": {
+    "count": 8,
+    "by_route_D": {
+      "PENDING_APPROVAL": 8
+    },
+    "by_reason": {
+      "lead_warning_only": 7,
+      "temporal_signal": 1
+    }
+  },
+  "all_changed_transitions": {
+    "PENDING_APPROVAL -> ESCALATED": 100,
+    "AUTO_CLEAR -> PENDING_APPROVAL": 13
+  },
+  "all_changed_reasons": {
+    "both_models_anomaly": 100,
+    "lead_warning_only": 11,
+    "temporal_signal": 2
+  },
+  "methodology": "Decision reasons are assigned from evidence available at decision time: calibrated current-state evidence, temporal evidence, and lead-warning state. Ground truth is used only afterward to classify protected anomalies and new false alerts.",
+  "warning": "This is a routing audit on the held-out benchmark. It does not establish operator workload, operator preference, mission-specific cost, or causal superiority."
+}

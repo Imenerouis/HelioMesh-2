@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-08-19T00:00:00Z",
+  "purpose": "Formalise the KP-dominance analysis from ml/audit.py and ml/sequences.csv. Documents what the temporal window adds beyond the KP-only and last-known-state baselines, within the controlled simulation benchmark only.",
+  "data_source": "ml/sequences.csv (12,000 sequences, frozen). No model retraining. No feature ablation performed.",
+  "scope": "SIMULATION ONLY. Does not constitute evidence of real spacecraft forecasting capability.",
+
+  "feature_importance": {
+    "kp_index_t5": 0.833073,
+    "solar_wind_density_t5": 0.047111,
+    "delta_solar_wind_density": 0.03271,
+    "delta_orbit_deviation": 0.020639,
+    "all_non_kp_features_combined": 0.166927,
+    "source": "ml/forecaster_feature_importance.json (frozen)",
+    "interpretation": "kp_index_t5 accounts for 83.3% of learned feature importance. The temporal window provides the remaining 16.7%, primarily through solar-wind density and rate-of-change signals."
+  },
+
+  "frozen_benchmark_metrics": {
+    "gb_macro_f1": 0.9708,
+    "gb_roc_auc": 0.9975,
+    "gb_accuracy": 0.9717,
+    "gb_critical_recall": 0.9819,
+    "kp_only_macro_f1": 0.8977,
+    "kp_only_critical_recall": 0.8382,
+    "last_known_state_macro_f1": 0.9015,
+    "last_known_state_critical_recall": 0.8449,
+    "vs_kp_only_f1_gain_pp": 7.31,
+    "vs_kp_only_critical_recall_gain_pp": 14.37,
+    "vs_last_known_state_f1_gain_pp": 6.93,
+    "vs_last_known_state_critical_recall_gain_pp": 13.70,
+    "source": "ml/forecaster_metrics.json (frozen). These metrics are unchanged."
+  },
+
+  "shortcut_learning_check": {
+    "description": "Audit of whether the CRITICAL_AHEAD label can be derived directly from the last-step KP value alone (kp_index_t5 > 4.0). Applied to the full 12,000-sequence dataset.",
+    "critical_ahead_total": 7075,
+    "critical_ahead_kp_above_4": 5992,
+    "critical_ahead_kp_above_4_pct": 84.7,
+    "critical_ahead_kp_at_or_below_4": 1083,
+    "critical_ahead_kp_at_or_below_4_pct": 15.3,
+    "nominal_ahead_total": 4925,
+    "nominal_ahead_kp_at_or_below_4": 4851,
+    "nominal_ahead_kp_at_or_below_4_pct": 98.5,
+    "nominal_ahead_kp_above_4_storm_passed": 74,
+    "nominal_ahead_kp_above_4_storm_passed_pct": 1.5,
+    "interpretation": "84.7% of CRITICAL_AHEAD sequences already exhibit kp_t5 > 4.0 at the last window step, which is why KP-only achieves F1=0.8977. The remaining 15.3% (1,083 sequences) have kp_t5 <= 4.0 but escalate to CRITICAL_AHEAD — these are the cases that require temporal reasoning beyond the KP threshold shortcut."
+  },
+
+  "rising_trend_analysis": {
+    "description": "Sequences where the t5-snapshot rule (applied to t5 features alone) predicts NOMINAL but the true future label is CRITICAL_AHEAD. These represent early-warning cases where temporal pattern is required.",
+    "method": "t5-snapshot rule: CRITICAL if kp_t5>6 or orb_t5>1.5 or pwr_t5<10.0; or kp_t5>4 or orb_t5>0.8 or pwr_t5<40.0. Applied to the last window step only. This is the same rule as the last-known-state baseline.",
+    "rising_trend_count_full_dataset": 1044,
+    "rising_trend_pct_of_all": 8.7,
+    "rising_trend_count_test_set": 163,
+    "falling_trend_count_full_dataset": 74,
+    "falling_trend_count_test_set": 13,
+    "t5_snapshot_agree_rate": 0.9068,
+    "t5_snapshot_disagree_count": 1117,
+    "rising_trend_characteristics": {
+      "avg_kp_t0": 2.725,
+      "avg_kp_t5": 3.451,
+      "avg_delta_kp": 0.725,
+      "kp_t5_range_min": 2.06,
+      "kp_t5_range_max": 4.0,
+      "interpretation": "Rising-trend sequences show KP at t0 ~2.7, rising to ~3.45 at t5 (delta ~+0.73) — still below the 4.0 threshold at the last step, but escalating to CRITICAL_AHEAD within 30 minutes. The positive delta_kp signal is the primary temporal indicator."
+    },
+    "regime_breakdown": {
+      "nominal_rising": 991,
+      "warning_rising": 20,
+      "warning_stable": 20,
+      "nominal_stable": 13,
+      "note": "94.9% of rising-trend cases belong to the nominal_rising regime (KP 1.0-3.5, rising toward warning zone), confirming this is the primary challenge scenario for the temporal model."
+    },
+    "interpretation": "1,044 of 12,000 sequences (8.7%) represent cases where the current KP state alone does not indicate criticality, but the 30-minute outcome is CRITICAL_AHEAD. The temporal window captures the rising KP trend required to identify these cases."
+  },
+
+  "temporal_value_statement": {
+    "claim": "The temporal model provides additional predictive value within the controlled simulation benchmark, beyond the KP-only and last-known-state baselines.",
+    "evidence": [
+      "+7.3 percentage points macro-F1 vs KP-only (0.9708 vs 0.8977)",
+      "+14.4 percentage points CRITICAL recall vs KP-only (0.9819 vs 0.8382)",
+      "1,044 sequences (8.7%) where temporal reasoning is required and KP-only would miss",
+      "163 such cases in the 1,800-sequence test partition",
+      "rising_trend regime (nominal_rising) accounts for 94.9% of these cases",
+      "Non-KP features (solar wind density, rate-of-change signals) contribute 16.7% of total feature importance"
+    ],
+    "honest_qualifications": [
+      "KP remains the dominant feature at 83.3% importance — this is disclosed and unchanged.",
+      "The simulation label is derived from HelioMesh safety rules applied to simulated telemetry, NOT from real satellite failure records.",
+      "The 30-minute temporal benchmark is validated only on the HelioMesh simulation. It is NOT validated on real OPS-SAT spacecraft data.",
+      "The benchmark does not constitute a feature ablation study — no model was retrained with features removed.",
+      "The gains vs baselines are computed within the same simulation benchmark; they do not transfer automatically to other spacecraft or missions."
+    ]
+  },
+
+  "kp_only_threshold_scan": {
+    "description": "KP threshold scan over full 12,000-sequence dataset (from ml/audit.py). Provided for completeness only. Frozen model metrics come from ml/forecaster_metrics.json.",
+    "thresholds": [
+      {"threshold": "kp_t5 > 3.0", "accuracy": 0.922, "precision": 0.898, "recall": 0.980},
+      {"threshold": "kp_t5 > 3.5", "accuracy": 0.937, "precision": 0.967, "recall": 0.924},
+      {"threshold": "kp_t5 > 4.0", "accuracy": 0.904, "precision": 0.988, "recall": 0.847},
+      {"threshold": "kp_t5 > 4.5", "accuracy": 0.830, "precision": 0.999, "recall": 0.712},
+      {"threshold": "kp_t5 > 5.0", "accuracy": 0.726, "precision": 1.000, "recall": 0.535}
+    ],
+    "note": "kp_t5 > 4.0 is the strongest single-feature shortcut. The frozen KP-only baseline in forecaster_metrics.json uses this threshold on the chronological test set."
+  },
+
+  "critical_rate_by_kp_bin": {
+    "description": "CRITICAL_AHEAD rate by KP bin over full 12,000-sequence dataset (from ml/audit.py).",
+    "bins": [
+      {"kp_range": "0-2",  "critical_rate": 0.0,    "count": 2006},
+      {"kp_range": "2-3",  "critical_rate": 0.0614,  "count": 2265},
+      {"kp_range": "3-4",  "critical_rate": 0.568,   "count": 1662},
+      {"kp_range": "4-5",  "critical_rate": 0.968,   "count": 2278},
+      {"kp_range": "5-6",  "critical_rate": 1.0,     "count": 1890},
+      {"kp_range": "6-9",  "critical_rate": 1.0,     "count": 1898}
+    ],
+    "interpretation": "The 3-4 KP bin (critical_rate=56.8%, 1,662 sequences) is the ambiguous zone where temporal reasoning is most valuable. KP alone is insufficient for reliable classification in this range."
+  },
+
+  "limitations": [
+    "This is NOT a feature ablation study. No model was retrained without KP.",
+    "All analysis is on simulation data only — not real spacecraft telemetry.",
+    "The temporal window adds value within this benchmark; external validity has not been established.",
+    "KP dominance (83.3%) is a genuine limitation of the current benchmark design.",
+    "The rising-trend count reflects simulation regime construction, not measured real-world incidence rates."
+  ]
+}

@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary:    #020b18;
+  --bg-panel:      #040f1f;
+  --bg-card:       #071628;
+  --bg-card-hover: #0a1e36;
+  --border:        #0d2d4a;
+  --border-bright: #0e4a7a;
+  --accent:        #00aaff;
+  --accent-dim:    #0066aa;
+  --text-primary:  #c8e8ff;
+  --text-muted:    #4a7fa0;
+  --text-dim:      #2a5070;
+  --green:         #00ff88;
+  --green-dim:     #004422;
+  --yellow:        #ffcc00;
+  --yellow-dim:    #443300;
+  --red:           #ff3344;
+  --red-dim:       #440011;
+  --orange:        #ff8800;
+
+  --font-sans: var(--font-ibm-sans), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-ibm-mono), "Consolas", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+/* ── Subtle grid background ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,170,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,170,255,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Scanline overlay ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 10, 20, 0.06) 2px,
+    rgba(0, 10, 20, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* everything above overlays */
+#__next, main, header, div[style] { position: relative; z-index: 2; }
+
+/* ── Pulse animation for status dot ── */
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+  70%  { box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+.dot-pulse {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot-yellow {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.7); }
+  70%  { box-shadow: 0 0 0 6px rgba(255, 204, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+}
+.dot-pulse-yellow {
+  animation: pulse-dot-yellow 1.5s ease-in-out infinite;
+}
+
+/* ── Value transition (smooth number changes) ── */
+.value-transition {
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* ── Loading steps fade-in ── */
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.step-in {
+  animation: step-in 0.3s ease forwards;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }

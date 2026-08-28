@@ -1,0 +1,106 @@
+{
+  "structural_audit": {
+    "tests": {
+      "T1_evidence_completeness": {
+        "pass": true,
+        "missing_fields": [],
+        "description": "All required numeric evidence fields are present"
+      },
+      "T2_no_invented_values": {
+        "pass": true,
+        "f1_present": true,
+        "roc_present": true,
+        "description": "Context contains values directly from source JSON \u2014 no numeric invention"
+      },
+      "T3_semantic_boundary": {
+        "pass": true,
+        "description": "Context explicitly states OPS-SAT is binary and NOT mapped to simulation taxonomy"
+      },
+      "T4_real_simulation_separation": {
+        "pass": true,
+        "description": "Real evidence section does not mix simulation terminology"
+      },
+      "T5_metric_internal_consistency": {
+        "pass": true,
+        "precision_consistent": true,
+        "recall_consistent": true,
+        "description": "Precision and recall are consistent with TP/FP/FN counts"
+      },
+      "T6_temporal_limitation_stated": {
+        "pass": true,
+        "description": "Context explicitly states temporal task is limited"
+      },
+      "T7_policy_route_documented": {
+        "pass": true,
+        "description": "Calibrated policy thresholds are present in context"
+      },
+      "T8_provenance_documented": {
+        "pass": true,
+        "description": "Zenodo DOI and license are present in context"
+      },
+      "T9_no_false_30min_claim": {
+        "pass": true,
+        "description": "Context correctly states 30-min horizon is NOT valid on OPS-SAT"
+      },
+      "T10_no_contradiction": {
+        "pass": true,
+        "description": "Calibrated policy has fewer unsafe AUTO than baseline (no contradiction)"
+      },
+      "T11_no_autonomous_control_claim": {
+        "pass": true,
+        "violations_found": [],
+        "description": "Granite prompt contains no claim that the LLM autonomously controls the spacecraft. Role is explanation only."
+      },
+      "T12_no_real_30min_spacecraft_claim": {
+        "pass": true,
+        "sim_prompt_disclaim_present": true,
+        "opssat_context_30min_false": true,
+        "description": "Prompt explicitly states the 30-min temporal model predicts simulation states, not real satellite failures. OPS-SAT context marks 30-min horizon as NOT valid."
+      },
+      "T13_no_route_override": {
+        "pass": true,
+        "override_phrases_found": [],
+        "authoritative_language_present": true,
+        "description": "Granite prompt does not permit LLM to override or recompute the policy route. Authoritative route language is present."
+      },
+      "T14_telemetry_fidelity": {
+        "pass": true,
+        "kp_index_present": true,
+        "orbit_deviation_present": true,
+        "power_output_present": true,
+        "description": "KP index, orbit deviation, and power output from source telemetry dict appear verbatim in the Granite prompt (no silent alteration)."
+      },
+      "T15_forecast_fidelity": {
+        "pass": true,
+        "forecast_label_present": true,
+        "critical_probability_present": true,
+        "description": "Forecast label (CRITICAL_AHEAD) and critical probability percentage from source forecast dict appear verbatim in the Granite prompt."
+      }
+    },
+    "n_pass": 15,
+    "n_total": 15,
+    "n_fail": 0,
+    "grounding_score": 1.0,
+    "contradiction_count": 0,
+    "all_pass": true,
+    "context_length": 2646,
+    "limitation": "This is a STRUCTURAL audit only \u2014 it verifies context completeness, consistency, and prompt-level grounding properties. T11-T15 are deterministic checks on the prompt template; they do not evaluate live LLM outputs. Human/operator evaluation of Granite response quality: NOT PERFORMED."
+  },
+  "evidence_summary": {
+    "source": "OPSSAT-AD",
+    "evidence_type": "REAL_SPACECRAFT_TELEMETRY",
+    "benchmark_status": "VERIFIED",
+    "rf_f1": 0.9209302325581395,
+    "rf_roc_auc": 0.9874170353982301,
+    "event_f1": 0.9209302325581395,
+    "event_recall": 0.8761061946902655,
+    "unsafe_auto_baseline": 14,
+    "unsafe_auto_calibrated": 9,
+    "recall_improvement": 0.0443,
+    "temporal_class": "B",
+    "temporal_label": "LIMITED TEMPORAL BENCHMARK",
+    "semantic_boundary": "Binary only \u2014 NOT mapped to simulation 4-class taxonomy"
+  },
+  "context_sample": "=== REAL OPS-SAT SPACECRAFT EVIDENCE ===\nSource: OPSSAT-AD\nEvidence Type: REAL_SPACECRAFT_TELEMETRY\nMission: ESA OPS-SAT (first ESA flying nanosatellite laboratory)\nBenchmark Status: VERIFIED\n\nSEMANTIC BOUNDARY (MANDATORY):\nOPS-SAT-AD uses BINARY anomaly labels (0=normal, 1=anomaly). The HelioMesh four-class simulation taxonomy (NOMINAL/STANDBY/SAFE_MODE/CRITICAL_AHEAD) is NOT validated by or mapped to these labels.\n\n=== ANOMALY DETECTION (REAL TEST SET \u2014 529 segments, 113 anomalous) ===\nModel: ",
+  "limitation": "This is a STRUCTURAL audit only \u2014 it verifies context completeness, consistency, and prompt-level grounding properties. T11-T15 are deterministic checks on the prompt template; they do not evaluate live LLM outputs. Human/operator evaluation of Granite response quality: NOT PERFORMED."
+}

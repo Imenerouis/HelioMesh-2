@@ -1,0 +1,447 @@
+{
+  "report_generated_at": "2026-08-21T16:02:42.906939",
+  "snapshot_validation": {
+    "evaluated_at": "2026-08-21T16:01:01.948255",
+    "data_source": "STATIC_SAMPLE",
+    "n_records": 500,
+    "task": "internal_consistency_check",
+    "task_description": "Snapshot RF classifier vs HelioMesh labeling rules on space-weather inputs. NOT spacecraft failure prediction.",
+    "consistency_rate": 0.998,
+    "macro_f1": 0.9978,
+    "accuracy": 0.998,
+    "per_class_metrics": {
+      "NOMINAL": {
+        "precision": 1.0,
+        "recall": 0.9972,
+        "f1": 0.9986,
+        "support": 357
+      },
+      "SAFE_MODE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 46
+      },
+      "STANDBY": {
+        "precision": 0.9898,
+        "recall": 1.0,
+        "f1": 0.9949,
+        "support": 97
+      }
+    },
+    "confusion_matrix": {
+      "NOMINAL": {
+        "NOMINAL": 356,
+        "SAFE_MODE": 0,
+        "STANDBY": 1
+      },
+      "SAFE_MODE": {
+        "NOMINAL": 0,
+        "SAFE_MODE": 46,
+        "STANDBY": 0
+      },
+      "STANDBY": {
+        "NOMINAL": 0,
+        "SAFE_MODE": 0,
+        "STANDBY": 97
+      }
+    },
+    "ground_truth_distribution": {
+      "NOMINAL": 357,
+      "SAFE_MODE": 46,
+      "STANDBY": 97
+    },
+    "predicted_distribution": {
+      "NOMINAL": 356,
+      "SAFE_MODE": 46,
+      "STANDBY": 98
+    },
+    "disclaimer": "Labels are synthetic, derived from HelioMesh operational safety rules. Consistency measures model-rule agreement, not real spacecraft performance."
+  },
+  "temporal_validation": {
+    "evaluated_at": "2026-08-21T16:01:17.297722",
+    "data_source": "STATIC_SAMPLE",
+    "n_records_raw": 600,
+    "n_sequences": 594,
+    "window_steps": 6,
+    "horizon_steps": 1,
+    "step_duration_note": "OMNI2 hourly data \u00e2\u20ac\u201d steps are 1 hour apart (training used 5-min steps)",
+    "task": "internal_consistency_check",
+    "task_description": "Temporal predictor vs HelioMesh labeling rules applied to OMNI2-derived features. Window cadence differs from training (hourly vs 5-min). NOT spacecraft failure prediction.",
+    "consistency_rate": 0.5606,
+    "macro_f1": 0.4839,
+    "accuracy": 0.5606,
+    "per_class_metrics": {
+      "CRITICAL_AHEAD": {
+        "precision": 0.2626,
+        "recall": 0.3114,
+        "f1": 0.2849,
+        "support": 167
+      },
+      "NOMINAL_AHEAD": {
+        "precision": 0.7096,
+        "recall": 0.6581,
+        "f1": 0.6829,
+        "support": 427
+      }
+    },
+    "confusion_matrix": {
+      "CRITICAL_AHEAD": {
+        "CRITICAL_AHEAD": 52,
+        "NOMINAL_AHEAD": 115
+      },
+      "NOMINAL_AHEAD": {
+        "CRITICAL_AHEAD": 146,
+        "NOMINAL_AHEAD": 281
+      }
+    },
+    "ground_truth_distribution": {
+      "CRITICAL_AHEAD": 167,
+      "NOMINAL_AHEAD": 427
+    },
+    "predicted_distribution": {
+      "CRITICAL_AHEAD": 198,
+      "NOMINAL_AHEAD": 396
+    },
+    "disclaimer": "Labels are synthetic, derived from HelioMesh operational safety rules. Hourly window differs from 5-min training window \u00e2\u20ac\u201d results are indicative only."
+  },
+  "early_warning": {
+    "evaluated_at": "2026-08-21T16:01:18.327943",
+    "n_test_sequences": 1800,
+    "total_critical_transitions": 1051,
+    "transitions_detected_early": 1032,
+    "missed_transitions": 19,
+    "false_early_warnings": 32,
+    "early_detection_rate": 0.9819,
+    "false_positive_rate": 0.0427,
+    "median_lead_time_steps": 2.0,
+    "mean_lead_time_steps": 1.62,
+    "step_duration_minutes": 5,
+    "methodology_note": "Lead time is a proxy: floor(delta_kp / 0.25) steps, representing estimated 5-min steps of advance KP warning in the look-back window. Sequences are independent \u00e2\u20ac\u201d exact step-level transitions cannot be tracked across rows.",
+    "disclaimer": "Evaluation uses simulation test sequences only. NOT validated against real spacecraft data."
+  },
+  "model_agreement": {
+    "evaluated_at": "2026-08-21T16:02:42.381806",
+    "n_sequences": 1800,
+    "agreement_rate": 0.9039,
+    "disagreement_rate": 0.0961,
+    "rf_nominal_gb_critical": 171,
+    "rf_non_nominal_gb_nominal": 2,
+    "cross_tabulation": {
+      "NOMINAL": {
+        "NOMINAL_AHEAD": 734,
+        "CRITICAL_AHEAD": 171
+      },
+      "STANDBY": {
+        "NOMINAL_AHEAD": 2,
+        "CRITICAL_AHEAD": 617
+      },
+      "SAFE_MODE": {
+        "NOMINAL_AHEAD": 0,
+        "CRITICAL_AHEAD": 276
+      }
+    },
+    "rf_distribution": {
+      "STANDBY": 619,
+      "NOMINAL": 905,
+      "SAFE_MODE": 276
+    },
+    "gb_distribution": {
+      "CRITICAL_AHEAD": 1064,
+      "NOMINAL_AHEAD": 736
+    },
+    "agreement_definition": "Agreement = RF risk level (NOMINAL\u00e2\u2020\u201dLOW_RISK, other\u00e2\u2020\u201dHIGH_RISK) matches GB risk level (NOMINAL_AHEAD\u00e2\u2020\u201dLOW_RISK, CRITICAL_AHEAD\u00e2\u2020\u201dHIGH_RISK).",
+    "disclaimer": "Both models are evaluated on simulation test sequences. NOT validated against real spacecraft data."
+  },
+  "policy_tests": {
+    "evaluated_at": "2026-08-21T16:02:42.442808",
+    "total_scenarios": 25,
+    "passed": 25,
+    "failed": 0,
+    "consistency_pct": 100.0,
+    "disagree_threshold": 0.5,
+    "scenarios": [
+      {
+        "name": "LOW-1: nominal KP, normal orbit, full power",
+        "category": "LOW_RISK",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 14.0,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "LOW-2: low KP, small deviation, good power",
+        "category": "LOW_RISK",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 22.6,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "LOW-3: zero KP, zero deviation",
+        "category": "LOW_RISK",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 3.5,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "MED-1: elevated KP, moderate deviation",
+        "category": "MEDIUM_RISK",
+        "confidence_score": 65,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 49.8,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "MED-2: KP=4.5, orbit borderline",
+        "category": "MEDIUM_RISK",
+        "confidence_score": 75,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 40.7,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "MED-3: moderate power degradation (kp=3.5, pwr=35)",
+        "category": "MEDIUM_RISK",
+        "confidence_score": 80,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 39.1,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "HIGH-1: KP>6, large orbit deviation",
+        "category": "HIGH_RISK",
+        "confidence_score": 20,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 85.6,
+        "risk_level": "CRITICAL"
+      },
+      {
+        "name": "HIGH-2: KP=9, critical storm",
+        "category": "HIGH_RISK",
+        "confidence_score": 10,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 100,
+        "risk_level": "CRITICAL"
+      },
+      {
+        "name": "HIGH-3: low power + high KP -> escalated",
+        "category": "HIGH_RISK",
+        "confidence_score": 35,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 60.8,
+        "risk_level": "HIGH"
+      },
+      {
+        "name": "AGREE-1: both models nominal",
+        "category": "MODEL_AGREEMENT_NOMINAL",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 9.8,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "AGREE-2: both models critical",
+        "category": "MODEL_AGREEMENT_CRITICAL",
+        "confidence_score": 10,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 92.7,
+        "risk_level": "CRITICAL"
+      },
+      {
+        "name": "TREND-1: rising KP, still in warning zone",
+        "category": "WORSENING_TREND",
+        "confidence_score": 55,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 54.9,
+        "risk_level": "HIGH"
+      },
+      {
+        "name": "TREND-2: orbit deviation worsening -> pending_approval",
+        "category": "WORSENING_TREND",
+        "confidence_score": 80,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 45.0,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "BOUNDARY-1: KP>4, orbit>0.5, power<50 -> pending_approval",
+        "category": "BOUNDARY",
+        "confidence_score": 55,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 46.0,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "BOUNDARY-2: all nominal thresholds",
+        "category": "BOUNDARY",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 39.0,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "DISAGREE-1: live demo case RF=NOMINAL GB=CRITICAL_AHEAD p=0.919",
+        "category": "DISAGREE_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": true,
+        "risk_score": 29.9,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "DISAGREE-2: critical_probability exactly at threshold",
+        "category": "DISAGREE_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": true,
+        "risk_score": 20.1,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "DISAGREE-3: critical_probability just below threshold \u2014 no override",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 20.1,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "DISAGREE-4: both NOMINAL \u2014 no override (AGREE case)",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 14.1,
+        "risk_level": "LOW"
+      },
+      {
+        "name": "DISAGREE-5: inverse \u2014 RF=SAFE_MODE GB=NOMINAL_AHEAD \u2014 no override",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 10,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 87.9,
+        "risk_level": "CRITICAL"
+      },
+      {
+        "name": "DISAGREE-6: medium conf + disagree \u2014 stays pending_approval",
+        "category": "DISAGREE_OVERRIDE",
+        "confidence_score": 55,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": true,
+        "risk_score": 49.3,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "DISAGREE-7: escalated route + disagree \u2014 stays escalated",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 10,
+        "expected_status": "escalated",
+        "actual_status": "escalated",
+        "passed": true,
+        "disagree_override": true,
+        "risk_score": 87.6,
+        "risk_level": "CRITICAL"
+      },
+      {
+        "name": "DISAGREE-8: no model_agreement dict \u2014 no override",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "auto_executed",
+        "actual_status": "auto_executed",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 29.9,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "DISAGREE-9: RF=STANDBY GB=CRITICAL_AHEAD \u2014 no override",
+        "category": "DISAGREE_NO_OVERRIDE",
+        "confidence_score": 55,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": false,
+        "risk_score": 46.8,
+        "risk_level": "MODERATE"
+      },
+      {
+        "name": "DISAGREE-10: p=1.0 maximum certainty \u2014 pending_approval",
+        "category": "DISAGREE_OVERRIDE",
+        "confidence_score": 90,
+        "expected_status": "pending_approval",
+        "actual_status": "pending_approval",
+        "passed": true,
+        "disagree_override": true,
+        "risk_score": 15.6,
+        "risk_level": "LOW"
+      }
+    ],
+    "routing_rules": {
+      "auto_executed": "confidence >= 70",
+      "pending_approval": "40 <= confidence < 70",
+      "escalated": "confidence < 40",
+      "disagree_override": "RF=NOMINAL AND GB=CRITICAL_AHEAD AND critical_probability >= 0.5"
+    }
+  }
+}

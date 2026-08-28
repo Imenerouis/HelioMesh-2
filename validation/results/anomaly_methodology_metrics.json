@@ -1,0 +1,33 @@
+{
+  "evaluated_at": "2026-08-14T17:13:00.072790",
+  "real_telemetry_source": "SMAP_STANDIN",
+  "real_telemetry_channels": [
+    "power_volt",
+    "thermal_temp",
+    "cmd_ack"
+  ],
+  "real_telemetry_n_timesteps": 500,
+  "real_telemetry_method": "iforest",
+  "real_telemetry_threshold": 0.5,
+  "real_telemetry_point_level": {
+    "precision": 0.8182,
+    "recall": 0.99,
+    "f1": 0.8959,
+    "balanced_accuracy": 0.9675,
+    "mcc": 0.8732,
+    "roc_auc": 0.9998,
+    "tp": 99,
+    "tn": 378,
+    "fp": 22,
+    "fn": 1
+  },
+  "real_telemetry_event_level": {
+    "total_anomaly_windows": 4,
+    "detected_events": 4,
+    "missed_events": 0,
+    "false_alarm_count": 21,
+    "event_detection_rate": 1.0
+  },
+  "real_telemetry_disclaimer": "SYNTHETIC_STANDIN: this is NOT the real NASA SMAP dataset. Anomaly windows are artificially injected at known positions (seed=42).  Results are for methodology demonstration only.",
+  "namespace_note": "Results prefixed 'real_telemetry_' are independent of HelioMesh simulation results. This benchmark evaluates unsupervised anomaly detection on telemetry channels. It does NOT validate the RF/GB spacecraft-health classifiers."
+}

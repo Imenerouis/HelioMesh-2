@@ -1,0 +1,191 @@
+{
+  "evaluated_at": "2026-08-14T17:13:01.127936",
+  "test_rows": 1800,
+  "test_split": "rows 10200\u201311999 of ml/sequences.csv",
+  "ground_truth_basis": "HelioMesh safety rules applied to kp_index_t5, orbit_deviation_t5, power_output_t5",
+  "ground_truth_dist": {
+    "STANDBY": 620,
+    "NOMINAL": 899,
+    "SAFE_MODE": 281
+  },
+  "majority_class": "NOMINAL",
+  "rf_vs_rules_agreement_rate": 0.9917,
+  "conditions": {
+    "A_rules_only": {
+      "description": "Apply HelioMesh safety rules to t5 features. Ground truth IS derived from these same rules, so accuracy = 1.0 by construction. This is the definitional ceiling.",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "per_class": {
+        "NOMINAL": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 899
+        },
+        "SAFE_MODE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 281
+        },
+        "STANDBY": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 620
+        }
+      },
+      "confusion_matrix": {
+        "NOMINAL": {
+          "NOMINAL": 899,
+          "SAFE_MODE": 0,
+          "STANDBY": 0
+        },
+        "SAFE_MODE": {
+          "NOMINAL": 0,
+          "SAFE_MODE": 281,
+          "STANDBY": 0
+        },
+        "STANDBY": {
+          "NOMINAL": 0,
+          "SAFE_MODE": 0,
+          "STANDBY": 620
+        }
+      }
+    },
+    "B_rf_model": {
+      "description": "Load frozen ml/risk_model.pkl and run inference on t5 features. Compares RF predictions against rule-derived ground truth.",
+      "accuracy": 0.9917,
+      "macro_f1": 0.9911,
+      "balanced_accuracy": 0.989,
+      "per_class": {
+        "NOMINAL": {
+          "precision": 0.9912,
+          "recall": 0.9978,
+          "f1": 0.9945,
+          "support": 899
+        },
+        "SAFE_MODE": {
+          "precision": 1.0,
+          "recall": 0.9822,
+          "f1": 0.991,
+          "support": 281
+        },
+        "STANDBY": {
+          "precision": 0.9887,
+          "recall": 0.9871,
+          "f1": 0.9879,
+          "support": 620
+        }
+      },
+      "confusion_matrix": {
+        "NOMINAL": {
+          "NOMINAL": 897,
+          "SAFE_MODE": 0,
+          "STANDBY": 2
+        },
+        "SAFE_MODE": {
+          "NOMINAL": 0,
+          "SAFE_MODE": 276,
+          "STANDBY": 5
+        },
+        "STANDBY": {
+          "NOMINAL": 8,
+          "SAFE_MODE": 0,
+          "STANDBY": 612
+        }
+      }
+    },
+    "C_rules_rf_ensemble": {
+      "description": "When rules and RF agree, use that prediction. When they disagree, RF prediction wins. Number of disagreements on test set: 15.",
+      "n_disagreements": 15,
+      "accuracy": 0.9917,
+      "macro_f1": 0.9911,
+      "balanced_accuracy": 0.989,
+      "per_class": {
+        "NOMINAL": {
+          "precision": 0.9912,
+          "recall": 0.9978,
+          "f1": 0.9945,
+          "support": 899
+        },
+        "SAFE_MODE": {
+          "precision": 1.0,
+          "recall": 0.9822,
+          "f1": 0.991,
+          "support": 281
+        },
+        "STANDBY": {
+          "precision": 0.9887,
+          "recall": 0.9871,
+          "f1": 0.9879,
+          "support": 620
+        }
+      },
+      "confusion_matrix": {
+        "NOMINAL": {
+          "NOMINAL": 897,
+          "SAFE_MODE": 0,
+          "STANDBY": 2
+        },
+        "SAFE_MODE": {
+          "NOMINAL": 0,
+          "SAFE_MODE": 276,
+          "STANDBY": 5
+        },
+        "STANDBY": {
+          "NOMINAL": 8,
+          "SAFE_MODE": 0,
+          "STANDBY": 612
+        }
+      }
+    },
+    "D_majority_baseline": {
+      "description": "Always predict 'NOMINAL' (most common training class).",
+      "majority_class": "NOMINAL",
+      "accuracy": 0.4994,
+      "macro_f1": 0.2221,
+      "balanced_accuracy": 0.3333,
+      "per_class": {
+        "NOMINAL": {
+          "precision": 0.4994,
+          "recall": 1.0,
+          "f1": 0.6662,
+          "support": 899
+        },
+        "SAFE_MODE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 281
+        },
+        "STANDBY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 620
+        }
+      },
+      "confusion_matrix": {
+        "NOMINAL": {
+          "NOMINAL": 899,
+          "SAFE_MODE": 0,
+          "STANDBY": 0
+        },
+        "SAFE_MODE": {
+          "NOMINAL": 281,
+          "SAFE_MODE": 0,
+          "STANDBY": 0
+        },
+        "STANDBY": {
+          "NOMINAL": 620,
+          "SAFE_MODE": 0,
+          "STANDBY": 0
+        }
+      }
+    }
+  },
+  "scientific_conclusion": "RF vs rules agreement rate on test set: 99.2%. RF accuracy vs rule-derived GT: 99.2%. Rules-only accuracy (definitional ceiling): 100.0%. The RF model was trained on data generated by the SAME safety rules. Agreement near 100% is expected \u2014 the RF has learned to reproduce the rules accurately. RF achieves 0.9911 macro-F1 vs rules ceiling of 1.0000. Key additional value RF provides beyond the rules: (1) a calibrated probability estimate (confidence) that the hard rules cannot produce; (2) potential generalisation to combinations of borderline features not captured by strict thresholds. The 15 disagreement cases are the margin where RF can differ from rule-direct application. HONEST ASSESSMENT: On simulation data, the RF classifier is largely a re-implementation of the safety rules. Its primary incremental value is the probability output (confidence score), not a fundamentally different prediction. This is expected when training data is rule-generated.",
+  "frozen_models_unchanged": true
+}

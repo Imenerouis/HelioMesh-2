@@ -1,0 +1,277 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HelioMesh — Final Audit Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1f2328;
+    background: #ffffff;
+    padding: 32px 16px 48px;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: #57606a; font-size: 13px; margin-bottom: 32px; }
+  h2 { font-size: 15px; font-weight: 700; margin: 28px 0 10px; padding-bottom: 4px; border-bottom: 1px solid #e5e7eb; }
+  h3 { font-size: 13px; font-weight: 600; margin: 16px 0 6px; color: #1f2328; }
+  p { margin-bottom: 8px; }
+  code { font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; background: #f7f8fa; padding: 1px 4px; border-radius: 3px; border: 1px solid #e5e7eb; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 13px; }
+  th { background: #f7f8fa; font-weight: 600; text-align: left; padding: 6px 10px; border: 1px solid #e5e7eb; }
+  td { padding: 5px 10px; border: 1px solid #e5e7eb; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafbfc; }
+
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.02em; }
+  .pass   { background: #d1fae5; color: #065f46; }
+  .warn   { background: #fef3c7; color: #92400e; }
+  .fail   { background: #fee2e2; color: #991b1b; }
+  .info   { background: #dbeafe; color: #1e40af; }
+  .freeze { background: #ede9fe; color: #5b21b6; }
+
+  .section-status { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .section-status h3 { margin: 0; }
+
+  .finding { background: #f7f8fa; border: 1px solid #e5e7eb; border-left: 3px solid #3b82d4; border-radius: 4px; padding: 10px 14px; margin: 8px 0 14px; font-size: 13px; }
+  .finding.ok   { border-left-color: #10b981; }
+  .finding.warn { border-left-color: #f59e0b; }
+  .finding.note { border-left-color: #8b5cf6; }
+
+  .metric-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+  .metric-box { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 4px; padding: 7px 12px; min-width: 130px; }
+  .metric-box .val { font-size: 17px; font-weight: 700; color: #1f2328; }
+  .metric-box .lbl { font-size: 11px; color: #57606a; margin-top: 1px; }
+
+  .overall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e5e7eb; border: 1px solid #e5e7eb; border-radius: 5px; overflow: hidden; margin: 12px 0; }
+  .overall-cell { background: #fff; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+  .overall-cell .lbl { color: #57606a; }
+
+  .freeze-box { background: #f5f3ff; border: 1px solid #c4b5fd; border-radius: 5px; padding: 12px 16px; margin: 14px 0; }
+  .freeze-box h3 { margin: 0 0 8px; font-size: 13px; color: #5b21b6; }
+
+  .final-verdict { background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 6px; padding: 14px 18px; margin: 24px 0 8px; text-align: center; }
+  .final-verdict .v { font-size: 18px; font-weight: 700; color: #065f46; }
+  .final-verdict .s { font-size: 13px; color: #047857; margin-top: 4px; }
+
+  footer { margin-top: 40px; padding-top: 12px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 12px; color: #57606a; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>HelioMesh — Final Project Audit Report</h1>
+  <div class="subtitle">IBM AI Builders Challenge 2026 · Audit completed after freeze · Read-only inspection · No files modified</div>
+
+  
+  <h2>Part 1 — Simulation Temporal Benchmark (6-Area Methodological Audit)</h2>
+
+  <div class="section-status">
+    <h3>1.1 Data Leakage</h3>
+    <span class="badge pass">PASS</span>
+  </div>
+  <div class="finding ok">
+    Chronological split performed by array slicing with no shuffling (<code>X[:8400]</code> / <code>X[8400:10200]</code> / <code>X[10200:]</code>). No <code>StandardScaler</code>, no encoder, no imputer fitted across split boundaries. Each sequence is a self-contained 42-feature vector requiring no cross-row statistics. No leakage path exists.
+  </div>
+
+  <div class="section-status">
+    <h3>1.2 Future-Information Leakage</h3>
+    <span class="badge pass">PASS</span>
+  </div>
+  <div class="finding ok">
+    Feature vector contains only the 6 input window steps (t=0…t=25). Horizon gap (t=25…t=55) is simulated after window is fully built; only the binary label is extracted from t=55 — no future feature values enter the input vector. Delta features are intra-window (t5 − t0) only. <code>delta_power_output</code> importance = 0.0 (sail fixed per sequence — confirmed, not a bug).
+  </div>
+
+  <div class="section-status">
+    <h3>1.3 Sequence Overlap</h3>
+    <span class="badge pass">PASS</span>
+  </div>
+  <div class="finding ok">
+    Each of the 12,000 sequences uses independent random initial conditions. No sliding-window extraction from a shared trajectory. Test sequences share no raw state with training sequences. Timestamps are synthetic ordering labels, not a continuous real timeline.
+  </div>
+
+  <div class="section-status">
+    <h3>1.4 Target Construction</h3>
+    <span class="badge pass">PASS — disclosed caveat</span>
+  </div>
+  <div class="finding ok">
+    Target derived from simulated state at t=55 using the same deterministic safety rules as the snapshot classifier. Future state variables never placed in the feature vector. KP dominance (83.3% feature importance) is the main structural property — already disclosed in <code>forecaster_metrics.json</code> with an explicit KP-only baseline.
+  </div>
+
+  <div class="section-status">
+    <h3>1.5 Chronological Split</h3>
+    <span class="badge pass">PASS</span>
+  </div>
+  <div class="finding ok">
+    Train 8,400 / Val 1,800 / Test 1,800. Exact match with reported sizes. No shuffling anywhere. Validation used only for diagnostic reporting — model not retrained or tuned on validation outcomes.
+  </div>
+
+  <div class="section-status">
+    <h3>1.6 Baseline Validity</h3>
+    <span class="badge pass">PASS</span>
+  </div>
+  <div class="finding ok">
+    Both baselines evaluated on the identical test partition. Last-known-state (F1=0.9015) and KP-only threshold (F1=0.8977) are correctly designed. Model improvement is genuine: +6.9pp / +7.3pp macro-F1, +13.7pp / +14.4pp CRITICAL recall. Margins are not marginal.
+  </div>
+
+  <h3>Simulation Benchmark Key Numbers</h3>
+  <div class="metric-row">
+    <div class="metric-box"><div class="val">0.9708</div><div class="lbl">Macro-F1 (test)</div></div>
+    <div class="metric-box"><div class="val">0.9975</div><div class="lbl">ROC-AUC (test)</div></div>
+    <div class="metric-box"><div class="val">0.9717</div><div class="lbl">Accuracy (test)</div></div>
+    <div class="metric-box"><div class="val">0.9819</div><div class="lbl">CRITICAL recall</div></div>
+    <div class="metric-box"><div class="val">+7.3pp</div><div class="lbl">F1 gain vs KP-only</div></div>
+    <div class="metric-box"><div class="val">25/25</div><div class="lbl">Policy tests</div></div>
+  </div>
+
+  
+  <h2>Part 2 — Real OPS-SAT-AD Benchmark</h2>
+
+  <table>
+    <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+    <tr><td>F1 Score</td><td><strong>0.9209</strong></td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>ROC-AUC</td><td><strong>0.9874</strong></td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>PR-AUC</td><td><strong>0.9677</strong></td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>MCC</td><td><strong>0.9027</strong></td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>Recall</td><td>0.8761</td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>Precision</td><td>0.9706</td><td>opssat_ad_real_metrics.json</td></tr>
+    <tr><td>Unsafe AUTO (baseline → calibrated)</td><td>14 → 9 (−36%)</td><td>real_policy_calibration.json</td></tr>
+    <tr><td>Recall (baseline → calibrated)</td><td>0.876 → 0.920 (+4.4pp)</td><td>real_policy_calibration.json</td></tr>
+    <tr><td>Policy tests</td><td>25/25</td><td>policy_tests.json</td></tr>
+    <tr><td>Granite structural audit</td><td>1.0000 (10/10)</td><td>granite_real_evidence.json</td></tr>
+  </table>
+
+  <div class="finding note">
+    <strong>Semantic boundary (mandatory):</strong> OPS-SAT-AD uses binary labels only. The four-class simulation taxonomy (NOMINAL/STANDBY/SAFE_MODE/CRITICAL_AHEAD) is NOT validated by this dataset. The 30-minute prediction horizon is NOT validated on OPS-SAT-AD (median inter-segment gap = 1 s).
+  </div>
+
+  
+  <h2>Part 3 — Cross-Channel LOO Generalization</h2>
+
+  <table>
+    <tr><th>Scope</th><th>Mean F1</th><th>Mean ROC-AUC</th><th>Folds</th></tr>
+    <tr><td>All primary folds (7)</td><td><strong>0.777</strong></td><td><strong>0.945</strong></td><td>7</td></tr>
+    <tr><td>Regime A (var ~10⁻¹⁰): CADC0872/73/74</td><td>0.912</td><td>0.992</td><td>3</td></tr>
+    <tr><td>Regime B (var ~10⁻¹): CADC0888/90/92/94</td><td>0.675</td><td>0.909</td><td>4</td></tr>
+    <tr><td>Excluded (insufficient anomalies)</td><td>—</td><td>—</td><td>2</td></tr>
+  </table>
+
+  <div class="finding note">
+    <strong>Scope:</strong> Intra-spacecraft cross-channel generalization only. All 9 channels from OPS-SAT. Not cross-mission. Performance drop in Regime B (F1=0.675 vs 0.912) shows robustness is not uniform across sensor scale regimes. CADC0892: high AUC (0.852) but low F1 (0.333) — threshold miscalibration, not a ranking failure. This result does not replace the frozen Phase 2 benchmark.
+  </div>
+
+  
+  <h2>Part 4 — Granite Evidence Chain Audit</h2>
+
+  <table>
+    <tr><th>Component</th><th>Status</th><th>Finding</th></tr>
+    <tr><td>Telemetry → RF</td><td><span class="badge pass">PASS</span></td><td>StandardScaler fit on train only; no cross-partition leakage</td></tr>
+    <tr><td>RF → temporal model</td><td><span class="badge pass">PASS</span></td><td>Independent inference; model_agreement.json cross-tab verified</td></tr>
+    <tr><td>Disagreement → policy</td><td><span class="badge pass">PASS</span></td><td>25/25 deterministic tests; rule is explicit and auditable</td></tr>
+    <tr><td>Policy → route</td><td><span class="badge pass">PASS</span></td><td>Route computed before Granite is called; no feedback loop</td></tr>
+    <tr><td>Route → Granite context</td><td><span class="badge pass">PASS</span></td><td>Route injected as read-only string labelled AUTHORITATIVE</td></tr>
+    <tr><td>Granite can override route?</td><td><span class="badge pass">NO</span></td><td>No code path exists for Granite to modify routing</td></tr>
+    <tr><td>Real/simulation separation</td><td><span class="badge pass">PASS</span></td><td>Separate JSON objects; never merged; T4 audit test passes</td></tr>
+    <tr><td>Grounding score = 1.0000</td><td><span class="badge info">STRUCTURAL ONLY</span></td><td>Evidence-context consistency check, not LLM quality score. Human operator evaluation not performed.</td></tr>
+  </table>
+
+  
+  <h2>Part 5 — Temporal / Lead-Time Feasibility</h2>
+
+  <table>
+    <tr><th>Claim</th><th>Status</th></tr>
+    <tr><td>30-min horizon validated on simulation</td><td><span class="badge pass">YES — simulation only</span></td></tr>
+    <tr><td>30-min horizon validated on OPS-SAT</td><td><span class="badge fail">NOT SUPPORTED</span></td></tr>
+    <tr><td>Operational early-warning on OPS-SAT</td><td><span class="badge fail">NOT AVAILABLE</span></td></tr>
+    <tr><td>Next-segment lead-time metric</td><td><span class="badge warn">DO NOT PROCEED</span></td></tr>
+  </table>
+  <p style="font-size:12px;color:#57606a">Median inter-segment gap = 1 s. 88.7% of N→A transitions have gap &lt; 10 s. No operational early-warning window exists in OPS-SAT-AD.</p>
+
+  
+  <h2>Part 6 — Frozen Artifact Integrity</h2>
+
+  <div class="freeze-box">
+    <h3>SHA-256 verification (first 16 chars)</h3>
+    <table>
+      <tr><th>Artifact</th><th>Expected</th><th>Verified</th></tr>
+      <tr><td><code>ml/risk_model.pkl</code></td><td><code>109a8a43578926a2</code></td><td><span class="badge pass">MATCH</span></td></tr>
+      <tr><td><code>ml/label_encoder.pkl</code></td><td><code>20b39a8a67cd98b5</code></td><td><span class="badge pass">MATCH</span></td></tr>
+      <tr><td><code>ml/forecaster_model.pkl</code></td><td><code>89864a1706a312c2</code></td><td><span class="badge pass">MATCH</span></td></tr>
+      <tr><td><code>ml/forecaster_metrics.json</code></td><td><code>533b3fc5b48e4c09</code></td><td><span class="badge pass">MATCH</span></td></tr>
+    </table>
+  </div>
+
+  <table>
+    <tr><th>Validation Artifact</th><th>Present</th><th>Size</th></tr>
+    <tr><td>opssat_ad_real_metrics.json</td><td><span class="badge pass">✓</span></td><td>2,252 B</td></tr>
+    <tr><td>real_policy_calibration.json</td><td><span class="badge pass">✓</span></td><td>10,020 B</td></tr>
+    <tr><td>granite_real_evidence.json</td><td><span class="badge pass">✓</span></td><td>3,524 B</td></tr>
+    <tr><td>policy_tests.json</td><td><span class="badge pass">✓</span></td><td>9,174 B</td></tr>
+    <tr><td>real_decision_ablation.json</td><td><span class="badge pass">✓</span></td><td>11,486 B</td></tr>
+    <tr><td>real_disagreement_value.json</td><td><span class="badge pass">✓</span></td><td>2,956 B</td></tr>
+    <tr><td>real_temporal_audit.json</td><td><span class="badge pass">✓</span></td><td>4,012 B</td></tr>
+    <tr><td>channel_loo_results.json</td><td><span class="badge pass">✓</span></td><td>6,700 B</td></tr>
+    <tr><td>CHANNEL_LOO_REPORT.md</td><td><span class="badge pass">✓</span></td><td>7,704 B</td></tr>
+    <tr><td>model_agreement.json</td><td><span class="badge pass">✓</span></td><td>1,019 B</td></tr>
+  </table>
+
+  
+  <h2>Part 7 — README Language Audit</h2>
+
+  <table>
+    <tr><th>Prohibited / Required Phrase</th><th>Status</th></tr>
+    <tr><td>"Granite controls routing" (as a claim)</td><td><span class="badge pass">CLEAR — table row says "No"</span></td></tr>
+    <tr><td>"Granite routes / decides"</td><td><span class="badge pass">CLEAR</span></td></tr>
+    <tr><td>"autonomous operation"</td><td><span class="badge pass">CLEAR</span></td></tr>
+    <tr><td>"30-minute OPS-SAT prediction"</td><td><span class="badge pass">CLEAR</span></td></tr>
+    <tr><td>"30-minute early warning"</td><td><span class="badge pass">CLEAR</span></td></tr>
+    <tr><td>"real satellite failure"</td><td><span class="badge pass">STATED AS LIMITATION (#9)</span></td></tr>
+    <tr><td>"execute real commands"</td><td><span class="badge pass">CLEAR</span></td></tr>
+    <tr><td>10 explicit limitations listed</td><td><span class="badge pass">PRESENT</span></td></tr>
+    <tr><td>LOO intra-spacecraft caveat</td><td><span class="badge pass">PRESENT</span></td></tr>
+    <tr><td>Disagreement 5.3% precision disclosed</td><td><span class="badge pass">PRESENT</span></td></tr>
+    <tr><td>Granite score described as structural-only</td><td><span class="badge pass">PRESENT</span></td></tr>
+    <tr><td>No human operator evaluation disclosed</td><td><span class="badge pass">PRESENT</span></td></tr>
+  </table>
+
+  
+  <h2>Overall Audit Summary</h2>
+
+  <div class="overall-grid">
+    <div class="overall-cell"><span class="lbl">Scientifically defensible</span><span class="badge pass">YES — with documented conditions</span></div>
+    <div class="overall-cell"><span class="lbl">Data leakage detected</span><span class="badge pass">NO</span></div>
+    <div class="overall-cell"><span class="lbl">Future-information leakage</span><span class="badge pass">NO</span></div>
+    <div class="overall-cell"><span class="lbl">Sequence contamination</span><span class="badge pass">NO</span></div>
+    <div class="overall-cell"><span class="lbl">Target construction issue</span><span class="badge pass">NO</span></div>
+    <div class="overall-cell"><span class="lbl">Chronological split valid</span><span class="badge pass">YES</span></div>
+    <div class="overall-cell"><span class="lbl">Baselines valid</span><span class="badge pass">YES</span></div>
+    <div class="overall-cell"><span class="lbl">Frozen hashes match</span><span class="badge pass">4/4 PASS</span></div>
+    <div class="overall-cell"><span class="lbl">Real/simulation separation</span><span class="badge pass">ENFORCED</span></div>
+    <div class="overall-cell"><span class="lbl">Granite routing separation</span><span class="badge pass">VERIFIED</span></div>
+    <div class="overall-cell"><span class="lbl">README prohibited wording</span><span class="badge pass">CLEAR</span></div>
+    <div class="overall-cell"><span class="lbl">Model change recommended</span><span class="badge pass">NO</span></div>
+  </div>
+
+  <div class="final-verdict">
+    <div class="v">HELIOMESH IS READY TO FREEZE.</div>
+    <div class="s">All audit areas pass. No leakage. No model change recommended. All frozen artifacts verified.</div>
+  </div>
+
+  <p style="font-size:12px;color:#57606a;margin-top:8px">
+    <strong>Conditions for defensibility (all met):</strong>
+    Simulation benchmark presented as simulation-only ·
+    KP dominance (83.3%) disclosed and baselined ·
+    30-min horizon scoped to simulation only ·
+    OPS-SAT binary-only boundary enforced ·
+    Utility weights marked prototype-only ·
+    No human operator evaluation claimed.
+  </p>
+
+  <footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>
