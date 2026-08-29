@@ -3511,7 +3511,7 @@ export default function Home() {
                         ...mono,
                       }}
                     >
-                      âœ• REJECT DECISION
+                      ✕ REJECT DECISION
                     </button>
                   </div>
                 )}
