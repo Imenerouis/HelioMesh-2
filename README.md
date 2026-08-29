@@ -699,7 +699,19 @@ The contribution ablation shows how routing metrics change when temporal or lead
 It does not prove causal real-world operational superiority.
 
 ---
+## Path to Operational Use
 
+HelioMesh is intentionally presented as a prototype rather than flight-ready software. A credible path toward operational use would require:
+
+1. **Multi-mission validation** — evaluate the decision policy and anomaly models across additional spacecraft missions and telemetry regimes.
+2. **Operator-in-the-loop evaluation** — conduct structured trials with spacecraft operations personnel to assess workload, review time, decision usefulness, and trust.
+3. **Mission-specific calibration** — replace prototype risk weights and routing thresholds with requirements derived from a specific mission's safety and operational constraints.
+4. **Long-duration temporal validation** — establish a genuinely supported forecasting horizon using telemetry with an appropriate temporal sampling structure.
+5. **Operational assurance** — add the verification, monitoring, cybersecurity, fault containment, and software assurance processes required for a real mission environment.
+
+The current system is therefore best understood as a validated decision-intelligence prototype with a defined path toward operational evaluation, not as flight software.
+
+---
 ## Scientific Integrity
 
 HelioMesh deliberately follows these rules:
