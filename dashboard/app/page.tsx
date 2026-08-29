@@ -910,7 +910,7 @@ function ArchDiagram() {
                   fontSize: 9,
                 }}
               >
-                â–¼
+                ▼
               </div>
             </div>
           )}
