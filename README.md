@@ -25,6 +25,7 @@ but:
 HelioMesh deliberately separates evidence generation, deterministic decision policy, explanation, and human oversight.
 
 **Important:** HelioMesh is a prototype decision-support system. It does not autonomously command a real spacecraft.
+**IBM Granite Runtime is optional; when unavailable, HelioMesh preserves the deterministic decision route and continues safely.**
 
 ---
 
