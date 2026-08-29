@@ -5248,8 +5248,8 @@ export default function Home() {
                     >
                       Calibrated policy:
                       p_escalate=0.35,
-                      p_pending=0.20 Â· Frozen
-                      on training partition only Â·
+                      p_pending=0.20 · Frozen
+                      on training partition only ·
                       Test not seen during calibration
                     </div>
                   </div>
