@@ -1,11 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://heliomesh-api.onrender.com"
-
+  "https://heliomesh-api.onrender.com";
 // â”€â”€ Unified color system â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const STATUS: Record<
   string,
@@ -1699,7 +1698,7 @@ export default function Home() {
                   ...mono,
                 }}
               >
-                ⟳ REFRESH
+              ⟳ REFRESH
               </button>
             </div>
 
@@ -4736,7 +4735,7 @@ export default function Home() {
                     }}
                   >
                     <div>
-                      â€¢ All training data is
+                      • All training data is
                       simulation-generated.
                       Models learn HelioMesh
                       prototype operational
@@ -4746,7 +4745,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      â€¢ OMNI2 validation uses
+                      • OMNI2 validation uses
                       static sample data
                       (STATIC_SAMPLE). Live NASA
                       download unavailable in
@@ -4754,7 +4753,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      â€¢ Temporal predictor trained
+                      • Temporal predictor trained
                       on 5-min step sequences;
                       OMNI2 validation uses hourly
                       steps — results are
@@ -4762,7 +4761,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      â€¢ Early warning lead times
+                      • Early warning lead times
                       are proxies derived from
                       delta_kp in the window, not
                       actual step-level transition
@@ -4770,7 +4769,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      â€¢ Model does NOT predict real
+                      • Model does NOT predict real
                       satellite failures. All
                       labels are HelioMesh
                       simulation safety states.
@@ -5489,39 +5488,39 @@ export default function Home() {
                     }}
                   >
                     <div>
-                      â€¢ 30-minute prediction
+                      • 30-minute prediction
                       horizon is NOT validated
                       on OPS-SAT-AD
                     </div>
 
                     <div>
-                      â€¢ Four-class simulation
+                      • Four-class simulation
                       taxonomy is NOT validated
                       by binary OPS-SAT labels
                     </div>
 
                     <div>
-                      â€¢ Temporal early-warning
+                      • Temporal early-warning
                       window is near-zero
                       (median inter-segment gap
                       = 1s)
                     </div>
 
                     <div>
-                      â€¢ Decision utility weights
+                      • Decision utility weights
                       are prototype values — not
                       from real mission operators
                     </div>
 
                     <div>
-                      â€¢ Single mission dataset
+                      • Single mission dataset
                       (OPS-SAT, 9 channels, ~5
                       months) — generalizability
                       unknown
                     </div>
 
                     <div>
-                      â€¢ No human operator
+                      • No human operator
                       evaluation of Granite
                       explanations on real data
                     </div>
