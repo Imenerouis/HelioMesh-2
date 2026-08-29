@@ -1,5 +1,13 @@
 # 🛰️ HelioMesh
 
+AI-Assisted Satellite Mission Control System
+
+Author: Imene Rouis
+
+Live Demo: https://heliomesh-woad.vercel.app/
+
+Backend API: https://heliomesh-api.onrender.com
+
 ## AI-Powered Decision Intelligence for Spacecraft Operations
 
 **IBM AI Builders Challenge — August 2026 · Advance Space Exploration with AI**
